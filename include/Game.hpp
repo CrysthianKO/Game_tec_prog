@@ -16,6 +16,9 @@ class Game {
   void render();
 
  private:
+  unsigned int width;
+  unsigned int height;
+  sf :: Texture mPlayerTexture;
   Player mPlayer;
   sf::RenderWindow mWindow;
   const sf::Time timePerFrame = sf::seconds(1.f / 60.f);

@@ -7,7 +7,9 @@
 
 class Player {
  public:
-  Player();
+  Player(
+  const sf::Texture& texture
+  );
   void handleInput(sf::Keyboard::Key key, bool isPressed);
   void update(sf::Time dt);
   void draw(sf::RenderWindow& window) const;
@@ -15,7 +17,6 @@ class Player {
   // sf::FloatRect getBounds() const { return mShape.getGlobalBounds(); };
 
  private:
-  sf::Texture mTexture;
   sf::Sprite mSprite;
 
   bool mIsMovingUp = false;

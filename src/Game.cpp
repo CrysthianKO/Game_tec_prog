@@ -5,9 +5,17 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <ctime>
 
-Game::Game() : mWindow(sf::VideoMode({640, 480}), "JOGO MYTO BOM"), mPlayer() {}
+Game::Game() : 
+    width(1366),
+	height(768),
+    mWindow(sf::VideoMode({width, height}), "JOGO MYTO BOM"),
+    mPlayer(mPlayerTexture)
+{
+  mPlayerTexture.loadFromFile("media/Massospondylus_idle_spritesheet.png");
+}
 
 void Game::run() {
+
   sf::Clock clock;
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
@@ -25,19 +33,19 @@ void Game::run() {
 }
 
 void Game::processEvents() {
-  sf::Event event;
-  while (mWindow.pollEvent(event)) {
-    switch (event.type) {
-      case sf::Event::KeyPressed:
-        mPlayer.handleInput(event.key.code, true);
-        break;
-      case sf::Event::KeyReleased:
-        mPlayer.handleInput(event.key.code, false);
-        break;
-      case sf::Event::Closed:
-        mWindow.close();
-        break;
-    }
+  while (const std::optional event = mWindow.pollEvent()) {
+
+      if (event->is<sf::Event::Closed>()) {
+          mWindow.close();
+      }
+
+      else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
+          mPlayer.handleInput(keyPressed->code, true);
+      }
+
+      else if (const auto* keyReleased = event->getIf<sf::Event::KeyReleased>()) {
+          mPlayer.handleInput(keyReleased->code, false);
+      }
   }
 }
 void Game::update(sf::Time dt) { mPlayer.update(dt); }

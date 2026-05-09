@@ -18,10 +18,12 @@ file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/media"
 set(SOURCES
   src/Main.cpp
   src/Game.cpp
+  src/Physics.cpp
   src/entities/Player.cpp
+  src/entities/Bone.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME}  SFML::Graphics SFML::Window SFML::System)
 
+target_link_libraries(${PROJECT_NAME}  SFML::Graphics SFML::Window SFML::System)
 target_include_directories(${PROJECT_NAME} PRIVATE include/)

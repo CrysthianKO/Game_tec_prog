@@ -25,7 +25,32 @@ public:
 public:
     // Classe aninhada iterator, para o método percorrer
     class Iterator {
+    private:
+		Elemento<TIPO>* pAtual;
+    public:
+		//++it
+        Iterator& operator++() {
+			if (pAtual) {
+				pAtual = pAtual->getProximo();
+			}
+			return *this;
+		}
 
+        bool operator != (const Iterator& other) const {
+            return pAtual != other.pAtual;
+        }
+
+		bool operator == (const Iterator& other) const {
+			return pAtual == other.pAtual;
+		}
+
+		Iterator begin() const {
+			return Iterator(pPrimeiro);
+		}
+
+		Iterator end() const {
+			return Iterator(NULL);
+		}
     };
 };
 

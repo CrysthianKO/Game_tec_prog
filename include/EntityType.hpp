@@ -1,6 +1,6 @@
 #pragma once
 
-// Enumeração para os tipos de entidades no jogo, em vez de guardar ids aleatórios
+// Enumeração para os tipos de entidades no jogo, em vez de só guardar ids aleatórios
 enum EntityType : char {
 	ET_COLLECTABLE,
 	ET_OBSTACLE,

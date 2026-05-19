@@ -10,5 +10,5 @@ void ListaEntidades::incluir(Entidade* pE) {
 }
 
 void ListaEntidades::percorrer() {
-    // Lógica para iterar sobre a lista LEs
+    //percorre a lista e faz as entidades executarem suas ações
 }

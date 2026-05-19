@@ -99,7 +99,7 @@ void Game::render() {
   if (mScoreText.has_value()) {
       mWindow.draw(*mScoreText); // Usa o * para acessar o objeto sf::Text
   }
-  mPlayer.draw(mWindow);
+  mPlayer.draw(&mWindow);
   mCurrentBone.draw(&mWindow);
   mWindow.display();
 }

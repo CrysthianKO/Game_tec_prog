@@ -28,10 +28,13 @@ set(SOURCES
   src/entities/personagens/Tanystropheus.cpp
   src/entities/personagens/Velociraptor.cpp
   src/entities/personagens/Mamenchissauro.cpp
+  src/entities/collectables/Collectable.cpp
   src/entities/collectables/Bone.cpp
+  src/entities/obstacles/Obstacle.cpp
   src/entities/obstacles/Cogumelo.cpp
   src/entities/obstacles/Plataforma.cpp
   src/entities/obstacles/Fogo.cpp
+  src/entities/projectables/Projectable.cpp
   src/entities/projectables/LaserBall.cpp
   src/fases/Level.cpp
   src/fases/ForestLevel.cpp

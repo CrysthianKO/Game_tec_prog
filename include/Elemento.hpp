@@ -1,28 +1,28 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-/* Código gerado por ia*/
+/*Nó de lista encadeada simples*/
 
-template <class TE>
+template <class TIPO>
 class Elemento {
 private:
-    Elemento<TE>* pProx;
-    TE* pInfo;
+    Elemento<TIPO>* pProx;
+    TIPO* pInfo;
 
 public:
     Elemento();
     ~Elemento();
 
-    void setProx(Elemento<TE>* pE) { pProx = pE; }
-    Elemento<TE>* getProximo() const { return pProx; }
+    void setProximo(Elemento<TIPO>* pE) { pProx = pE; }
+    Elemento<TIPO>* getProximo() const { return pProx; }
 
-    void setInfo(TE* pI) { pInfo = pI; }
-    TE* getInfo() const { return pInfo; }
+    void setInfo(TIPO* pI) { pInfo = pI; }
+    TIPO* getInfo() const { return pInfo; }
 };
 
 // Implementação no header por ser template
-template <class TE>
-Elemento<TE>::Elemento() : pProx(nullptr), pInfo(nullptr) {}
+template <class TIPO>
+Elemento<TIPO>::Elemento() : pProx(NULL), pInfo(NULL) {}
 
-template <class TE>
-Elemento<TE>::~Elemento() {}
+template <class TIPO>
+Elemento<TIPO>::~Elemento() {}

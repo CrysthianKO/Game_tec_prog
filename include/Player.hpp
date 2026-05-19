@@ -5,16 +5,20 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-class Player {
+#include "Personagem.hpp"
+
+class Player : public Personagem {
  public:
   Player(const sf::Texture& texture);
-  ~Player();
+  virtual ~Player() override;
   void handleInput(sf::Keyboard::Key key, bool isPressed);
-  void update(sf::Time dt);
-  void draw(sf::RenderWindow& window) const;
+  virtual void update(sf::Time dt) override;
+  virtual void draw(sf::RenderWindow* window) override;
   void updateAnimation(sf::Time dt);
+  virtual sf::FloatRect getBounds() const override;
 
-  sf::FloatRect getBounds() const;
+  virtual PersonagemType getPersonagemType() const override;
+
 
  private:
   sf::Sprite mSprite;

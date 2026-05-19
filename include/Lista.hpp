@@ -1,36 +1,46 @@
 #pragma once
-
-/*Código gerado por ia*/
-
+#include <iostream>
 #include "Elemento.hpp"
 
-template <class TL>
+using namespace std;
+
+template <class TIPO>
 class Lista {
 private:
-    Elemento<TL>* pPrimeiro;
-    Elemento<TL>* pUltimo;
+    Elemento<TIPO>* pPrimeiro;
+    Elemento<TIPO>* pUltimo;
 
 public:
     Lista();
     ~Lista();
 
-    void incluir(TL* p);
+    void incluir(TIPO* p);
     void limpar();
-    // ... outros métodos do diagrama
+    void imprimir();
+    void remover(TIPO* p);
+
+	Elemento<TIPO>* getPrimeiro() const { return pPrimeiro; }
+	Elemento<TIPO>* getUltimo() const { return pUltimo; }
+
+public:
+    // Classe aninhada iterator, para o método percorrer
+    class Iterator {
+
+    };
 };
 
-template <class TL>
-Lista<TL>::Lista() : pPrimeiro(nullptr), pUltimo(nullptr) {}
+template <class TIPO>
+Lista<TIPO>::Lista() : pPrimeiro(NULL), pUltimo(NULL) {}
 
-template <class TL>
-Lista<TL>::~Lista() {
+template <class TIPO>
+Lista<TIPO>::~Lista() {
     limpar();
 }
 
-template <class TL>
-void Lista<TL>::incluir(TL* p) {
+template <class TIPO>
+void Lista<TIPO>::incluir(TIPO* p) {
     if (p) {
-        Elemento<TL>* pNovo = new Elemento<TL>();
+        Elemento<TIPO>* pNovo = new Elemento<TIPO>();
         pNovo->setInfo(p);
 
         if (!pPrimeiro) {
@@ -38,19 +48,59 @@ void Lista<TL>::incluir(TL* p) {
             pUltimo = pNovo;
         }
         else {
-            pUltimo->setProx(pNovo);
+            pUltimo->setProximo(pNovo);
             pUltimo = pNovo;
         }
     }
+    else {
+		cout << "ERRO: Ponteiro nulo não pode ser adicionado à lista." << endl;
+    }
 }
 
-template <class TL>
-void Lista<TL>::limpar() {
-    Elemento<TL>* pAux = pPrimeiro;
-    while (pAux != nullptr) {
+template <class TIPO>
+void Lista<TIPO>::limpar() {
+    Elemento<TIPO>* pAux = pPrimeiro;
+    while (pAux != NULL) {
         pPrimeiro = pAux->getProximo();
         delete pAux;
         pAux = pPrimeiro;
     }
-    pUltimo = nullptr;
+    pUltimo = NULL;
+}
+
+template <class TIPO>
+void Lista<TIPO>::imprimir() {
+    Elemento<TIPO>* pAux = pPrimeiro;
+    while (pAux != NULL) {
+        // Assume-se que TIPO (o objeto guardado) tem alguma forma de ser impresso
+        // Se pNovo->setInfo(p) recebe um ponteiro, getInfo() deve retornar TIPO*
+        if (pAux->getInfo()) {
+            cout << *(pAux->getInfo()) << " ";
+        }
+        pAux = pAux->getProximo();
+    }
+    cout << endl;
+}
+
+template <class TIPO>
+void Lista<TIPO>::remover(TIPO* p) {
+	Elemento<TIPO>* pAux = pPrimeiro;
+	Elemento<TIPO>* pAnterior = NULL;
+	while (pAux != NULL) {
+		if (pAux->getInfo() == p) {
+			if (pAnterior) {
+				pAnterior->setProximo(pAux->getProximo());
+			}
+			else {
+				pPrimeiro = pAux->getProximo();
+			}
+			if (pAux == pUltimo) {
+				pUltimo = pAnterior;
+			}
+			delete pAux;
+			return;
+		}
+		pAnterior = pAux;
+		pAux = pAux->getProximo();
+	}
 }

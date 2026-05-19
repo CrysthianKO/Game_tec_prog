@@ -25,7 +25,7 @@ Player::~Player()
 }
 
 //desenha o player na janela
-void Player::draw(sf::RenderWindow& window) const { window.draw(mSprite); }
+void Player::draw(sf::RenderWindow* window){ window->draw(mSprite); }
 
 //atualiza a posição do player com base nos inputs do usuario e atualiza a animacao do player
 void Player::update(sf::Time dt) {
@@ -96,4 +96,8 @@ void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
 //retorna os limites do sprite do jogador para detecção de colisão
 sf::FloatRect Player::getBounds() const {
     return mSprite.getGlobalBounds();
+}
+
+PersonagemType Player::getPersonagemType() const {
+	return PersonagemType::PT_PLAYER;
 }

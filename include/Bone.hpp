@@ -1,17 +1,19 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Collectable.hpp"
 
-class Bone
-{
+class Bone : public Collectable{
 public:
 	Bone();
-	~Bone();
-	sf::FloatRect getBounds() const;
-	void respawn();
+	virtual ~Bone();
+	virtual sf::FloatRect getBounds() const;
+	virtual void respawn();
 	int getScoreValue();
-	void update(sf::Time deltaTime);
+	virtual void update(sf::Time deltaTime);
 	void updateAnimation(sf::Time deltaTime);
-	void draw(sf::RenderWindow* window);
+	virtual void draw(sf::RenderWindow* window);
+	virtual CollectableType getCollectableType() const;
+
 private:
 	sf::Texture mTexture;
 	sf::Sprite mSprite;

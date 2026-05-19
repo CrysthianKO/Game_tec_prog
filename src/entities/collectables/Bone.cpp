@@ -66,3 +66,7 @@ sf::FloatRect Bone::getBounds() const
 {
 	return mSprite.getGlobalBounds();
 }
+
+CollectableType Bone::getCollectableType() const {
+	return CollectableType::CT_BONE;
+}

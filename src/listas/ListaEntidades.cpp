@@ -1,5 +1,3 @@
-/*Código gerado por ia*/
-
 #include "ListaEntidades.hpp"
 #include <iostream>
 
@@ -8,7 +6,7 @@ ListaEntidades::ListaEntidades() {}
 ListaEntidades::~ListaEntidades() {}
 
 void ListaEntidades::incluir(Entidade* pE) {
-    //LEs.incluir(pE);
+    LEs.incluir(pE);
 }
 
 void ListaEntidades::percorrer() {

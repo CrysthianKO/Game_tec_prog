@@ -8,6 +8,18 @@
 #include "Personagem.hpp"
 
 class Player : public Personagem {
+ private:
+  sf::IntRect mCurrentFrame;
+  sf::Texture mTexture;
+  bool mIsMovingUp = false;
+  bool mIsMovingDown = false;
+  bool mIsMovingLeft = false;
+  bool mIsMovingRight = false;
+  const float mPlayerSpeed = 500.f;
+  sf::Time mAnimationTimer = sf::Time::Zero;
+  sf::Vector2f mVelocity{0.f, 0.f};
+  bool mIsGrounded = false;
+
  public:
   Player(const sf::Texture& texture);
   virtual ~Player() override;
@@ -16,21 +28,4 @@ class Player : public Personagem {
   virtual void draw(sf::RenderWindow* window) override;
   void updateAnimation(sf::Time dt);
   virtual sf::FloatRect getBounds() const override;
-
-  virtual PersonagemType getPersonagemType() const override;
-
-
- private:
-  sf::Sprite mSprite;
-  sf::IntRect mCurrentFrame;
-  sf::Texture mTexture;
-
-  bool mIsMovingUp = false;
-  bool mIsMovingDown = false;
-  bool mIsMovingLeft = false;
-  bool mIsMovingRight = false;
-  const float mPlayerSpeed = 500.f;
-  sf::Time mAnimationTimer = sf::Time::Zero;
-  sf::Vector2f mVelocity{ 0.f, 0.f };
-  bool mIsGrounded = false;
 };

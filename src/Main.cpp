@@ -1,8 +1,5 @@
-//#include <SFML/Graphics.hpp>
-//#include <SFML/Graphics/CircleShape.hpp>
-//#include <SFML/Graphics/RenderWindow.hpp>
-
 #include "Game.hpp"
+#include "GraphicsManager.hpp"
 
 int main() {
   Game game;

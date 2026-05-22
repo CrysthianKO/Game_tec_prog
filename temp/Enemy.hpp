@@ -1,13 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include "Entity.hpp"
+#include "Character.hpp"
 
-class Personagem : public Entity {
+class Enemy : public Character {
  public:
-  Personagem(const sf::Texture& texture) : Entity(texture) {}
-  virtual ~Personagem();
+  Enemy();
+  virtual ~Enemy();
   virtual void update(sf::Time deltaTime) = 0;
   virtual void draw(sf::RenderWindow* window) = 0;
   virtual sf::FloatRect getBounds() const = 0;
+  virtual EnemyType getEnemyType() const = 0;
+  virtual CharacterType getCharacterType() const;
 };

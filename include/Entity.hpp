@@ -2,17 +2,16 @@
 #include <SFML/Graphics.hpp>
 
 #include "Ente.hpp"
-#include "EntityType.hpp"
 
 class Entity : public Ente {
  protected:
-  int x;
-  int y;
+  float x;
+  float y;
 
  public:
-  Entity(const sf::Texture& texture);
-  virtual ~Entity();
-  virtual void update(sf::Time deltaTime) = 0;
+  Entity(const sf::Texture& texture) : Ente(texture) {}
+  virtual ~Entity() {}
+  virtual void execute() = 0;
+  virtual void save() = 0;
   virtual sf::FloatRect getBounds() const = 0;
-  virtual EntityType getEntityType() const = 0;
 };

@@ -1,16 +1,14 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-#include "Personagem.hpp"
+#include "Character.hpp"
 
-class Player : public Personagem {
+class Player : public Character {
  private:
   sf::IntRect mCurrentFrame;
-  sf::Texture mTexture;
   bool mIsMovingUp = false;
   bool mIsMovingDown = false;
   bool mIsMovingLeft = false;
@@ -23,9 +21,12 @@ class Player : public Personagem {
  public:
   Player(const sf::Texture& texture);
   virtual ~Player() override;
+  virtual void execute() override {}
+  virtual void save() override {}
+  virtual void move() override {}
   void handleInput(sf::Keyboard::Key key, bool isPressed);
-  virtual void update(sf::Time dt) override;
-  virtual void draw(sf::RenderWindow* window) override;
   void updateAnimation(sf::Time dt);
   virtual sf::FloatRect getBounds() const override;
+
+  sf::Vector2f getPosition();
 };

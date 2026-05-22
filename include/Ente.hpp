@@ -10,16 +10,14 @@ class Ente {
   int mId;
   static int cont_id;
   static GraphicsManager* pGM;
-
- public:
   sf::Sprite mSprite;
 
  public:
-  Ente(const sf::Texture& texture) : mId(cont_id++), mSprite(texture) {};
-  virtual ~Ente();
+  Ente(const sf::Texture& texture) : mId(cont_id++), mSprite(texture) {}
+  // Todos os objetos irão receber uma textura e um Id
+  virtual ~Ente() {}
   virtual void execute() = 0;
   void draw() { pGM->drawEnte(this->mSprite); }
-  void static setGM(GraphicsManager* pG);
-
+  void static setGM(GraphicsManager* pG) { pGM = pG; }
   int getId() const { return mId; }
 };

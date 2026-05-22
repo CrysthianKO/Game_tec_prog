@@ -1,6 +1,10 @@
 #include "Obstacle.hpp"
 
-Obstacle::Obstacle() {
+Obstacle::Obstacle(){
+
+}
+
+Obstacle::Obstacle(const sf::Texture& texture) : Entidade(texture) {
 
 }
 

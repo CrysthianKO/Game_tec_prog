@@ -1,6 +1,10 @@
 #include "Enemy.hpp"
 
-Enemy::Enemy() {
+Enemy::Enemy(){
+
+}
+
+Enemy::Enemy(const sf::Texture& texture) : Personagem(texture) {
 
 }
 

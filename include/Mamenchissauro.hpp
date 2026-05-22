@@ -7,7 +7,7 @@ public:
 	Mamenchissauro();
 	virtual ~Mamenchissauro();
 	virtual void update(sf::Time deltaTime);
-	virtual void draw(sf::RenderWindow* window);
+	//virtual void draw(sf::RenderWindow* window);
 	virtual sf::FloatRect getBounds() const;
 	virtual EnemyType getEnemyType() const;
 };

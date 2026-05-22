@@ -1,18 +1,24 @@
 #include "Bone.hpp"
 
 Bone::Bone() 
-  : mTexture(),
-	mSprite(mTexture),
+  : Collectable(),
+	//mSprite(mTexture),
 	mScoreValue(10),
 	mAnimationTimer(sf::Time::Zero)
 {
-	if (mTexture.loadFromFile("media/Bone_spritesheet.png")) {
-		//throw std::invalid_argument("ERROR: COUL NOT LOAD FILE");
+	//carrega a textura do osso
+	if (!mTexture.loadFromFile("media/Bone_spritesheet.png")) {
+		std::cout << "ERROR: COUL NOT LOAD FILE" << std::endl;
 	}
-	mSprite.setTexture(mTexture);
+	//garante que o sprite existe, se o ente não alocou-o
+	if (mSprite == NULL) {
+		mSprite = new sf::Sprite(mTexture);
+	}
+	
+	mSprite->setTexture(mTexture);
 	// Define o frame inicial (ajuste os valores conforme seu spritesheet)
 	mCurrentFrame = sf::IntRect({ 0, 0 }, { 32, 32 });
-	mSprite.setTextureRect(mCurrentFrame);
+	mSprite->setTextureRect(mCurrentFrame);
 
 	respawn(); // Começa em um lugar aleatório
 }
@@ -27,7 +33,7 @@ void Bone::respawn()
 {
 	float x = static_cast<float>(rand() % 770 + 15);
 	float y = static_cast<float>(rand() % 570 + 15);
-	mSprite.setPosition(sf::Vector2f(x, y));
+	mSprite->setPosition(sf::Vector2f(x, y));
 }
 
 //retorna o valor de pontuação do osso
@@ -50,21 +56,21 @@ void Bone::updateAnimation(sf::Time deltaTime) {
 		if (mCurrentFrame.position.x >= (32 * 4)) { // 4 é o total de frames
 			mCurrentFrame.position.x = 0;
 		}
-		mSprite.setTextureRect(mCurrentFrame);
+		mSprite->setTextureRect(mCurrentFrame);
 		mAnimationTimer = sf::Time::Zero;
 	}
 }
 
 //desenha o osso na janela
-void Bone::draw(sf::RenderWindow* window)
-{
-	window->draw(mSprite);
-}
+//void Bone::draw(sf::RenderWindow* window)
+//{
+//	window->draw(mSprite);
+//}
 
 //retorna os limites do sprite do osso para detecção de colisão
 sf::FloatRect Bone::getBounds() const
 {
-	return mSprite.getGlobalBounds();
+	return mSprite->getGlobalBounds();
 }
 
 CollectableType Bone::getCollectableType() const {

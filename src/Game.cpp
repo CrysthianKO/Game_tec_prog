@@ -2,14 +2,19 @@
 
 // (hard coded)
 Game::Game(): 
-    mWindow(sf::VideoMode({ width, height }), "JOGO MYTO BOM"),
-    width(1366),
-    height(768),
-    mPlayer(mPlayerTexture),
+    //mWindow(sf::VideoMode({ width, height }), "JOGO MYTO BOM"),
+    //width(1366),
+    //height(768),
+    mGraphicsManager(),
+    mPlayer(),
+    mCurrentBone(),
     mScore(0),
     timePerFrame(sf::seconds(1.f / 60.f)) // 60 fps (hard coded)
     //mScoreText()
 {
+	// Define o GraphicsManager para os Entes
+	Ente::setGraphicsManager(&mGraphicsManager);
+
     //carrega a fonte do disco rigido
     if (mFont.openFromFile("c:/Windows/Fonts/Arial.ttf"))
     {
@@ -19,18 +24,6 @@ Game::Game():
         mScoreText->setPosition({10.f, 10.f});
     }
     
-    //std::ifstream file("C:/Windows/Fonts/Arial.ttf", std::ios::binary);
-    //if (file) {
-    //    std::vector<char> data((std::istreambuf_iterator<char>(file)),
-    //        std::istreambuf_iterator<char>());
-    //    if (!data.empty() && mFont.loadFromMemory(data.data(), data.size())) {
-    //        mScoreText.setFont(mFont);
-    //        mScoreText.setCharacterSize(24);
-    //        mScoreText.setFillColor(sf::Color::White);
-    //        mScoreText.setString("Score: 0");
-    //        mScoreText.setPosition(10.f, 10.f);
-    //    }
-    //}
     std::srand(static_cast<unsigned int>(std::time(NULL)));
 }
 
@@ -46,7 +39,8 @@ void Game::run()
   //implementa dt
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
-  while (mWindow.isOpen()) {
+  //enquanto a janela do graphics manager estiver aberta, o jogo continua rodando. Dentro do loop, processa os eventos do usuario, atualiza a logica do jogo e renderiza a tela
+  while (mGraphicsManager.mWindow.isOpen()) {
     processEvents();
     timeSinceLastUpdate += clock.restart();
     //garante que o jogo seja atualizado a uma taxa constante, mesmo que o tempo de processamento de cada frame varie
@@ -61,9 +55,9 @@ void Game::run()
 
 //checa inputs do usuario e fecha a janela quando o usuario clicar no X da janela
 void Game::processEvents() {
-  while (const std::optional event = mWindow.pollEvent()) {
+  while (const std::optional event = mGraphicsManager.mWindow.pollEvent()) {
     if (event->is<sf::Event::Closed>()) {
-      mWindow.close();
+      mGraphicsManager.mWindow.close();
     }
 
     else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
@@ -94,14 +88,17 @@ void Game::update(sf::Time dt)
 
 //atualiza a tela: apaga a tela anterior, desenha os novos objetos e mostra a nova tela para o usuario
 void Game::render() {
-  mWindow.clear();
+  mGraphicsManager.mWindow.clear();
   // Verifica se mScoreText foi inicializado com sucesso
   if (mScoreText.has_value()) {
-      mWindow.draw(*mScoreText); // Usa o * para acessar o objeto sf::Text
+      mGraphicsManager.mWindow.draw(*mScoreText); // Usa o * para acessar o objeto sf::Text
   }
-  mPlayer.draw(&mWindow);
-  mCurrentBone.draw(&mWindow);
-  mWindow.display();
+
+  //chamada polimórfica do desenho, cada Ente sabe como se desenhar usando o pGM interno
+  mPlayer.draw();
+  mCurrentBone.draw();
+
+  mGraphicsManager.mWindow.display();
 }
 
 //adiciona a pontuação do osso ao score total e atualiza o texto de pontuação na tela

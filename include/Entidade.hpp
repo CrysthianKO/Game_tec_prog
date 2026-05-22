@@ -1,19 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "EntityType.hpp"
+#include "Ente.hpp"
 
-class Entidade {
+class Entidade : public Ente {
 protected:
-	int mId;
-	static int cont_id;
 public:
 	Entidade();
+	Entidade(const sf::Texture& texture);
 	virtual ~Entidade();
 	virtual void update(sf::Time deltaTime) = 0;
-	virtual void draw(sf::RenderWindow* window) = 0;
+	//virtual void draw(sf::RenderWindow* window) = 0;
 	virtual sf::FloatRect getBounds() const = 0;
-	virtual int getId() const;
-	virtual void setId(int id);
 	virtual EntityType getEntityType() const = 0;
 };
 

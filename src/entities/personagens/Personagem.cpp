@@ -1,6 +1,10 @@
 #include "Personagem.hpp"
 
-Personagem::Personagem() {
+Personagem::Personagem(){
+
+}
+
+Personagem::Personagem(const sf::Texture& texture) : Entidade(texture) {
 
 }
 

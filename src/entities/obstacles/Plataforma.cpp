@@ -12,9 +12,9 @@ void Plataforma::update(sf::Time deltaTime) {
 
 }
 
-void Plataforma::draw(sf::RenderWindow* window) {
-
-}
+//void Plataforma::draw(sf::RenderWindow* window) {
+//
+//}
 
 sf::FloatRect Plataforma::getBounds() const {
 	//temporiariamente retorna um retângulo vazio, já que a plataforma ainda não tem uma sprite ou forma definida

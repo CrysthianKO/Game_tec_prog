@@ -14,6 +14,7 @@
 #include <vector>
 #include <iterator>
 
+#include "GraphicsManager.hpp"
 #include "Player.hpp"
 #include "Bone.hpp"
 #include "Physics.hpp"
@@ -29,12 +30,14 @@ class Game {
      void update(sf::Time dt);
      void render();
  private:
-	 unsigned int width;
-	 unsigned int height;
+	 //unsigned int width;
+	 //unsigned int height;
+	 GraphicsManager mGraphicsManager;
 	 sf::Texture mPlayerTexture;
+	 sf::Texture mBoneTexture;
 	 Player mPlayer;
 	 Bone mCurrentBone;
-	 sf::RenderWindow mWindow;
+	 //sf::RenderWindow mWindow;
 	 const sf::Time timePerFrame;
 	 int mScore;
 	 sf::Font mFont;

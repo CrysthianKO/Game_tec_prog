@@ -9,11 +9,11 @@
 
 class Player : public Personagem {
  public:
-  Player(const sf::Texture& texture);
+  Player();
   virtual ~Player() override;
   void handleInput(sf::Keyboard::Key key, bool isPressed);
   virtual void update(sf::Time dt) override;
-  virtual void draw(sf::RenderWindow* window) override;
+  //virtual void draw(sf::RenderWindow* window) override;
   void updateAnimation(sf::Time dt);
   virtual sf::FloatRect getBounds() const override;
 
@@ -21,7 +21,7 @@ class Player : public Personagem {
 
 
  private:
-  sf::Sprite mSprite;
+  //sf::Sprite mSprite; //herdado de Ente
   sf::IntRect mCurrentFrame;
   sf::Texture mTexture;
 

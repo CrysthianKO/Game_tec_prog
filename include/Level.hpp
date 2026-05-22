@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Ente.hpp"
 
-class Level {
+class Level : public Ente {
 
 };

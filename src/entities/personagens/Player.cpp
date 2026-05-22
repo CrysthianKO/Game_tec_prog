@@ -5,17 +5,17 @@
 //#include "SFML/System/Time.hpp"
 
 // (hard coded)
-Player::Player(const sf::Texture& texture) : mSprite(texture) {
+Player::Player() : Personagem(sf::Texture()) {
     //carrega a textura do Massospondylus
     if (!mTexture.loadFromFile("media/Massospondylus_idle_spritesheet.png"))
     {
         throw std::invalid_argument("ERROR: COUL NOT LOAD FILE");
     }
-    mSprite.setTexture(mTexture); // ESSENCIAL: Atualiza o vínculo do sprite com a textura interna
-    mSprite.setTextureRect(sf::IntRect({ 0, 0 }, { 64, 64 }));
-    mSprite.setPosition({100.f, 100.f});
-    mSprite.setOrigin({32.f, 32.f});
-    mSprite.setScale({1.f, 1.f});
+    mSprite->setTexture(mTexture); // ESSENCIAL: Atualiza o vínculo do sprite com a textura interna
+    mSprite->setTextureRect(sf::IntRect({ 0, 0 }, { 64, 64 }));
+    mSprite->setPosition({100.f, 100.f});
+    mSprite->setOrigin({32.f, 32.f});
+    mSprite->setScale({1.f, 1.f});
     mCurrentFrame = sf::IntRect({0, 0}, {64, 64});
 }
 
@@ -25,7 +25,7 @@ Player::~Player()
 }
 
 //desenha o player na janela
-void Player::draw(sf::RenderWindow* window){ window->draw(mSprite); }
+//void Player::draw(sf::RenderWindow* window){ window->draw(mSprite); }
 
 //atualiza a posição do player com base nos inputs do usuario e atualiza a animacao do player
 void Player::update(sf::Time dt) {
@@ -42,15 +42,15 @@ void Player::update(sf::Time dt) {
   if (mIsMovingRight) movement.x += mPlayerSpeed;
 
   //dx = v * dt
-  mSprite.move(movement * dt.asSeconds());
+  mSprite->move(movement * dt.asSeconds());
 
   //move player na verticao pela gravidade
-  mSprite.move(mVelocity * dt.asSeconds());
+  mSprite->move(mVelocity * dt.asSeconds());
 
   //colisão com o chão (janela)
-  float groundLevel = 768.f - mSprite.getGlobalBounds().size.y;
-  if (mSprite.getPosition().y > groundLevel) {
-    mSprite.setPosition({mSprite.getPosition().x, groundLevel});
+  float groundLevel = 768.f - mSprite->getGlobalBounds().size.y;
+  if (mSprite->getPosition().y > groundLevel) {
+    mSprite->setPosition({mSprite->getPosition().x, groundLevel});
     mVelocity.y = 0.f;
     //flag para pulo
     mIsGrounded = true;
@@ -69,7 +69,7 @@ void Player::updateAnimation(sf::Time dt) {
       mCurrentFrame.position.x = 0;
     }
 
-    mSprite.setTextureRect(mCurrentFrame);
+    mSprite->setTextureRect(mCurrentFrame);
     mAnimationTimer -= sf::seconds(0.1);
   }
 }
@@ -95,7 +95,7 @@ void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
 
 //retorna os limites do sprite do jogador para detecção de colisão
 sf::FloatRect Player::getBounds() const {
-    return mSprite.getGlobalBounds();
+    return mSprite->getGlobalBounds();
 }
 
 PersonagemType Player::getPersonagemType() const {

@@ -1,6 +1,10 @@
 #include "Collectable.hpp"
 
-Collectable::Collectable() {
+Collectable::Collectable(){
+
+}
+
+Collectable::Collectable(const sf::Texture& texture) : Entidade(texture) {
 
 }
 

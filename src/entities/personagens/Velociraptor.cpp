@@ -12,9 +12,9 @@ void Velociraptor::update(sf::Time deltaTime) {
 
 }
 
-void Velociraptor::draw(sf::RenderWindow* window) {
-
-}
+//void Velociraptor::draw(sf::RenderWindow* window) {
+//
+//}
 
 sf::FloatRect Velociraptor::getBounds() const {
 	//temporiariamente retorna um retângulo vazio, já que o cogumelo ainda não tem uma sprite ou forma definida

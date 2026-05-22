@@ -1,6 +1,10 @@
 #include "Projectable.hpp"
 
-Projectable::Projectable() {
+Projectable::Projectable(){
+
+}
+
+Projectable::Projectable(const sf::Texture& texture) : Entidade(texture) {
 
 }
 

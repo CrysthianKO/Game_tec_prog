@@ -21,6 +21,7 @@ set(SOURCES
   src/Physics.cpp
   src/Ente.cpp
   src/Menu.cpp
+  src/Camera.cpp
   src/entities/Entidade.cpp
   src/entities/personagens/Player.cpp
   src/entities/personagens/Personagem.cpp
@@ -41,6 +42,7 @@ set(SOURCES
   src/fases/ExtinctionLevel.cpp
   src/managers/GraphicsManager.cpp
   src/managers/CollisionManager.cpp
+  src/managers/ResourceManager.cpp
   src/listas/Elemento.cpp
   src/listas/Lista.cpp
   src/listas/ListaEntidades.cpp

@@ -5,7 +5,7 @@ Game::Game():
     //mWindow(sf::VideoMode({ width, height }), "JOGO MYTO BOM"),
     //width(1366),
     //height(768),
-    mGraphicsManager(),
+    mGraphicsManager(1366, 768),
     mPlayer(),
     mCurrentBone(),
     mScore(0),
@@ -40,7 +40,7 @@ void Game::run()
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
   //enquanto a janela do graphics manager estiver aberta, o jogo continua rodando. Dentro do loop, processa os eventos do usuario, atualiza a logica do jogo e renderiza a tela
-  while (mGraphicsManager.mWindow.isOpen()) {
+  while (mGraphicsManager.isOpen()) {
     processEvents();
     timeSinceLastUpdate += clock.restart();
     //garante que o jogo seja atualizado a uma taxa constante, mesmo que o tempo de processamento de cada frame varie
@@ -55,19 +55,21 @@ void Game::run()
 
 //checa inputs do usuario e fecha a janela quando o usuario clicar no X da janela
 void Game::processEvents() {
-  while (const std::optional event = mGraphicsManager.mWindow.pollEvent()) {
-    if (event->is<sf::Event::Closed>()) {
-      mGraphicsManager.mWindow.close();
-    }
+    // Passamos uma expressão lambda que recebe o evento já montado pelo SFML 3.0
+    mGraphicsManager.pollEvent([this](const sf::Event& event) {
 
-    else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
-      mPlayer.handleInput(keyPressed->code, true);
-    }
+        if (event.is<sf::Event::Closed>()) {
+            mGraphicsManager.close();
+        }
 
-    else if (const auto* keyReleased = event->getIf<sf::Event::KeyReleased>()) {
-      mPlayer.handleInput(keyReleased->code, false);
-    }
-  }
+        else if (const auto* keyPressed = event.getIf<sf::Event::KeyPressed>()) {
+            mPlayer.handleInput(keyPressed->code, true);
+        }
+
+        else if (const auto* keyReleased = event.getIf<sf::Event::KeyReleased>()) {
+            mPlayer.handleInput(keyReleased->code, false);
+        }
+    });
 }
 
 //atualiza a logica do jogo, como movimentacao de personagens, verificacao de colisoes, etc
@@ -88,17 +90,17 @@ void Game::update(sf::Time dt)
 
 //atualiza a tela: apaga a tela anterior, desenha os novos objetos e mostra a nova tela para o usuario
 void Game::render() {
-  mGraphicsManager.mWindow.clear();
+  mGraphicsManager.beginFrame();
   // Verifica se mScoreText foi inicializado com sucesso
-  if (mScoreText.has_value()) {
-      mGraphicsManager.mWindow.draw(*mScoreText); // Usa o * para acessar o objeto sf::Text
-  }
+  //if (mScoreText.has_value()) {
+  //    mGraphicsManager.draw(*mScoreText); // Usa o * para acessar o objeto sf::Text
+  //}
 
   //chamada polimórfica do desenho, cada Ente sabe como se desenhar usando o pGM interno
-  mPlayer.draw();
-  mCurrentBone.draw();
+  mPlayer.draw(&mGraphicsManager);
+  mCurrentBone.draw(&mGraphicsManager);
 
-  mGraphicsManager.mWindow.display();
+  mGraphicsManager.endFrame();
 }
 
 //adiciona a pontuação do osso ao score total e atualiza o texto de pontuação na tela

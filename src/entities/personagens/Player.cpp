@@ -25,7 +25,7 @@ Player::~Player()
 }
 
 //desenha o player na janela
-//void Player::draw(sf::RenderWindow* window){ window->draw(mSprite); }
+void Player::draw(GraphicsManager* window){ window->submitDrawable(mSprite); }
 
 //atualiza a posição do player com base nos inputs do usuario e atualiza a animacao do player
 void Player::update(sf::Time dt) {

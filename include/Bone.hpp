@@ -12,7 +12,7 @@ public:
 	int getScoreValue();
 	virtual void update(sf::Time deltaTime) override;
 	void updateAnimation(sf::Time deltaTime);
-	//virtual void draw(sf::RenderWindow* window);
+	virtual void draw(GraphicsManager* window) override;
 	virtual CollectableType getCollectableType() const override;
 
 private:

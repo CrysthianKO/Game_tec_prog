@@ -17,6 +17,7 @@ public:
 	virtual ~Ente();
 	virtual int getId() const;
 	virtual void setId(int id);
-	virtual void draw();
+	//virtual void draw();
+	virtual void draw(GraphicsManager* window) = 0;
 	static void setGraphicsManager(GraphicsManager* pG);
 };

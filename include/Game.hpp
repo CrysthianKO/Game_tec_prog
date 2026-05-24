@@ -33,8 +33,8 @@ class Game {
 	 //unsigned int width;
 	 //unsigned int height;
 	 GraphicsManager mGraphicsManager;
-	 sf::Texture mPlayerTexture;
-	 sf::Texture mBoneTexture;
+	 //sf::Texture mPlayerTexture;
+	 //sf::Texture mBoneTexture;
 	 Player mPlayer;
 	 Bone mCurrentBone;
 	 //sf::RenderWindow mWindow;

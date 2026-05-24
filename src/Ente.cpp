@@ -3,7 +3,7 @@
 int Ente::cont_id = 0;
 GraphicsManager* Ente::pGM = NULL;
 
-Ente::Ente(){
+Ente::Ente() : mId(cont_id++), mSprite(NULL) {
 
 }
 
@@ -27,11 +27,11 @@ void Ente::setId(int id){
 }
 
 //desenha o própio Ente usando o GraphicsManager, que é responsável por desenhar os Entes na janela do jogo
-void Ente::draw(){
-	if (pGM) {
-		pGM->drawEnte(this);
-	}
-}
+//void Ente::draw(){
+//	if (pGM) {
+//		pGM->drawEnte(this);
+//	}
+//}
 
 void Ente::setGraphicsManager(GraphicsManager* pG){
 	pGM = pG;

@@ -13,7 +13,7 @@ class Player : public Personagem {
   virtual ~Player() override;
   void handleInput(sf::Keyboard::Key key, bool isPressed);
   virtual void update(sf::Time dt) override;
-  //virtual void draw(sf::RenderWindow* window) override;
+  virtual void draw(GraphicsManager* window) override;
   void updateAnimation(sf::Time dt);
   virtual sf::FloatRect getBounds() const override;
 

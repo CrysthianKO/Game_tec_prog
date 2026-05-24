@@ -62,10 +62,10 @@ void Bone::updateAnimation(sf::Time deltaTime) {
 }
 
 //desenha o osso na janela
-//void Bone::draw(sf::RenderWindow* window)
-//{
-//	window->draw(mSprite);
-//}
+void Bone::draw(GraphicsManager* window)
+{
+	window->submitDrawable(mSprite);
+}
 
 //retorna os limites do sprite do osso para detecção de colisão
 sf::FloatRect Bone::getBounds() const

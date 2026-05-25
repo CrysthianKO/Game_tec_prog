@@ -8,6 +8,6 @@ Enemy::~Enemy() {
 
 }
 
-PersonagemType Enemy::getPersonagemType() const {
-	return PersonagemType::PT_ENEMY;
+CharacterType Enemy::getCharacterType() const {
+	return CharacterType::CH_ENEMY;
 }

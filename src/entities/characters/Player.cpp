@@ -19,8 +19,8 @@ Player::Player(const sf::Texture& texture)
 
 Player::~Player() {}
 
-// retorna os limites do sprite do jogador para detecção de colisão
-sf::FloatRect Player::getBounds() const { return mSprite.getGlobalBounds(); }
+//// retorna os limites do sprite do jogador para detecção de colisão
+//sf::FloatRect Player::getBounds() const { return mSprite.getGlobalBounds(); }
 
 // implementação inputs do usuario (hard coded)
 void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
@@ -91,3 +91,5 @@ sf::Vector2f Player::getPosition() { return sf::Vector2f({x, y}); }
 //     mAnimationTimer -= sf::seconds(0.1);
 //   }
 // }
+
+CharacterType Player::getCharacterType() const { return CH_PLAYER; }

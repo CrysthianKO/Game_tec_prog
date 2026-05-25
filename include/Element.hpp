@@ -4,17 +4,17 @@
 /*Nó de lista encadeada simples*/
 
 template <class TIPO>
-class Elemento {
+class Element {
 private:
-    Elemento<TIPO>* pProx;
+    Element<TIPO>* pProx;
     TIPO* pInfo;
 
 public:
-    Elemento();
-    ~Elemento();
+    Element();
+    ~Element();
 
-    void setProximo(Elemento<TIPO>* pE) { pProx = pE; }
-    Elemento<TIPO>* getProximo() const { return pProx; }
+    void setProximo(Element<TIPO>* pE) { pProx = pE; }
+    Element<TIPO>* getProximo() const { return pProx; }
 
     void setInfo(TIPO* pI) { pInfo = pI; }
     TIPO* getInfo() const { return pInfo; }
@@ -22,7 +22,7 @@ public:
 
 // Implementação no header por ser template
 template <class TIPO>
-Elemento<TIPO>::Elemento() : pProx(NULL), pInfo(NULL) {}
+Element<TIPO>::Element() : pProx(NULL), pInfo(NULL) {}
 
 template <class TIPO>
-Elemento<TIPO>::~Elemento() {}
+Element<TIPO>::~Element() {}

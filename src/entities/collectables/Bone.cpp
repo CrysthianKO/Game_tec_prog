@@ -36,11 +36,11 @@ int Bone::getScoreValue()
 	return mScoreValue;
 }
 
-//atualiza o estado do osso, mas como ele é estático, não há nada para atualizar por enquanto
-void Bone::update(sf::Time deltaTime)
-{
-
-}
+////atualiza o estado do osso, mas como ele é estático, não há nada para atualizar por enquanto
+//void Bone::update(sf::Time deltaTime)
+//{
+//
+//}
 
 //atualiza a animacao do bone, mudando o frame da sprite a cada 0.1 segundos (hard coded)
 void Bone::updateAnimation(sf::Time deltaTime) {
@@ -55,17 +55,17 @@ void Bone::updateAnimation(sf::Time deltaTime) {
 	}
 }
 
-//desenha o osso na janela
-void Bone::draw(sf::RenderWindow* window)
-{
-	window->draw(mSprite);
-}
+////desenha o osso na janela
+//void Bone::draw(sf::RenderWindow* window)
+//{
+//	window->draw(mSprite);
+//}
 
-//retorna os limites do sprite do osso para detecção de colisão
-sf::FloatRect Bone::getBounds() const
-{
-	return mSprite.getGlobalBounds();
-}
+////retorna os limites do sprite do osso para detecção de colisão
+//sf::FloatRect Bone::getBounds() const
+//{
+//	return mSprite.getGlobalBounds();
+//}
 
 CollectableType Bone::getCollectableType() const {
 	return CollectableType::CT_BONE;

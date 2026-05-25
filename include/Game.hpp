@@ -8,7 +8,7 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <ctime>
-// #include "Bone.hpp"
+#include "Bone.hpp"
 #include "GraphicsManager.hpp"
 #include "Player.hpp"
 

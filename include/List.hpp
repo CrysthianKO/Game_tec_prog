@@ -1,32 +1,31 @@
 #pragma once
 #include <iostream>
-#include "Elemento.hpp"
+#include "Element.hpp"
 
 using namespace std;
 
 template <class TIPO>
-class Lista {
+class List {
 private:
-    Elemento<TIPO>* pPrimeiro;
-    Elemento<TIPO>* pUltimo;
+    Element<TIPO>* pPrimeiro;
+    Element<TIPO>* pUltimo;
 
 public:
-    Lista();
-    ~Lista();
-
+    List();
+    ~List();
     void incluir(TIPO* p);
     void limpar();
     void imprimir();
     void remover(TIPO* p);
 
-	Elemento<TIPO>* getPrimeiro() const { return pPrimeiro; }
-	Elemento<TIPO>* getUltimo() const { return pUltimo; }
+	Element<TIPO>* getPrimeiro() const { return pPrimeiro; }
+	Element<TIPO>* getUltimo() const { return pUltimo; }
 
 public:
     // Classe aninhada iterator, para o método percorrer
     class Iterator {
     private:
-		Elemento<TIPO>* pAtual;
+		Element<TIPO>* pAtual;
     public:
 		//++it
         Iterator& operator++() {
@@ -55,17 +54,17 @@ public:
 };
 
 template <class TIPO>
-Lista<TIPO>::Lista() : pPrimeiro(NULL), pUltimo(NULL) {}
+List<TIPO>::List() : pPrimeiro(NULL), pUltimo(NULL) {}
 
 template <class TIPO>
-Lista<TIPO>::~Lista() {
+List<TIPO>::~List() {
     limpar();
 }
 
 template <class TIPO>
-void Lista<TIPO>::incluir(TIPO* p) {
+void List<TIPO>::incluir(TIPO* p) {
     if (p) {
-        Elemento<TIPO>* pNovo = new Elemento<TIPO>();
+        Element<TIPO>* pNovo = new Element<TIPO>();
         pNovo->setInfo(p);
 
         if (!pPrimeiro) {
@@ -83,8 +82,8 @@ void Lista<TIPO>::incluir(TIPO* p) {
 }
 
 template <class TIPO>
-void Lista<TIPO>::limpar() {
-    Elemento<TIPO>* pAux = pPrimeiro;
+void List<TIPO>::limpar() {
+    Element<TIPO>* pAux = pPrimeiro;
     while (pAux != NULL) {
         pPrimeiro = pAux->getProximo();
         delete pAux;
@@ -94,8 +93,8 @@ void Lista<TIPO>::limpar() {
 }
 
 template <class TIPO>
-void Lista<TIPO>::imprimir() {
-    Elemento<TIPO>* pAux = pPrimeiro;
+void List<TIPO>::imprimir() {
+    Element<TIPO>* pAux = pPrimeiro;
     while (pAux != NULL) {
         // Assume-se que TIPO (o objeto guardado) tem alguma forma de ser impresso
         // Se pNovo->setInfo(p) recebe um ponteiro, getInfo() deve retornar TIPO*
@@ -108,9 +107,9 @@ void Lista<TIPO>::imprimir() {
 }
 
 template <class TIPO>
-void Lista<TIPO>::remover(TIPO* p) {
-	Elemento<TIPO>* pAux = pPrimeiro;
-	Elemento<TIPO>* pAnterior = NULL;
+void List<TIPO>::remover(TIPO* p) {
+	Element<TIPO>* pAux = pPrimeiro;
+	Element<TIPO>* pAnterior = NULL;
 	while (pAux != NULL) {
 		if (pAux->getInfo() == p) {
 			if (pAnterior) {

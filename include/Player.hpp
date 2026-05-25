@@ -21,12 +21,13 @@ class Player : public Character {
  public:
   Player(const sf::Texture& texture);
   virtual ~Player() override;
-  virtual void execute() override {}
-  virtual void save() override {}
-  virtual void move() override {}
+  //virtual void execute() override {}
+  //virtual void save() override {}
+  //virtual void move() override {}
   void handleInput(sf::Keyboard::Key key, bool isPressed);
-  void updateAnimation(sf::Time dt);
-  virtual sf::FloatRect getBounds() const override;
+  //void updateAnimation(sf::Time dt);
+  //virtual sf::FloatRect getBounds() const override;
+  virtual CharacterType getCharacterType() const override;
 
   sf::Vector2f getPosition();
 };

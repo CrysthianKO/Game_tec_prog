@@ -1,18 +1,6 @@
 #pragma once
-<<<<<<< HEAD
-#include "Obstacle.hpp"
 
-class Platform : public Obstacle {
-public:
-	Platform();
-	virtual ~Platform();
-	//virtual void update(sf::Time deltaTime);
-	//virtual void draw(sf::RenderWindow* window);
-	//virtual sf::FloatRect getBounds() const;
-	virtual ObstacleType getObstacleType() const;
-};
-=======
-
+#include "EntityType.hpp"
 #include "Obstacle.hpp"
 class Platform : public Obstacle {
  private:
@@ -26,5 +14,5 @@ class Platform : public Obstacle {
   void save();
   void obstruct(Player* pPlayer);
   sf::FloatRect getBounds() const;
+  ObstacleType getObstacleType() const;
 };
->>>>>>> 4795ee6bbd3d3fcd1a4b5ea5a06f8eca20a8fb09

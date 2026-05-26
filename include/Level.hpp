@@ -1,11 +1,4 @@
 #pragma once
-<<<<<<< HEAD
-#include <SFML/Graphics.hpp>
-
-class Level {
-
-};
-=======
 #include "ListEntities.hpp"
 
 class Level {
@@ -25,4 +18,3 @@ class Level {
   virtual void createObstacles() = 0;
   void createScenario();
 };
->>>>>>> 4795ee6bbd3d3fcd1a4b5ea5a06f8eca20a8fb09

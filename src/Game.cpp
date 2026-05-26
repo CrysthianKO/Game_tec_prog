@@ -2,8 +2,6 @@
 
 #include <stdexcept>
 
-#include "Entity.hpp"
-
 using namespace std;
 
 Game::Game()

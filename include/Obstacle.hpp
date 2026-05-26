@@ -1,21 +1,8 @@
 #pragma once
-<<<<<<< HEAD
 #include "Entity.hpp"
-
-class Obstacle : public Entity {
-public:
-	Obstacle();
-	virtual ~Obstacle();
-	//virtual void update(sf::Time deltaTime) = 0;
-	//virtual void draw(sf::RenderWindow* window) = 0;
-	//virtual sf::FloatRect getBounds() const = 0;
-	virtual ObstacleType getObstacleType() const = 0;
-	virtual EntityType getEntityType() const;
-};
-=======
-
-#include "Entity.hpp"
+#include "EntityType.hpp"
 #include "Player.hpp"
+
 class Obstacle : public Entity {
  protected:
   bool harmful;
@@ -26,6 +13,6 @@ class Obstacle : public Entity {
 
   virtual void execute() = 0;
   virtual void save() = 0;
-  virtual void obstruct(Player* pPlayer) = 0;
+  virtual void obstruct(Player* pPlayer) = 0;  // OBSTACULIZAR
+  EntityType getEntityType() const { return EntityType::ET_OBSTACLE; }
 };
->>>>>>> 4795ee6bbd3d3fcd1a4b5ea5a06f8eca20a8fb09

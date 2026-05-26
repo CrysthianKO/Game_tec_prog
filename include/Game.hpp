@@ -10,12 +10,17 @@
 #include <ctime>
 #include "Bone.hpp"
 #include "GraphicsManager.hpp"
+#include "ListEntities.hpp"
+#include "Platform.hpp"
 #include "Player.hpp"
 
 class Game {
  private:
   GraphicsManager GM;
   sf::Texture mPlayerTexture;
+  sf::Texture mPlatformTex;
+  ListEntities listEntities;
+  Platform mPlat;
   Player mPlayer;
   const sf::Time timePerFrame;
 

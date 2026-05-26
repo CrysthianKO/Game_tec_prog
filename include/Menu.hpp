@@ -1,6 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class Menu {
+#include "Ente.hpp"
+#include "Game.hpp"
 
+class Menu : public Ente {
+ private:
+  Game* pGame;
+
+ public:
+  Menu();
+  ~Menu();
+  void execute();
 };

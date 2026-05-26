@@ -19,6 +19,7 @@ set(SOURCES
   src/Main.cpp
   src/Game.cpp
   src/Physics.cpp
+<<<<<<< HEAD
   src/Menu.cpp
   src/Ente.cpp
   src/entities/Entity.cpp
@@ -44,6 +45,30 @@ set(SOURCES
   src/lists/Element.cpp
   src/lists/List.cpp
   src/lists/EntityList.cpp
+=======
+  # src/Menu.cpp
+  src/entities/Ente.cpp
+  src/entities/ListEntities.cpp
+  src/entities/characters/Player.cpp
+  src/entities/characters/Character.cpp
+  # src/entities/characters/Enemy.cpp
+  # src/entities/personagens/Tanystropheus.cpp
+  # src/entities/personagens/Velociraptor.cpp
+  # src/entities/personagens/Mamenchissauro.cpp
+  # src/entities/collectables/Collectable.cpp
+  # src/entities/collectables/Bone.cpp
+  # src/entities/obstacles/Obstacle.cpp
+  src/entities/obstacles/Platform.cpp
+  # src/entities/obstacles/Cogumelo.cpp
+  # src/entities/obstacles/Fogo.cpp
+  # src/entities/projectables/Projectable.cpp
+  # src/entities/projectables/LaserBall.cpp
+  # src/fases/Level.cpp
+  # src/fases/ForestLevel.cpp
+  # src/fases/ExtinctionLevel.cpp
+  src/managers/GraphicsManager.cpp
+  # src/managers/CollisionManager.cpp
+>>>>>>> 4795ee6bbd3d3fcd1a4b5ea5a06f8eca20a8fb09
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

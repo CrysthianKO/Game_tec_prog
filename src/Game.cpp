@@ -2,11 +2,14 @@
 
 #include <stdexcept>
 
+#include "Entity.hpp"
+
 using namespace std;
 
 Game::Game()
     : GM(),
       mPlayer(mPlayerTexture),
+      mPlat(mPlatformTex),
       timePerFrame(sf::seconds(1.f / 60.f))  // 60 fps (hard coded)
 {
   Ente::setGM(&GM);
@@ -15,6 +18,11 @@ Game::Game()
           "media/Massospondylus_idle_spritesheet.png")) {
     throw std::invalid_argument("ERROR: COUL NOT LOAD FILE");
   }
+  if (!mPlatformTex.loadFromFile("media/platform-test.png")) {
+    throw std::invalid_argument("ERROR: COUL NOT LOAD FILE");
+  }
+  listEntities.include(static_cast<Entity*>(&mPlayer));
+  listEntities.include(static_cast<Entity*>(&mPlat));
 
   std::srand(static_cast<unsigned int>(std::time(NULL)));
 }
@@ -69,7 +77,7 @@ void Game::update(sf::Time dt) {
 // nova tela para o usuario
 void Game::render() {
   GM.clear();
-  mPlayer.draw();
+  listEntities.iterate();
   GM.drawPosition(mPlayer.getPosition());
   // mCurrentBone.draw(&GG.mWindow);
   GM.display();

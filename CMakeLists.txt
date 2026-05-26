@@ -21,6 +21,7 @@ set(SOURCES
   src/Physics.cpp
   # src/Menu.cpp
   src/entities/Ente.cpp
+  src/entities/ListEntities.cpp
   src/entities/characters/Player.cpp
   src/entities/characters/Character.cpp
   # src/entities/characters/Enemy.cpp
@@ -30,8 +31,8 @@ set(SOURCES
   # src/entities/collectables/Collectable.cpp
   # src/entities/collectables/Bone.cpp
   # src/entities/obstacles/Obstacle.cpp
+  src/entities/obstacles/Platform.cpp
   # src/entities/obstacles/Cogumelo.cpp
-  # src/entities/obstacles/Plataforma.cpp
   # src/entities/obstacles/Fogo.cpp
   # src/entities/projectables/Projectable.cpp
   # src/entities/projectables/LaserBall.cpp
@@ -40,9 +41,6 @@ set(SOURCES
   # src/fases/ExtinctionLevel.cpp
   src/managers/GraphicsManager.cpp
   # src/managers/CollisionManager.cpp
-  # src/listas/Elemento.cpp
-  # src/listas/Lista.cpp
-  # src/listas/ListaEntidades.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

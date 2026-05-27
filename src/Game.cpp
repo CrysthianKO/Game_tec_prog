@@ -50,17 +50,19 @@ void Game::execute() {
 // checa inputs do usuario e fecha a janela quando o usuario clicar no X da
 // janela
 void Game::processEvents() {
-  while (const std::optional event = GM.mWindow.pollEvent()) {
-    if (event->is<sf::Event::Closed>()) {
+  sf::Event event;
+
+  while (GM.mWindow.pollEvent(event)) {
+    if (event.type == sf::Event::Closed) {
       GM.close();
     }
 
-    else if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
-      mPlayer.handleInput(keyPressed->code, true);
+    else if (event.type == sf::Event::KeyPressed) {
+      mPlayer.handleInput(event.key.code, true);
     }
 
-    else if (const auto* keyReleased = event->getIf<sf::Event::KeyReleased>()) {
-      mPlayer.handleInput(keyReleased->code, false);
+    else if (event.type == sf::Event::KeyReleased) {
+      mPlayer.handleInput(event.key.code, false);
     }
   }
 }

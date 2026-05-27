@@ -10,7 +10,7 @@ set(SFML_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(SFML_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(SFML_INSTALL_PDB OFF CACHE BOOL "" FORCE)
 
-add_subdirectory(thirdparty/SFML-3.0.2)
+add_subdirectory(thirdparty/SFML-2.6.2)
 
 file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/media" 
      DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
@@ -45,5 +45,10 @@ set(SOURCES
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_link_libraries(${PROJECT_NAME}  SFML::Graphics SFML::Window SFML::System)
+target_link_libraries(${PROJECT_NAME}  
+PRIVATE
+    sfml-graphics 
+    sfml-window 
+    sfml-system
+)
 target_include_directories(${PROJECT_NAME} PRIVATE include/)

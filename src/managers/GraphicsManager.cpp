@@ -6,9 +6,8 @@
 GraphicsManager::GraphicsManager()
     : mWindow(sf::VideoMode({mWidth, mHeight}), "JOGO MUITO BOM"),
       mWidth(1366),
-      mHeight(768),
-      mText(mFont) {
-  if (!mFont.openFromFile("media/fonte_teste.ttf")) {
+      mHeight(768) {
+  if (!mFont.loadFromFile("media/fonte_teste.ttf")) {
     throw std::invalid_argument("ERROR: COULD NOT LOAD FONT");
   }
   mText.setFont(mFont);

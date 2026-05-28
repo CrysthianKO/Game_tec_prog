@@ -4,7 +4,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-#include "Character.hpp"
+#include "entities/characters/Character.hpp"
 
 class Player : public Character {
  private:
@@ -19,15 +19,17 @@ class Player : public Character {
   bool mIsGrounded = false;
 
  public:
-  Player(const sf::Texture& texture);
+  Player();
   virtual ~Player() override;
-  void execute() override {}
+  void execute();
   void save() override {}
   void move() override {}
   void handleInput(sf::Keyboard::Key key, bool isPressed);
-  // void updateAnimation(sf::Time dt);
+  void updateAnimation(sf::Time dt);
+
   // virtual sf::FloatRect getBounds() const override;
   virtual CharacterType getCharacterType() const override;
+  void update(sf::Time dt);
 
   sf::Vector2f getPosition();
 };

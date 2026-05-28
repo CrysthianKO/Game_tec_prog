@@ -1,24 +1,21 @@
 #include "Game.hpp"
 
-#include <stdexcept>
+#include "levels/Level.hpp"
 
 using namespace std;
 
 Game::Game()
     : GM(),
-      mPlayer(mPlayerTexture),
-      mPlat(mPlatformTex),
+      mPlayer(),
+      mPlat(),
       timePerFrame(sf::seconds(1.f / 60.f))  // 60 fps (hard coded)
 {
   Ente::setGM(&GM);
+  Level::setGM(&GM);
 
-  if (!mPlayerTexture.loadFromFile(
-          "media/Massospondylus_idle_spritesheet.png")) {
-    throw std::invalid_argument("ERROR: COUL NOT LOAD FILE");
-  }
-  if (!mPlatformTex.loadFromFile("media/platform-test.png")) {
-    throw std::invalid_argument("ERROR: COUL NOT LOAD FILE");
-  }
+  mPlayer.setTexture("PLAYER_TEXTURE");
+  mPlat.setTexture("PLATFORM_TEXTURE");
+
   listEntities.include(static_cast<Entity*>(&mPlayer));
   listEntities.include(static_cast<Entity*>(&mPlat));
 
@@ -30,7 +27,7 @@ Game::~Game() {}
 // junta o processEvents, update e render em um loop infinito rodando o jogo
 void Game::execute() {
   sf::Clock clock;
-  // implementa dt
+  // implementa d float yt
   sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
   while (GM.isOpen()) {
@@ -77,7 +74,7 @@ void Game::update(sf::Time dt) {
 // nova tela para o usuario
 void Game::render() {
   GM.clear();
-  listEntities.iterate();
+  listEntities.execute();
   GM.drawPosition(mPlayer.getPosition());
   // mCurrentBone.draw(&GG.mWindow);
   GM.display();

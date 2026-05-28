@@ -1,10 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <list>
-#include <vector>
 
-#include "Obstacle.hpp"
-#include "Player.hpp"
+#include "entities/characters/Player.hpp"
+#include "entities/obstacles/Obstacle.hpp"
 
 using namespace std;
 class CollisionManager {

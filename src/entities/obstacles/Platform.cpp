@@ -1,11 +1,6 @@
-#include "Platform.hpp"
+#include "entities/obstacles/Platform.hpp"
 
-Platform::Platform(const sf::Texture& texture) : Obstacle(texture), height(0) {
-  mSprite.setTextureRect(sf::IntRect({0, 0}, {32, 16}));
-  mSprite.setOrigin({16.f, 8.f});
-  mSprite.setScale({5.f, 5.f});
-  mSprite.setPosition({900, 400});
-}
+Platform::Platform() : height(0) {}
 Platform::~Platform() {}
 
 void Platform::execute() {}

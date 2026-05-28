@@ -1,14 +1,14 @@
 #pragma once
-#include "Entity.hpp"
-#include "EntityType.hpp"
-#include "Player.hpp"
+#include "entities/Entity.hpp"
+#include "entities/EntityType.hpp"
+#include "entities/characters/Player.hpp"
 
 class Obstacle : public Entity {
  protected:
   bool harmful;
 
  public:
-  Obstacle(const sf::Texture& texture) : Entity(texture) {}
+  Obstacle() {}
   ~Obstacle() {}
 
   virtual void execute() = 0;

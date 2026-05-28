@@ -1,10 +1,14 @@
 #pragma once
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "SFML/Audio/Sound.hpp"
 #include "SFML/Graphics/Font.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Text.hpp"
+#include "SFML/Graphics/Texture.hpp"
+#include "SFML/Graphics/View.hpp"
 #include "SFML/System/Vector2.hpp"
+#include "managers/ResourceManager.hpp"
 
 class Ente;
 
@@ -12,6 +16,10 @@ class GraphicsManager {
  private:
   unsigned int mWidth;   // compri janela
   unsigned int mHeight;  // altura janela
+  sf::View mCamera;
+  ResourceManager<sf::Texture, std::string>
+      mTextureManager;                                  // Managers de textura
+  ResourceManager<sf::Font, std::string> mFontManager;  // e fonte
   sf::Font mFont;
   sf::Text mText;
 
@@ -21,10 +29,14 @@ class GraphicsManager {
  public:
   GraphicsManager();
   ~GraphicsManager();
+
   void clear();
   void display();
   void close();
   bool isOpen();
-  void drawEnte(sf::Sprite sprite);
+
+  void setTexture(sf::Sprite* sprite, string id);
+
+  void drawEnte(sf::Sprite* sprite);
   void drawPosition(sf::Vector2f position);
 };

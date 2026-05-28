@@ -1,13 +1,14 @@
 #pragma once
 
-#include "EntityType.hpp"
-#include "Obstacle.hpp"
+#include "entities/EntityType.hpp"
+#include "entities/characters/Player.hpp"
+#include "entities/obstacles/Obstacle.hpp"
 class Platform : public Obstacle {
  private:
   float height;
 
  public:
-  Platform(const sf::Texture& texture);
+  Platform();
   ~Platform();
 
   void execute();

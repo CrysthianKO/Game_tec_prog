@@ -1,8 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include "Ente.hpp"
 #include "Game.hpp"
+#include "entities/Ente.hpp"
 
 class Menu : public Ente {
  private:

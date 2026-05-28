@@ -8,5 +8,5 @@ class ListEntities {
   ListEntities();
   ~ListEntities();
   void include(Entity* pE);
-  void iterate();
+  void execute();
 };

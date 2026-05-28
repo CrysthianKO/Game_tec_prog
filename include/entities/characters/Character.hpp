@@ -1,15 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-// #include "EntityType.hpp"
-#include "Entity.hpp"
-#include "EntityType.hpp"
+
+#include "entities/Entity.hpp"
+#include "entities/EntityType.hpp"
 
 class Character : public Entity {
  protected:
   int number_lives;
 
  public:
-  Character(const sf::Texture& texture) : Entity(texture) {}
+  Character() {}
   virtual ~Character() {}
   // void saveDataBuffer() {}
   virtual void execute() = 0;

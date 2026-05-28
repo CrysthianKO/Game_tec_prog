@@ -8,18 +8,14 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <ctime>
-#include "Bone.hpp"
-#include "GraphicsManager.hpp"
-#include "ListEntities.hpp"
-#include "Platform.hpp"
-#include "Player.hpp"
+
+#include "entities/characters/Player.hpp"
+#include "entities/obstacles/Platform.hpp"
+#include "managers/GraphicsManager.hpp"
 
 class Game {
  private:
   GraphicsManager GM;
-  sf::Texture mPlayerTexture;
-  sf::Texture mPlatformTex;
-  ListEntities listEntities;
   Platform mPlat;
   Player mPlayer;
   const sf::Time timePerFrame;

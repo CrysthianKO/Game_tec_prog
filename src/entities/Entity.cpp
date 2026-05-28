@@ -1,4 +1,1 @@
-#include "Entity.hpp"
-
-Entity::Entity()
-{}
+#include "entities/Entity.hpp"

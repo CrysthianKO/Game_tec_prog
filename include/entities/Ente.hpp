@@ -1,9 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include "GraphicsManager.hpp"
 #include "SFML/Graphics/Sprite.hpp"
-#include "SFML/Graphics/Texture.hpp"
+#include "managers/GraphicsManager.hpp"
 
 class Ente {
  protected:
@@ -13,11 +12,11 @@ class Ente {
   sf::Sprite mSprite;
 
  public:
-  Ente(const sf::Texture& texture) : mId(cont_id++), mSprite(texture) {}
-  // Todos os objetos irão receber uma textura e um Id
+  Ente() : mId(cont_id++) {}
   virtual ~Ente() {}
   virtual void execute() = 0;
-  void draw() { pGM->drawEnte(this->mSprite); }
+  void draw() { pGM->drawEnte(&this->mSprite); }
+  void setTexture(string id) { pGM->setTexture(&this->mSprite, id); }
   void static setGM(GraphicsManager* pG) { pGM = pG; }
   int getId() const { return mId; }
 };

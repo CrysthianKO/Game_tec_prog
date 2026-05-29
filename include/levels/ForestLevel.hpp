@@ -11,9 +11,9 @@ class ForestLevel : public Level {
   ForestLevel();
   ~ForestLevel();
   void setup();
+  void execute();
 
  protected:
-  void execute();
   void createMidEnemies();
   void createMidObst();
 

@@ -6,8 +6,6 @@
 
 class Entity : public Ente {
  protected:
-  float x;
-  float y;
   sf::Sprite mSprite;
 
  public:

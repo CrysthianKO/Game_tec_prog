@@ -8,6 +8,7 @@ Game::Game()
 {
   Ente::setGM(&GM);
   mPlayer.setTexture("PLAYER_TEXTURE");
+  mForestLevel.includeList(static_cast<Entity*>(&mPlayer));
   mForestLevel.setup();
 
   std::srand(static_cast<unsigned int>(std::time(NULL)));
@@ -59,13 +60,16 @@ void Game::processEvents() {
 // colisoes, etc
 void Game::update(sf::Time dt) {
   // verifica se o jogador colidiu com o osso
+  mPlayer.update(dt);
 }
 
 // atualiza a tela: apaga a tela anterior, desenha os novos objetos e mostra a
 // nova tela para o usuario
 void Game::render() {
   GM.clear();
-  mForestLevel.drawBackground();
+  GM.updateCameraPos(mPlayer.getPosition());
+  mForestLevel.execute();
+  GM.showMousePosition();
   // GM.drawPosition(mPlayer.getPosition());
   //  mCurrentBone.draw(&GG.mWindow);
   GM.display();

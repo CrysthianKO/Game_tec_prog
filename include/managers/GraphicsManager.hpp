@@ -34,8 +34,11 @@ class GraphicsManager {
   void close();
   bool isOpen();
 
+  void updateCameraPos(sf::Vector2f pos);
+
   sf::Texture* getTexture(string id);
   sf::Vector2u getWindowSize();
+  void showMousePosition();
 
   void drawEnte(sf::Sprite* sprite);
   void drawPosition(sf::Vector2f position);

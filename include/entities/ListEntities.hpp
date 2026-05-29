@@ -9,4 +9,5 @@ class ListEntities {
   ~ListEntities();
   void include(Entity* pE);
   void execute();
+  void drawEntities();
 };

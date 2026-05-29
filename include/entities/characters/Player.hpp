@@ -22,8 +22,8 @@ class Player : public Character {
   Player();
   virtual ~Player() override;
   void execute();
-  void save() override {}
-  void move() override {}
+  void save();
+  void move();
   void handleInput(sf::Keyboard::Key key, bool isPressed);
   void updateAnimation(sf::Time dt);
 

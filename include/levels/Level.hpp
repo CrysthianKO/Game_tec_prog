@@ -13,6 +13,7 @@ struct BackgroundLayer {  // Struct para guardar o background e seus layers
 class Level : public Ente {
  protected:
   vector<BackgroundLayer> mLayers;
+  vector<sf::Sprite> mGround;
   ListEntities mListEntities;
   float mGroundLevel;
 
@@ -20,10 +21,13 @@ class Level : public Ente {
   Level();
   ~Level();
   virtual void execute() {}
+  void includeList(Entity* pE);
   void drawBackground();
+  void drawGround();
 
  protected:
   void addBackgroundLayer(string id, float speed);
+  void addGroundLayer(string id);
   sf::Texture* getTexture(string id);
 
   void createEasyEnemies();

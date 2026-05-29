@@ -8,13 +8,15 @@ Player::Player() {  // A responsabilidade de passar a Textura fica pra
                     // posicao inicial
 
   mCurrentFrame = sf::IntRect({0, 0}, {64, 64});
-  mSprite.setPosition(200.f, 200.f);
+  mSprite.setPosition(0.f, 0.f);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {64, 64}));
 }
 
 Player::~Player() {}
 
 void Player::execute() {}
+void Player::save() {}
+void Player::move() {}
 
 //// retorna os limites do sprite do jogador para detecção de colisão
 // sf::FloatRect Player::getBounds() const { return mSprite.getGlobalBounds(); }
@@ -38,7 +40,7 @@ void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
     mIsMovingRight = isPressed;
 }
 
-sf::Vector2f Player::getPosition() { return sf::Vector2f({x, y}); }
+sf::Vector2f Player::getPosition() { return mSprite.getPosition(); }
 // atualiza a posição do player com base nos inputs do usuario e atualiza a
 // animacao do player
 void Player::update(sf::Time dt) {
@@ -62,7 +64,7 @@ void Player::update(sf::Time dt) {
   mSprite.move(mVelocity * dt.asSeconds());
 
   // colisão com o chão (janela)
-  float groundLevel = 768.f - mSprite.getGlobalBounds().height;
+  float groundLevel = 720.f - mSprite.getGlobalBounds().height;
   if (mSprite.getPosition().y > groundLevel) {
     mSprite.setPosition({mSprite.getPosition().x, groundLevel});
     mVelocity.y = 0.f;

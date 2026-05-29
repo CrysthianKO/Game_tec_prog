@@ -11,10 +11,6 @@ class Character : public Entity {
  public:
   Character() {}
   virtual ~Character() {}
-  // void saveDataBuffer() {}
-  virtual void execute() = 0;
-  virtual void save() = 0;
-  virtual void move() = 0;
   EntityType getEntityType() const;
   virtual CharacterType getCharacterType() const = 0;
 };

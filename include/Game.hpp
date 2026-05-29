@@ -10,14 +10,14 @@
 #include <ctime>
 
 #include "entities/characters/Player.hpp"
-#include "entities/obstacles/Platform.hpp"
+#include "levels/ForestLevel.hpp"
 #include "managers/GraphicsManager.hpp"
 
 class Game {
  private:
   GraphicsManager GM;
-  Platform mPlat;
   Player mPlayer;
+  ForestLevel mForestLevel;
   const sf::Time timePerFrame;
 
  public:

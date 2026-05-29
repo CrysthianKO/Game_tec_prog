@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "SFML/Audio/Sound.hpp"
 #include "SFML/Graphics/Font.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "SFML/Graphics/Text.hpp"
@@ -35,7 +34,8 @@ class GraphicsManager {
   void close();
   bool isOpen();
 
-  void setTexture(sf::Sprite* sprite, string id);
+  sf::Texture* getTexture(string id);
+  sf::Vector2u getWindowSize();
 
   void drawEnte(sf::Sprite* sprite);
   void drawPosition(sf::Vector2f position);

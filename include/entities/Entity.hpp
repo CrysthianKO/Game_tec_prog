@@ -8,10 +8,13 @@ class Entity : public Ente {
  protected:
   float x;
   float y;
+  sf::Sprite mSprite;
 
  public:
-  Entity() {}
-  virtual ~Entity() {}
+  Entity();
+  virtual ~Entity();
+  void setTexture(string id);
+  void draw();
   virtual void execute() = 0;
   virtual void save() = 0;
   // virtual sf::FloatRect getBounds() const = 0;

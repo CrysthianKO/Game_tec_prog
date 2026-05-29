@@ -21,6 +21,7 @@ set(SOURCES
   src/Physics.cpp
   # src/Menu.cpp
   src/entities/Ente.cpp
+  src/entities/Entity.cpp
   src/entities/ListEntities.cpp
   src/entities/characters/Player.cpp
   src/entities/characters/Character.cpp
@@ -36,9 +37,9 @@ set(SOURCES
   # src/entities/obstacles/Fogo.cpp
   # src/entities/projectables/Projectable.cpp
   # src/entities/projectables/LaserBall.cpp
-  # src/fases/Level.cpp
-  # src/fases/ForestLevel.cpp
-  # src/fases/ExtinctionLevel.cpp
+  src/levels/Level.cpp
+  src/levels/ForestLevel.cpp
+  # src/levels/ExtinctionLevel.cpp
   src/managers/GraphicsManager.cpp
   # src/managers/CollisionManager.cpp
 )

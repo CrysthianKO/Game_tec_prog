@@ -1,6 +1,5 @@
 #include "managers/GraphicsManager.hpp"
 
-#include <iostream>
 #include <stdexcept>
 #include <string>
 
@@ -42,7 +41,7 @@ GraphicsManager::GraphicsManager() : mWidth(1280), mHeight(720) {
 
   if (!texturesLoaded || !platformTexture || !testFontLoaded ||
       !platformTexture) {
-    throw std::invalid_argument("ERRO: Nao foi possivel carregar texturas");
+    throw invalid_argument("ERRO: Nao foi possivel carregar texturas");
   }
   mText.setFont(mFont);
 }
@@ -56,22 +55,22 @@ bool GraphicsManager::isOpen() { return mWindow.isOpen(); };
 
 void GraphicsManager::drawEnte(sf::Sprite* sprite) {
   if (!sprite) {
-    throw std::invalid_argument("ERROR: ENT SEM SPRITE!");
+    throw invalid_argument("ERROR: ENT SEM SPRITE!");
   }
   if (sprite->getTexture() == NULL) {
-    throw std::invalid_argument("ERROR: SPRITE SEM TEXTURA!");
+    throw invalid_argument("ERROR: SPRITE SEM TEXTURA!");
   }
   mWindow.draw(*sprite);
 }
 
-void GraphicsManager::setTexture(sf::Sprite* sprite, string id) {
+sf::Texture* GraphicsManager::getTexture(string id) {
   sf::Texture* texture = mTextureManager.get(
       id);  // Se o resource tiver carregado vai nos retornar a textura
   // Ja ha uma msg de erro caso de errado
-  if (texture) {
-    sprite->setTexture(*texture);
-  }
+  return texture;
 }
+
+sf::Vector2u GraphicsManager::getWindowSize() { return mWindow.getSize(); }
 
 void GraphicsManager::drawPosition(sf::Vector2f position) {
   sf::String msg = "Player position:\nx = " + std::to_string(position.x) +

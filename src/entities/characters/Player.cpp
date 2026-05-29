@@ -3,7 +3,6 @@
 #include "Physics.hpp"
 #include "SFML/System/Vector2.hpp"
 
-// (hard coded)
 Player::Player() {  // A responsabilidade de passar a Textura fica pra
                     // outra classe
                     // posicao inicial

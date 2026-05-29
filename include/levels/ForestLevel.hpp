@@ -5,14 +5,15 @@
 
 class ForestLevel : public Level {
  private:
-  BackgroundLayer mLayers[10];
   int maxMidEnemies;
 
  public:
   ForestLevel();
   ~ForestLevel();
+  void setup();
 
  protected:
+  void execute();
   void createMidEnemies();
   void createMidObst();
 

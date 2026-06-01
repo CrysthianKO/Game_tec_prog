@@ -26,7 +26,7 @@ bool ResourceManager<ResourceType, Identifier>::load(
     return false;
   }
 
-  ResourceType* resource = new ResourceType();  // trocar auto para c++2003
+  ResourceType* resource = new ResourceType();
   if (!resource->loadFromFile(filename)) {
     cout << "Falha ao carregar arquivo do diretório " << filename << std::endl;
     delete resource;

@@ -44,6 +44,10 @@ set(SOURCES
   # src/managers/CollisionManager.cpp
 )
 
+# file(GLOB_RECURSE SOURCES
+#     "src/*.cpp"
+# ) CARREGA TUDO
+
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME}  

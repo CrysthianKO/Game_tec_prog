@@ -19,7 +19,6 @@ GraphicsManager::GraphicsManager() : mWidth(1280), mHeight(720) {
   mCamera.setSize((float)mWidth, (float)mHeight);  // Define o tamanho da Camera
   mCamera.setCenter((float)mWidth / 2,
                     (float)mHeight / 2);  // define a centralização da camera
-  // mCamera.setCenter((float)mWidth / 2, 800);
   mWindow.setView(mCamera);
 
   bool texturesLoaded;

@@ -1,5 +1,6 @@
 #include "managers/GraphicsManager.hpp"
 
+#include <sstream>
 #include <stdexcept>
 #include <string>
 
@@ -24,20 +25,24 @@ GraphicsManager::GraphicsManager() : mWidth(1280), mHeight(720) {
   bool texturesLoaded;
   for (int i = 0; i <= 9; i++) {
     string id = "FOREST_BACKGROUND_" + to_string(i);
-    string filename = "./media/Forest/Layer_" + to_string(i) + ".png";
+    string filename = "./media/forest/Layer_" + to_string(i) + ".png";
     texturesLoaded = mTextureManager.load(id, filename);
     if (!texturesLoaded) break;
   }
 
   for (int i = 0; i <= 1; i++) {
     string id = "FOREST_GROUND_" + to_string(i);
-    string filename = "./media/Forest/Ground_" + to_string(i) + ".png";
+    string filename = "./media/forest/Ground_" + to_string(i) + ".png";
     texturesLoaded = mTextureManager.load(id, filename);
     if (!texturesLoaded) break;
   }
 
   // ResourceManagers funcionando para carregar as texturas
   // talvez mudar para ficar melhor carregar texturas?
+  mTextureManager.load("RAPTOR", "./media/entities/raptor-idle.png");
+  mTextureManager.load("BULLET", "./media/projectiles/PistolAmmoBig.png");
+  mTextureManager.load("VINE", "./media/obstacles/vine.png");
+
   bool playerLoaded = mTextureManager.load(
       "PLAYER_TEXTURE", "./media/Massospondylus_idle_spritesheet.png");
 
@@ -90,14 +95,17 @@ void GraphicsManager::drawPosition(sf::Vector2f position) {
   sf::String msg = "Player position:\nx = " + std::to_string(position.x) +
                    ", y = " + std::to_string(position.y);
   mText.setString(msg);
+  sf::Vector2f camPos = mCamera.getCenter();
+  mText.setPosition(camPos.x - (mWidth / 2), camPos.y - (mHeight / 2));
   mWindow.draw(mText);
 }
 
 void GraphicsManager::showMousePosition() {
   sf::Vector2i mousePos = sf::Mouse::getPosition();
-  sf::String msg = "Mouse position:\nx = " + std::to_string(mousePos.x) +
-                   ", y = " + std::to_string(mousePos.y);
-  mText.setString(msg);
+  stringstream msg;
+  msg << "Mouse position:\n x =" << mousePos.x << ", y = " << mousePos.y;
+
+  mText.setString(msg.str());
   sf::Vector2f camPos = mCamera.getCenter();
   mText.setPosition(camPos.x - (mWidth / 2), camPos.y - (mHeight / 2));
   mWindow.draw(mText);

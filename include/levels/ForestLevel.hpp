@@ -11,6 +11,7 @@ class ForestLevel : public Level {
   ForestLevel();
   ~ForestLevel();
   void setup();
+  void render();
   void execute();
 
  protected:
@@ -19,4 +20,6 @@ class ForestLevel : public Level {
 
   void createEnemies();
   void createObstacles();
+
+  void createScenario();
 };

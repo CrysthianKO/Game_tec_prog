@@ -1,94 +1,141 @@
 #include "entities/characters/Player.hpp"
 
-#include "Physics.hpp"
+#include "SFML/Graphics/Rect.hpp"
 #include "SFML/System/Vector2.hpp"
+#include "SFML/Window/Keyboard.hpp"
+#include "managers/Physics.hpp"
+#include "managers/TimeManager.hpp"
 
-Player::Player() {  // A responsabilidade de passar a Textura fica pra
-                    // outra classe
-                    // posicao inicial
+Player::Player() { setup(); }
+
+Player::~Player() {}
+
+void Player::setup() {
+  mVelocity.x = 0.f;
+  mVelocity.y = 0.f;
+
+  mMoviment.up = false;
+  mMoviment.down = false;
+  mMoviment.right = false;
+  mMoviment.left = false;
 
   mCurrentFrame = sf::IntRect({0, 0}, {64, 64});
   mSprite.setPosition(0.f, 0.f);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {64, 64}));
 }
 
-Player::~Player() {}
-
-void Player::execute() {}
 void Player::save() {}
-void Player::move() {}
+void Player::move(sf::Vector2f move) { mSprite.move(move); }
 
-//// retorna os limites do sprite do jogador para detecção de colisão
-// sf::FloatRect Player::getBounds() const { return mSprite.getGlobalBounds(); }
+void Player::shoot() {}
 
-// implementação inputs do usuario (hard coded)
 void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
   // pulo
-  if (key == sf::Keyboard::Key::Space && isPressed && mIsGrounded) {
-    mVelocity.y = -1000.f;  // Velocidade de pulo (ajuste conforme necessário)
-    mIsGrounded = false;
+  if (key == sf::Keyboard::Key::Space && isPressed && mOnGround) {
+    mVelocity.y = -550.f;  // Velocidade de pulo (ajuste conforme necessário)
+    mOnGround = false;
   }
+
+  if (key == sf::Keyboard::Key::LShift) mRunning = isPressed;
 
   // movimento(WASD)
   if (key == sf::Keyboard::Key::W)
-    mIsMovingUp = isPressed;
+    mMoviment.up = isPressed;
   else if (key == sf::Keyboard::Key::S)
-    mIsMovingDown = isPressed;
+    mMoviment.down = isPressed;
   else if (key == sf::Keyboard::Key::A)
-    mIsMovingLeft = isPressed;
+    mMoviment.left = isPressed;
   else if (key == sf::Keyboard::Key::D)
-    mIsMovingRight = isPressed;
+    mMoviment.right = isPressed;
+  else if (key == sf::Keyboard::Key::F)
+    shoot();
 }
 
 sf::Vector2f Player::getPosition() { return mSprite.getPosition(); }
-// atualiza a posição do player com base nos inputs do usuario e atualiza a
-// animacao do player
-void Player::update(sf::Time dt) {
+
+// void Player::execute() {
+//   float dt = TimeManager::getInstance().getDeltaTime();
+
+//   if (mMoviment.up) mVelocity.y -= mJumpingAcce * dt;
+//   if (mMoviment.right) mVelocity.x += mRunningAcce * dt;
+//   if (mmoviment.lef* dtt) mVelocity.x -= mRunningAcce * dt;
+//   if (mMoviment.down) mVelocity.y += mGravity * dt;
+
+//   sf::Vector2f offSet = mVelocity * dt;
+
+//   float groundLevel = 720.f - mSprite.getGlobalBounds().height;
+//   if (mSprite.getPosition().y > groundLevel) {
+//     mSprite.setPosition({mSprite.getPosition().x, groundLevel});
+//     mVelocity.y = 0.f;
+//     // flag para pulo
+//     mIsGrounded = true;
+//   }
+
+//   mSprite.move(offSet);
+// }
+
+void Player::execute() {
+  float dt = TimeManager::getInstance().getDeltaTime();
+
   sf::Vector2f movement(0.f, 0.f);
-  sf::Vector2f accelaration(0.f, 9.f);
-  sf::Vector2f velocity(0.f, 0.f);
 
-  // aplica gravidade ao player, aumentando a velocidade vertical do player a
+  // aplica gravidade ao player, aumentando a velocidade vertical do player
   // cada frame
-  Physics::applyGravity(mVelocity, dt);
+  Physics::applyGravity(&mVelocity);
+  if (mRunning)
+    mSpeed = 6.3f;
+  else
+    mSpeed = 3.7f;
 
-  if (mIsMovingUp) movement.y -= mPlayerSpeed;
-  if (mIsMovingDown) movement.y += mPlayerSpeed;
-  if (mIsMovingLeft) movement.x -= mPlayerSpeed;
-  if (mIsMovingRight) movement.x += mPlayerSpeed;
+  if (mMoviment.right) movement.x += mSpeed;
+  if (mMoviment.left) movement.x -= mSpeed;
+
+  if (mMoviment.up && mOnGround) {
+    float jumpForce = 870.f;
+    mVelocity.y = -jumpForce;
+    mOnGround = false;
+  }
+
+  if (!mMoviment.up && mVelocity.y < 0.0f) {
+    mVelocity.y *= 0.5;
+  }
+  if (mMoviment.down) {
+    mVelocity.y *= 1.02f;
+  }
+
+  movement.y = mVelocity.y * dt;
 
   // dx = v * dt
-  mSprite.move(movement * dt.asSeconds());
+  mSprite.move(movement);
 
-  // move player na verticao pela gravidade
-  mSprite.move(mVelocity * dt.asSeconds());
-
-  // colisão com o chão (janela)
-  float groundLevel = 720.f - mSprite.getGlobalBounds().height;
-  if (mSprite.getPosition().y > groundLevel) {
-    mSprite.setPosition({mSprite.getPosition().x, groundLevel});
+  if (mOnGround) {
     mVelocity.y = 0.f;
-    // flag para pulo
-    mIsGrounded = true;
+    mOnGround = true;
   }
 
   updateAnimation(dt);
 }
 
+void Player::bounce() {
+  float dt = TimeManager::getInstance().getDeltaTime();
+  mVelocity = -mVelocity * 0.2f;
+  mSprite.move(mVelocity * dt);
+}
+
 // atualiza a animacao do player, mudando o frame da sprite a cada 0.1 segundos
 // (hard coded)
-void Player::updateAnimation(sf::Time dt) {
+void Player::updateAnimation(float dt) {
   mAnimationTimer += dt;
 
-  if (mAnimationTimer >= sf::seconds(0.1f)) {
+  if (mAnimationTimer >= 0.1f) {
     mCurrentFrame.left += 64.f;
     if (mCurrentFrame.left >= (64 * 6)) {
       mCurrentFrame.left = 0;
     }
-
     mSprite.setTextureRect(mCurrentFrame);
-    mAnimationTimer -= sf::seconds(0.1);
+    mAnimationTimer -= 0.1f;
   }
 }
+sf::Vector2f Player::getVelocity() { return mVelocity; }
 
 CharacterType Player::getCharacterType() const { return CH_PLAYER; }

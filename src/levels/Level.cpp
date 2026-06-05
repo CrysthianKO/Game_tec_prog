@@ -1,16 +1,21 @@
 #include "levels/Level.hpp"
 
-#include <ostream>
 #include <stdexcept>
 #include <vector>
 
+#include "SFML/Graphics/Rect.hpp"
 #include "SFML/Graphics/Sprite.hpp"
+#include "entities/characters/Player.hpp"
+#include "entities/characters/Velociraptor.hpp"
 
 Level::Level() {}
 
 Level::~Level() {}
 
-void Level::includeList(Entity* pE) { mListEntities.include(pE); }
+void Level::includePlayer(Player* pE) {
+  mListEntities.include(pE);
+  CM.includePlayer(pE);
+}
 
 sf::Texture* Level::getTexture(string id) { return pGM->getTexture(id); }
 
@@ -64,5 +69,16 @@ void Level::drawBackground() {
   }
 }
 
-void Level::createEasyEnemies() {}
+float Level::getGround() { return mGroundLevel; }
+
+void Level::createEasyEnemies() {
+  float numEnemies =
+      rand() % (3 - 5 + 1) + 3;  // (inicial - final + 1) + inicial
+  for (int i = 0; i < numEnemies; i++) {
+    Velociraptor* newEnemy = new Velociraptor();
+    newEnemy->setTexture("RAPTOR");
+    mListEntities.include(newEnemy);
+    CM.includeEnemy(newEnemy);
+  }
+}
 void Level::createPlatforms() {}

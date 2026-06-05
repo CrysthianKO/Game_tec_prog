@@ -18,16 +18,14 @@ class Game {
   GraphicsManager GM;
   Player mPlayer;
   ForestLevel mForestLevel;
-  const sf::Time timePerFrame;
 
  public:
   Game();
   ~Game();
-  void execute();
-  // void addScore(Bone* bone);
+  void run();
 
  private:
   void processEvents();
-  void update(sf::Time dt);
+  void execute();
   void render();
 };

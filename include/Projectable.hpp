@@ -1,13 +1,21 @@
 #pragma once
-#include "Entity.hpp"
+#include "SFML/Graphics/Sprite.hpp"
+#include "SFML/System/Vector2.hpp"
+#include "entities/Entity.hpp"
 
 class Projectable : public Entity {
-public:
-	Projectable();
-	virtual ~Projectable();
-	//virtual void update(sf::Time deltaTime) = 0;
-	//virtual void draw(sf::RenderWindow* window) = 0;
-	//virtual sf::FloatRect getBounds() const = 0;
-	virtual EntityType getEntityType() const;
-	virtual ProjectableType getProjectableType() const = 0;
+ protected:
+  bool active;
+  float mRange;
+  sf::Vector2f mInicialPos;
+  sf::Vector2f mVelocity;
+  sf::Vector2f mAcceleration;
+
+ public:
+  Projectable();
+  virtual ~Projectable();
+  void spawn(sf::Vector2f iniPos, bool left);
+  void execute();
+  void save() {}
+  EntityType getEntityType() const;
 };

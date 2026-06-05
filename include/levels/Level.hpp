@@ -4,6 +4,7 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "entities/Ente.hpp"
 #include "entities/ListEntities.hpp"
+#include "managers/CollisionManager.hpp"
 
 struct BackgroundLayer {  // Struct para guardar o background e seus layers
   sf::Sprite sprite;
@@ -12,18 +13,20 @@ struct BackgroundLayer {  // Struct para guardar o background e seus layers
 
 class Level : public Ente {
  protected:
+  CollisionManager CM;
   vector<BackgroundLayer> mLayers;
   vector<sf::Sprite> mGround;
-  ListEntities mListEntities;
   float mGroundLevel;
+  ListEntities mListEntities;
 
  public:
   Level();
   ~Level();
   virtual void execute() {}
-  void includeList(Entity* pE);
+  void includePlayer(Player* pE);
   void drawBackground();
   void drawGround();
+  float getGround();
 
  protected:
   void addBackgroundLayer(string id, float speed);
@@ -35,5 +38,5 @@ class Level : public Ente {
 
   virtual void createEnemies() = 0;
   virtual void createObstacles() = 0;
-  void createScenario() {}
+  virtual void createScenario() = 0;
 };

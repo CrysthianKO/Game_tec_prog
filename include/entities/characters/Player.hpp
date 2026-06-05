@@ -6,30 +6,37 @@
 
 #include "entities/characters/Character.hpp"
 
+struct Moviment {
+  bool up;
+  bool down;
+  bool right;
+  bool left;
+};
+
 class Player : public Character {
  private:
+  bool mRunning;
+  Moviment mMoviment;
   sf::IntRect mCurrentFrame;
-  bool mIsMovingUp = false;
-  bool mIsMovingDown = false;
-  bool mIsMovingLeft = false;
-  bool mIsMovingRight = false;
-  const float mPlayerSpeed = 500.f;
-  sf::Time mAnimationTimer = sf::Time::Zero;
-  sf::Vector2f mVelocity{0.f, 0.f};
-  bool mIsGrounded = false;
+  float mAnimationTimer;
 
  public:
   Player();
   virtual ~Player() override;
   void execute();
   void save();
-  void move();
+  void move(sf::Vector2f move);
+  void bounce();
+  void shoot();
   void handleInput(sf::Keyboard::Key key, bool isPressed);
-  void updateAnimation(sf::Time dt);
+  void updateAnimation(float dt);
 
   // virtual sf::FloatRect getBounds() const override;
   virtual CharacterType getCharacterType() const override;
-  void update(sf::Time dt);
 
+  sf::Vector2f getVelocity();
   sf::Vector2f getPosition();
+
+ private:
+  void setup();
 };

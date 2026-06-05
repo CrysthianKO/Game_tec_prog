@@ -8,11 +8,11 @@ class Obstacle : public Entity {
   bool harmful;
 
  public:
-  Obstacle() {}
-  ~Obstacle() {}
+  Obstacle();
+  ~Obstacle();
 
   virtual void execute() = 0;
   virtual void save() = 0;
   virtual void obstruct(Player* pPlayer) = 0;  // OBSTACULIZAR
-  EntityType getEntityType() const { return EntityType::ET_OBSTACLE; }
+  EntityType getEntityType() const;
 };

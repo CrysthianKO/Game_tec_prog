@@ -18,30 +18,31 @@ file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/media"
 set(SOURCES
   src/Main.cpp
   src/Game.cpp
-  src/Physics.cpp
   # src/Menu.cpp
   src/entities/Ente.cpp
   src/entities/Entity.cpp
   src/entities/ListEntities.cpp
   src/entities/characters/Player.cpp
   src/entities/characters/Character.cpp
-  # src/entities/characters/Enemy.cpp
+  src/entities/characters/Enemy.cpp
   # src/entities/personagens/Tanystropheus.cpp
-  # src/entities/personagens/Velociraptor.cpp
+  src/entities/characters/Velociraptor.cpp
   # src/entities/personagens/Mamenchissauro.cpp
   # src/entities/collectables/Collectable.cpp
   # src/entities/collectables/Bone.cpp
-  # src/entities/obstacles/Obstacle.cpp
+  src/entities/obstacles/Obstacle.cpp
   src/entities/obstacles/Platform.cpp
   # src/entities/obstacles/Cogumelo.cpp
   # src/entities/obstacles/Fogo.cpp
-  # src/entities/projectables/Projectable.cpp
+  src/entities/projectables/Projectable.cpp
   # src/entities/projectables/LaserBall.cpp
   src/levels/Level.cpp
   src/levels/ForestLevel.cpp
   # src/levels/ExtinctionLevel.cpp
   src/managers/GraphicsManager.cpp
-  # src/managers/CollisionManager.cpp
+  src/managers/CollisionManager.cpp
+  src/managers/TimeManager.cpp
+  src/managers/Physics.cpp
 )
 
 # file(GLOB_RECURSE SOURCES

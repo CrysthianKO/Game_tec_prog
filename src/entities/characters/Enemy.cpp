@@ -1,13 +1,9 @@
-#include "Enemy.hpp"
+#include "entities/characters/Enemy.hpp"
 
-Enemy::Enemy() {
+Enemy::Enemy() {}
 
-}
-
-Enemy::~Enemy() {
-
-}
+Enemy::~Enemy() {}
 
 CharacterType Enemy::getCharacterType() const {
-	return CharacterType::CH_ENEMY;
+  return CharacterType::CH_ENEMY;
 }

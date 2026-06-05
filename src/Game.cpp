@@ -1,14 +1,15 @@
 #include "Game.hpp"
 
+#include "SFML/Window/Keyboard.hpp"
+#include "managers/TimeManager.hpp"
+
 using namespace std;
 
-Game::Game()
-    : GM(),
-      timePerFrame(sf::seconds(1.f / 60.f))  // 60 fps (hard coded)
-{
+Game::Game() : GM() {
   Ente::setGM(&GM);
+
   mPlayer.setTexture("PLAYER_TEXTURE");
-  mForestLevel.includeList(static_cast<Entity*>(&mPlayer));
+  mForestLevel.includePlayer(&mPlayer);
   mForestLevel.setup();
 
   std::srand(static_cast<unsigned int>(std::time(NULL)));
@@ -17,21 +18,13 @@ Game::Game()
 Game::~Game() {}
 
 // junta o processEvents, update e render em um loop infinito rodando o jogo
-void Game::execute() {
-  sf::Clock clock;
-  // implementa d float yt
-  sf::Time timeSinceLastUpdate = sf::Time::Zero;
+void Game::run() {
+  TimeManager& timeManager = TimeManager::getInstance();
 
   while (GM.isOpen()) {
+    timeManager.updateClock();
     processEvents();
-    timeSinceLastUpdate += clock.restart();
-    // garante que o jogo seja atualizado a uma taxa constante, mesmo que o
-    // tempo de processamento de cada frame varie
-    while (timeSinceLastUpdate > timePerFrame) {
-      timeSinceLastUpdate -= timePerFrame;
-      // processEvents();
-      update(timePerFrame);
-    }
+    execute();
     render();
   }
 }
@@ -47,6 +40,9 @@ void Game::processEvents() {
     }
 
     else if (event.type == sf::Event::KeyPressed) {
+      if (event.key.code == sf::Keyboard::Escape)
+        GM.close();  // temporario fechar pq ja basta ter q clicar n "X" toda
+                     // vez :P
       mPlayer.handleInput(event.key.code, true);
     }
 
@@ -58,19 +54,16 @@ void Game::processEvents() {
 
 // atualiza a logica do jogo, como movimentacao de personagens, verificacao de
 // colisoes, etc
-void Game::update(sf::Time dt) {
-  // verifica se o jogador colidiu com o osso
-  mPlayer.update(dt);
-}
+void Game::execute() { mForestLevel.execute(); }
 
 // atualiza a tela: apaga a tela anterior, desenha os novos objetos e mostra a
 // nova tela para o usuario
 void Game::render() {
   GM.clear();
   GM.updateCameraPos(mPlayer.getPosition());
-  mForestLevel.execute();
-  GM.showMousePosition();
-  // GM.drawPosition(mPlayer.getPosition());
+  mForestLevel.render();
+  // GM.showMousePosition();
+  GM.drawPosition(mPlayer.getPosition());
   //  mCurrentBone.draw(&GG.mWindow);
   GM.display();
 }

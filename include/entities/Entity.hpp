@@ -3,6 +3,7 @@
 
 #include "Ente.hpp"
 #include "EntityType.hpp"
+#include "SFML/System/Vector2.hpp"
 
 class Entity : public Ente {
  protected:
@@ -15,6 +16,8 @@ class Entity : public Ente {
   void draw();
   virtual void execute() = 0;
   virtual void save() = 0;
-  // virtual sf::FloatRect getBounds() const = 0;
+  sf::FloatRect getGlobalBounds();
+  sf::Vector2f getPosition();
+  void setPosition(sf::Vector2f pos);
   virtual EntityType getEntityType() const = 0;
 };

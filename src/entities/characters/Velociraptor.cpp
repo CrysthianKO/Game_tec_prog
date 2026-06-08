@@ -3,14 +3,11 @@
 #include <cmath>
 
 #include "SFML/System/Vector2.hpp"
+#include "managers/Physics.hpp"
 #include "managers/TimeManager.hpp"
 
-Velociraptor::Velociraptor() { setup(); }
-
-Velociraptor::~Velociraptor() {}
-
-void Velociraptor::setup() {
-  mSpeed = 4.2f;
+Velociraptor::Velociraptor() {
+  mSpeed = 3.8f;
   mVelocity.y = 600.f;
   mWalkingTime = 0;
   mMovingRight = true;
@@ -21,7 +18,10 @@ void Velociraptor::setup() {
   mSpawnX = xPos;
   mSprite.setPosition(xPos, 500);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {51, 26}));
+  mSprite.setOrigin(25.5f, 13.f);
 }
+
+Velociraptor::~Velociraptor() {}
 
 void Velociraptor::save() {}
 void Velociraptor::execute() {
@@ -46,11 +46,15 @@ void Velociraptor::execute() {
 
   sf::Vector2f moviment = {0.f, 0.f};
 
-  if (mMovingRight)
+  if (mMovingRight) {
     moviment.x += mSpeed;
-  else
+    mSprite.setScale(1.8f, 1.8f);
+  } else {
     moviment.x -= mSpeed;
+    mSprite.setScale(-1.8f, 1.8f);
+  }
 
+  Physics::applyGravity(&mVelocity);
   moviment.y = mVelocity.y * dt;
 
   mSprite.move(moviment);

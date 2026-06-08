@@ -6,6 +6,11 @@
 class Enemy : public Character {
  protected:
   int badLevel;
+  float mWalkingTime;
+  bool mMovingRight;
+  float mRange;
+  sf::Vector2f mVelocity;
+  float mSpawnX;
 
  public:
   Enemy();

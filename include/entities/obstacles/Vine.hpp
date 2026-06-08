@@ -6,5 +6,5 @@ class Vine : public Obstacle {
 
   void execute();
   void save();
-  void obstruct(Player* pPlayer);
+  void obstruct(Player* pPlayer, sf::FloatRect intercession);
 };

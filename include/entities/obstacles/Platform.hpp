@@ -4,16 +4,12 @@
 #include "entities/characters/Player.hpp"
 #include "entities/obstacles/Obstacle.hpp"
 class Platform : public Obstacle {
- private:
-  float height;
-
  public:
-  Platform();
+  Platform(float xPos);
   ~Platform();
 
   void execute();
   void save();
-  void obstruct(Player* pPlayer);
-  sf::FloatRect getBounds() const;
+  void obstruct(Player* pPlayer, sf::FloatRect intercession);
   ObstacleType getObstacleType() const;
 };

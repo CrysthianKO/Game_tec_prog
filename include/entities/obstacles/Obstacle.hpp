@@ -13,6 +13,7 @@ class Obstacle : public Entity {
 
   virtual void execute() = 0;
   virtual void save() = 0;
-  virtual void obstruct(Player* pPlayer) = 0;  // OBSTACULIZAR
+  virtual void obstruct(Player* pPlayer,
+                        sf::FloatRect intercession) = 0;  // OBSTACULIZAR
   EntityType getEntityType() const;
 };

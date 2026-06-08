@@ -1,12 +1,9 @@
-#pragma once
-#include <SFML/Graphics.hpp>
-
 #include "entities/characters/Enemy.hpp"
 
-class Velociraptor : public Enemy {
+class Pterodactyl : public Enemy {
  public:
-  Velociraptor();
-  virtual ~Velociraptor();
+  Pterodactyl();
+  ~Pterodactyl();
   void execute();
   void save();
   void damage();

@@ -26,8 +26,8 @@ class Player : public Character {
   void execute();
   void save();
   void move(sf::Vector2f move);
+  void slow();
   void bounce();
-  void shoot();
   void handleInput(sf::Keyboard::Key key, bool isPressed);
   void updateAnimation(float dt);
 
@@ -35,8 +35,4 @@ class Player : public Character {
   virtual CharacterType getCharacterType() const override;
 
   sf::Vector2f getVelocity();
-  sf::Vector2f getPosition();
-
- private:
-  void setup();
 };

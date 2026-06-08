@@ -1,6 +1,10 @@
 #include "levels/ForestLevel.hpp"
 
+#include <cstdlib>
+
 #include "SFML/System/Vector2.hpp"
+#include "entities/characters/Pterodactyl.hpp"
+#include "entities/obstacles/Vine.hpp"
 #include "managers/CollisionManager.hpp"
 
 ForestLevel::ForestLevel() {}
@@ -10,7 +14,10 @@ ForestLevel::~ForestLevel() {}
 void ForestLevel::setup() {
   CM.includeLevel(this);
   createEasyEnemies();
+  createEnemies();
   createScenario();
+  createObstacles(5);
+  createPlatforms(5);
 }
 
 void ForestLevel::render() {
@@ -23,11 +30,32 @@ void ForestLevel::execute() {
   CM.execute();
   mListEntities.execute();
 }
-void ForestLevel::createMidEnemies() {}
-void ForestLevel::createMidObst() {}
+void ForestLevel::createEnemies() {
+  for (int i = 0; i < maxMidEnemies; i++) {
+    Pterodactyl* newPtero = new Pterodactyl();
+    newPtero->setTexture("PTERODACYL");
+    mListEntities.include(newPtero);
+    CM.includeEnemy(newPtero);
+  }
+}
 
-void ForestLevel::createEnemies() {}
-void ForestLevel::createObstacles() {}
+void ForestLevel::createObstacles(int numObstacles) {
+  int numPossibleObtacles = numObstacles * 5;
+  vector<int> possiblePositions;
+  for (int i = 1; i <= numPossibleObtacles; i++) {
+    possiblePositions.push_back(i * 160.f);
+  }
+
+  for (int i = 0; i < numObstacles; i++) {
+    int randPos = rand() % (0 - numPossibleObtacles +
+                            1);  // (inicial - final + 1) + inicial
+    float xPos = possiblePositions.at(randPos);
+    Vine* vine = new Vine(xPos);
+    vine->setTexture("VINE");
+    mListEntities.include(vine);
+    CM.IncludeObstacle(vine);
+  }
+}
 
 void ForestLevel::createScenario() {
   for (int i = 0; i <= 9; i++) {

@@ -5,8 +5,10 @@
 int Ente::cont_id(0);
 GraphicsManager* Ente::pGM = NULL;
 
-Ente::Ente() : mId(cont_id++) {}
-Ente::~Ente() {}
+Ente::Ente() : mId(cont_id++) {
+  cout << "Ent ID: " << mId << " criada." << endl;
+}
+Ente::~Ente() { cout << "Ent ID: " << mId << " destruido." << endl; }
 
 void Ente::setGM(GraphicsManager* pG) {
   if (!pG) {

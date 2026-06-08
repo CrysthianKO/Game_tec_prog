@@ -18,7 +18,4 @@ class Character : public Entity {
   void setOnGround(bool onG);
   EntityType getEntityType() const;
   virtual CharacterType getCharacterType() const = 0;
-
- protected:
-  virtual void setup() = 0;
 };

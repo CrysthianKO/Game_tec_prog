@@ -6,11 +6,7 @@
 #include "managers/Physics.hpp"
 #include "managers/TimeManager.hpp"
 
-Player::Player() { setup(); }
-
-Player::~Player() {}
-
-void Player::setup() {
+Player::Player() {
   mVelocity.x = 0.f;
   mVelocity.y = 0.f;
 
@@ -22,12 +18,13 @@ void Player::setup() {
   mCurrentFrame = sf::IntRect({0, 0}, {64, 64});
   mSprite.setPosition(0.f, 0.f);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {64, 64}));
+  mSprite.setOrigin(32.f, 32.f);
 }
+
+Player::~Player() {}
 
 void Player::save() {}
 void Player::move(sf::Vector2f move) { mSprite.move(move); }
-
-void Player::shoot() {}
 
 void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
   // pulo
@@ -47,11 +44,7 @@ void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
     mMoviment.left = isPressed;
   else if (key == sf::Keyboard::Key::D)
     mMoviment.right = isPressed;
-  else if (key == sf::Keyboard::Key::F)
-    shoot();
 }
-
-sf::Vector2f Player::getPosition() { return mSprite.getPosition(); }
 
 // void Player::execute() {
 //   float dt = TimeManager::getInstance().getDeltaTime();
@@ -87,8 +80,14 @@ void Player::execute() {
   else
     mSpeed = 3.7f;
 
-  if (mMoviment.right) movement.x += mSpeed;
-  if (mMoviment.left) movement.x -= mSpeed;
+  if (mMoviment.right) {
+    movement.x += mSpeed;
+    mSprite.setScale(1.f, 1.f);
+  }
+  if (mMoviment.left) {
+    movement.x -= mSpeed;
+    mSprite.setScale(-1.f, 1.f);
+  }
 
   if (mMoviment.up && mOnGround) {
     float jumpForce = 870.f;
@@ -122,18 +121,19 @@ void Player::bounce() {
   mSprite.move(mVelocity * dt);
 }
 
+void Player::slow() { mVelocity *= 0.3f; }
 // atualiza a animacao do player, mudando o frame da sprite a cada 0.1 segundos
 // (hard coded)
 void Player::updateAnimation(float dt) {
   mAnimationTimer += dt;
 
-  if (mAnimationTimer >= 0.1f) {
+  if (mAnimationTimer >= 0.09f) {
     mCurrentFrame.left += 64.f;
     if (mCurrentFrame.left >= (64 * 6)) {
       mCurrentFrame.left = 0;
     }
     mSprite.setTextureRect(mCurrentFrame);
-    mAnimationTimer -= 0.1f;
+    mAnimationTimer = 0.f;
   }
 }
 sf::Vector2f Player::getVelocity() { return mVelocity; }

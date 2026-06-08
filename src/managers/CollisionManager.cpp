@@ -14,6 +14,7 @@ CollisionManager::~CollisionManager() { mListEnemies.clear(); };
 void CollisionManager::execute() {
   manageCollisionGround();
   manageCollisionEnemyPlayer();
+  manageCollisionObstaclesPlayer();
 }
 
 void CollisionManager::manageCollisionEnemyPlayer() {
@@ -22,31 +23,48 @@ void CollisionManager::manageCollisionEnemyPlayer() {
   sf::FloatRect intercession;
   for (int i = 0; i < mListEnemies.size(); i++) {
     hitBoxEnemy = mListEnemies[i]->getGlobalBounds();
-    if (hitboxP1.intersects(hitBoxEnemy, intercession)) {
-      if (intercession.width > intercession.height) {
+    bool collision = hitboxP1.intersects(hitBoxEnemy, intercession);
+    if (collision) {  // Colidiu
+      bool verticalCollision = intercession.width > intercession.height;
+      if (verticalCollision) {  // Colidiu verticalmente
         if (pPlayer1->getVelocity().y > 0.f &&
             pPlayer1->getPosition().y < mListEnemies[i]->getPosition().y) {
           mListEnemies[i]->damage();
           pPlayer1->bounce();
-        } else {
-          if (pPlayer1->getPosition().x < mListEnemies[i]->getPosition().x)
-            pPlayer1->move(sf::Vector2f(-intercession.width, 0.f));
-          else
-            pPlayer1->move(sf::Vector2f(intercession.width, 0.f));
         }
-        cout << "RECEBVI DAno aiaiaia" << endl;
+      } else {  // colidiu pelos lados
+        if (pPlayer1->getPosition().x < mListEnemies[i]->getPosition().x)
+          pPlayer1->move(sf::Vector2f(-intercession.width, 0.f));
+        else
+          pPlayer1->move(sf::Vector2f(intercession.width, 0.f));
+        pPlayer1->bounce();
       }
     }
   }
 }
 
+void CollisionManager::manageCollisionObstaclesPlayer() {
+  sf::FloatRect hitboxP1 = pPlayer1->getGlobalBounds();
+  list<Obstacle*>::iterator it = mListObstacle.begin();
+  sf::FloatRect hitBoxObject;
+  sf::FloatRect intercession;
+
+  while (it != mListObstacle.end()) {
+    Obstacle* obstacle = *it;
+    hitBoxObject = obstacle->getGlobalBounds();
+    if (hitboxP1.intersects(hitBoxObject, intercession)) {
+      obstacle->obstruct(pPlayer1, intercession);
+    }
+    it++;
+  }
+}
 void CollisionManager::manageCollisionGround() {
   if (!pLevel) throw invalid_argument("Ponteiro da fase NULO!");
 
   float ground = pLevel->getGround();
   float difference;
 
-  difference = ground - pPlayer1->getGlobalBounds().height;
+  difference = ground - pPlayer1->getGlobalBounds().height / 2;
   if (pPlayer1->getPosition().y > difference) {
     pPlayer1->setPosition(sf::Vector2f(pPlayer1->getPosition().x, difference));
     pPlayer1->setOnGround(true);
@@ -56,7 +74,7 @@ void CollisionManager::manageCollisionGround() {
   bool onGround;
 
   for (int i = 0; i < mListEnemies.size(); i++) {
-    difference = ground - mListEnemies[i]->getGlobalBounds().height;
+    difference = ground - mListEnemies[i]->getGlobalBounds().height / 2;
     if (mListEnemies[i]->getPosition().y > difference) {
       mListEnemies[i]->setPosition(
           sf::Vector2f(mListEnemies[i]->getPosition().x, difference));
@@ -88,6 +106,11 @@ void CollisionManager::includeEnemy(Enemy* pE) {
     throw invalid_argument(
         "Ponteiro vazio ao incluir inimigo no gerenciador de colisoes");
   mListEnemies.push_back(pE);
+}
+
+void CollisionManager::IncludeObstacle(Obstacle* pO) {
+  if (!pO) throw invalid_argument("Ponteiro obstaculo vazio!");
+  mListObstacle.push_back(pO);
 }
 
 void CollisionManager::includeLevel(Level* pL) {

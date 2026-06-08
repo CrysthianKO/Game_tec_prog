@@ -4,6 +4,7 @@
 #include <stdexcept>
 #include <string>
 
+#include "SFML/Graphics/Rect.hpp"
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Mouse.hpp"
@@ -20,6 +21,7 @@ GraphicsManager::GraphicsManager() : mWidth(1280), mHeight(720) {
   mCamera.setSize((float)mWidth, (float)mHeight);  // Define o tamanho da Camera
   mCamera.setCenter((float)mWidth / 2,
                     (float)mHeight / 2);  // define a centralização da camera
+  mCamera.zoom(0.8f);
   mWindow.setView(mCamera);
 
   bool texturesLoaded;
@@ -42,6 +44,8 @@ GraphicsManager::GraphicsManager() : mWidth(1280), mHeight(720) {
   mTextureManager.load("RAPTOR", "./media/entities/raptor-idle.png");
   mTextureManager.load("BULLET", "./media/projectiles/PistolAmmoBig.png");
   mTextureManager.load("VINE", "./media/obstacles/vine.png");
+  mTextureManager.load("PLATFORM", "./media/obstacles/platform.png");
+  mTextureManager.load("PTERODACYL", "./media/entities/Pterodacyl.png");
 
   bool playerLoaded = mTextureManager.load(
       "PLAYER_TEXTURE", "./media/Massospondylus_idle_spritesheet.png");
@@ -78,6 +82,18 @@ void GraphicsManager::drawEnte(sf::Sprite* sprite) {
 }
 
 void GraphicsManager::updateCameraPos(sf::Vector2f pos) {
+  float maxDownView = 480.f;
+  float maxUpperView = 300.f;
+  float maxLeftView = 514.f;
+  if (pos.y > maxDownView) {
+    pos.y = maxDownView;
+  }
+  if (pos.y < maxUpperView) {
+    pos.y = maxUpperView;
+  }
+  if (pos.x < maxLeftView) {
+    pos.x = maxLeftView;
+  }
   mCamera.setCenter(pos.x, pos.y);
   mWindow.setView(mCamera);
 }

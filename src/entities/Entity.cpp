@@ -2,8 +2,8 @@
 
 #include "SFML/System/Vector2.hpp"
 
-Entity::Entity() {}
-Entity::~Entity() {}
+Entity::Entity() : mDestroyable(true) {} 
+Entity::~Entity() { cout << "Apagando Entity ID: " << mId << " da memoria." << endl; }
 
 void Entity::setTexture(string id) {
   sf::Texture* texture = pGM->getTexture(id);

@@ -14,6 +14,9 @@ class List {
   List();
   ~List();
 
+  List(const List& other) = delete;            // Bloqueia construtor de cópia
+  List& operator=(const List& other) = delete; // Bloqueia operador de atribuição
+
   void include(TYPE* p);
   void wipe();
   void print();
@@ -47,11 +50,17 @@ class List {
     bool operator==(const Iterator& other) const {
       return pCurrent == other.pCurrent;
     }
+
+    Element<TYPE>* getCurrentElement() const {
+        return pCurrent;
+    }
   };
 
   Iterator begin() const { return Iterator(pFirst); }
 
   Iterator end() const { return Iterator(NULL); }
+
+  Iterator erase(Iterator it);
 };
 
 template <class TYPE>
@@ -89,6 +98,7 @@ void List<TYPE>::wipe() {
     delete pAux;
     pAux = pFirst;
   }
+  pFirst = NULL;
   pLast = NULL;
 }
 
@@ -126,4 +136,33 @@ void List<TYPE>::remove(TYPE* p) {
     pPrevious = pAux;
     pAux = pAux->getNext();
   }
+}
+
+template<class TYPE>
+typename List<TYPE>::Iterator List<TYPE>::erase(typename List<TYPE>::Iterator it){
+    Element<TYPE>* pToErase = it.getCurrentElement();
+    if (!pToErase){
+        return end();
+    }
+    Element<TYPE>* pNextNode = pToErase->getNext();
+    Element<TYPE>* pAux = pFirst;
+    Element<TYPE>* pPrev = NULL;
+    while (pAux && pAux != pToErase){
+        pPrev = pAux;
+        pAux = pAux->getNext();
+    }
+    if (pAux == pToErase){
+        if (pPrev){
+            pPrev->setNext(pNextNode);
+        }
+        else{
+            pFirst = pNextNode;
+        }
+        if (pToErase == pLast){
+            pLast = pPrev;
+        }
+        delete pToErase;
+        pToErase = NULL;
+    }
+    return Iterator(pNextNode);
 }

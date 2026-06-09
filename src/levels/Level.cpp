@@ -14,7 +14,8 @@ Level::Level() {}
 Level::~Level() {}
 
 void Level::includePlayer(Player* pE) {
-  mListEntities.include(pE);
+    pE->setDestroyable(false);
+    mListEntities.include(pE);
   CM.includePlayer(pE);
 }
 

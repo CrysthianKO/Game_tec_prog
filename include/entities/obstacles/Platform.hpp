@@ -4,8 +4,12 @@
 #include "entities/characters/Player.hpp"
 #include "entities/obstacles/Obstacle.hpp"
 class Platform : public Obstacle {
+ private:
+  float static position;
+  float height;
+
  public:
-  Platform(float xPos);
+  Platform();
   ~Platform();
 
   void execute();

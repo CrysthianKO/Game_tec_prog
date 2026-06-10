@@ -6,17 +6,19 @@
 #include "managers/Physics.hpp"
 #include "managers/TimeManager.hpp"
 
+float Velociraptor::position(0.f);
+
 Velociraptor::Velociraptor() {
   mSpeed = 3.8f;
   mVelocity.y = 600.f;
   mWalkingTime = 0;
   mMovingRight = true;
   mRange = 160.f;
+  this->setTexture("RAPTOR");
   mSprite.scale(sf::Vector2f(1.8, 1.8));
-  float xPos =
-      rand() % (320 - 1100 + 1) + 320;  // (inicial - final + 1) + inicial
-  mSpawnX = xPos;
-  mSprite.setPosition(xPos, 500);
+  position += 1065.f;
+  mSpawnX = position;
+  mSprite.setPosition(position, 500);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {51, 26}));
   mSprite.setOrigin(25.5f, 13.f);
 }

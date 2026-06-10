@@ -8,7 +8,7 @@ using namespace std;
 Game::Game() : GM() {
   Ente::setGM(&GM);
 
-  mPlayer.setTexture("PLAYER_TEXTURE");
+  mPlayer.setup();
   mForestLevel.includePlayer(&mPlayer);
   mForestLevel.setup();
 

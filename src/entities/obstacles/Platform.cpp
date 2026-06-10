@@ -2,10 +2,13 @@
 
 #include "SFML/System/Vector2.hpp"
 
-Platform::Platform(float xPos) {
-  float yPos = rand() % (500 - 620 + 1) + 500;
-  sf::Vector2f vecPos = {xPos, yPos};
-  mSprite.setPosition(vecPos);
+float Platform::position(0.f);
+
+Platform::Platform() {
+  height = 580.f;
+  this->setTexture("PLATFORM");
+  position += 1185.f;
+  mSprite.setPosition(position, height);
   mSprite.setScale(sf::Vector2f(1.7f, 1.7f));
   mSprite.setTextureRect(sf::IntRect({0, 0}, {128, 23}));
 }

@@ -3,17 +3,16 @@
 
 #include "levels/Level.hpp"
 
-class ForestLevel : public Level {
+class ExtinctionLevel : public Level {
  private:
-  int maxMidEnemies;
-  int maxMidObstacles;
+  int maxBoss;
+  int maxHardObstacles;
 
  public:
-  ForestLevel();
-  ~ForestLevel();
+  ExtinctionLevel();
+  ~ExtinctionLevel();
   void setup();
   void render();
-  void execute();
 
  protected:
   void createEnemies();

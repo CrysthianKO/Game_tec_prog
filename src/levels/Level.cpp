@@ -14,8 +14,8 @@ Level::Level() {}
 Level::~Level() {}
 
 void Level::includePlayer(Player* pE) {
-    pE->setDestroyable(false);
-    mListEntities.include(pE);
+  pE->setDestroyable(false);
+  mListEntities.include(pE);
   CM.includePlayer(pE);
 }
 
@@ -78,27 +78,14 @@ void Level::createEasyEnemies() {
       rand() % (3 - 5 + 1) + 3;  // (inicial - final + 1) + inicial
   for (int i = 0; i < numEnemies; i++) {
     Velociraptor* newEnemy = new Velociraptor();
-    newEnemy->setTexture("RAPTOR");
     mListEntities.include(newEnemy);
     CM.includeEnemy(newEnemy);
   }
 }
-void Level::createPlatforms(float numPlat) {
+void Level::createPlatforms() {
+  float numPlat = rand() % (3 - 6 + 1) + 3;  // (inicial - final + 1) + inicial
   for (int i = 0; i < numPlat; i++) {
-  }
-  int numPossiblePlatforms = numPlat * 10;
-  vector<int> possiblePositions;
-  for (int i = 1; i <= numPossiblePlatforms; i++) {
-    possiblePositions.push_back(i * 90.f);
-  }
-
-  for (int i = 0; i < numPlat; i++) {
-    int randPos = rand() % (0 - numPossiblePlatforms +
-                            1);  // (inicial - final + 1) + inicial
-    float xPos = possiblePositions.at(randPos);
-    possiblePositions.erase(possiblePositions.begin() + randPos);
-    Platform* platform = new Platform(xPos);
-    platform->setTexture("PLATFORM");
+    Platform* platform = new Platform();
     mListEntities.include(platform);
     CM.IncludeObstacle(platform);
   }

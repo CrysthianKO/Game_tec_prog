@@ -6,7 +6,11 @@
 #include "managers/Physics.hpp"
 #include "managers/TimeManager.hpp"
 
-Player::Player() {
+Player::Player() {}
+
+Player::~Player() {}
+
+void Player::setup() {
   mVelocity.x = 0.f;
   mVelocity.y = 0.f;
 
@@ -16,16 +20,13 @@ Player::Player() {
   mMoviment.left = false;
 
   mCurrentFrame = sf::IntRect({0, 0}, {64, 64});
+  this->setTexture("PLAYER_TEXTURE");
   mSprite.setPosition(0.f, 0.f);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {64, 64}));
   mSprite.setOrigin(32.f, 32.f);
 }
-
-Player::~Player() {}
-
 void Player::save() {}
 void Player::move(sf::Vector2f move) { mSprite.move(move); }
-
 void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
   // pulo
   if (key == sf::Keyboard::Key::Space && isPressed && mOnGround) {
@@ -45,27 +46,6 @@ void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
   else if (key == sf::Keyboard::Key::D)
     mMoviment.right = isPressed;
 }
-
-// void Player::execute() {
-//   float dt = TimeManager::getInstance().getDeltaTime();
-
-//   if (mMoviment.up) mVelocity.y -= mJumpingAcce * dt;
-//   if (mMoviment.right) mVelocity.x += mRunningAcce * dt;
-//   if (mmoviment.lef* dtt) mVelocity.x -= mRunningAcce * dt;
-//   if (mMoviment.down) mVelocity.y += mGravity * dt;
-
-//   sf::Vector2f offSet = mVelocity * dt;
-
-//   float groundLevel = 720.f - mSprite.getGlobalBounds().height;
-//   if (mSprite.getPosition().y > groundLevel) {
-//     mSprite.setPosition({mSprite.getPosition().x, groundLevel});
-//     mVelocity.y = 0.f;
-//     // flag para pulo
-//     mIsGrounded = true;
-//   }
-
-//   mSprite.move(offSet);
-// }
 
 void Player::execute() {
   float dt = TimeManager::getInstance().getDeltaTime();
@@ -137,5 +117,4 @@ void Player::updateAnimation(float dt) {
   }
 }
 sf::Vector2f Player::getVelocity() { return mVelocity; }
-
 CharacterType Player::getCharacterType() const { return CH_PLAYER; }

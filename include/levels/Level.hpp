@@ -34,9 +34,9 @@ class Level : public Ente {
   sf::Texture* getTexture(string id);
 
   void createEasyEnemies();
-  void createPlatforms(float numPlat);
+  void createPlatforms();
 
   virtual void createEnemies() = 0;
-  virtual void createObstacles(int numObstacles) = 0;
+  virtual void createObstacles() = 0;
   virtual void createScenario() = 0;
 };

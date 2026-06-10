@@ -9,12 +9,15 @@ class Entity : public Ente {
  protected:
   sf::Sprite mSprite;
   bool mDestroyable;
+
+ protected:
+  void setTexture(string id);
+
  public:
   Entity();
   virtual ~Entity();
   void setDestroyable(bool d) { mDestroyable = d; }
   bool isDestroyable() const { return mDestroyable; }
-  void setTexture(string id);
   void draw();
   virtual void execute() = 0;
   virtual void save() = 0;

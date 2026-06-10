@@ -4,6 +4,9 @@
 #include "entities/characters/Enemy.hpp"
 
 class Velociraptor : public Enemy {
+ private:
+  static float position;
+
  public:
   Velociraptor();
   virtual ~Velociraptor();

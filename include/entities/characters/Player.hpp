@@ -26,6 +26,7 @@ class Player : public Character {
   void execute();
   void save();
   void move(sf::Vector2f move);
+  void setup();
   void slow();
   void bounce();
   void handleInput(sf::Keyboard::Key key, bool isPressed);

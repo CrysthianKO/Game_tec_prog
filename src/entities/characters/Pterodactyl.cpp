@@ -4,24 +4,32 @@
 #include "managers/Physics.hpp"
 #include "managers/TimeManager.hpp"
 
+float Pterodactyl::position(0.f);
+
 Pterodactyl::Pterodactyl() {
   mVelocity = {0.f, 0.f};
   mSpeed = 2.7f;
   mWalkingTime = 0;
   mMovingRight = true;
   mRange = 120.f;
+
+  this->setTexture("PTERODACYL");
   mSprite.scale(sf::Vector2f(2.3, 2.3));
-  float xPos =
-      rand() % (520 - 1100 + 1) + 520;  // (inicial - final + 1) + inicial
-  float yPos = rand() % (400 - 470 + 1) + 400;
-  mSpawnX = xPos;
-  mSprite.setPosition(xPos, yPos);
+  position += 915.f;
+  mSpawnX = position;
+  mSprite.setPosition(position, 460.f);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {31, 17}));
 }
 Pterodactyl::~Pterodactyl() {}
 
 void Pterodactyl::execute() {
   float dt = TimeManager::getInstance().getDeltaTime();
+
+  mWalkingTime += dt;
+  if (mWalkingTime > 0.8f) {
+    mMovingRight = rand() % 2;
+    mWalkingTime = 0.f;
+  }
 
   float leftWall = mSpawnX - mRange;
   float rightWall = mSpawnX + mRange;

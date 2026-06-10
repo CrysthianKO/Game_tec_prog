@@ -1,7 +1,10 @@
 #include "entities/obstacles/Obstacle.hpp"
 class Vine : public Obstacle {
+ private:
+  static float position;
+
  public:
-  Vine(float xPos);
+  Vine();
   ~Vine();
 
   void execute();

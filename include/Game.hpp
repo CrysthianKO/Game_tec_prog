@@ -15,8 +15,8 @@
 
 class Game {
  private:
-  GraphicsManager GM;
-  Player mPlayer;
+  GraphicsManager* pGM;
+  Player* mPlayer;
   ForestLevel mForestLevel;
 
  public:

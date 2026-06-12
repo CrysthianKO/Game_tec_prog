@@ -17,7 +17,7 @@ ListEntities::~ListEntities() {
 		it = lEs.erase(it);
 		//++it;
 	}
-	//lEs.wipe(); //comentar aqui caso dê erro de ponteiro duplamente deletado
+	lEs.wipe(); //comentar aqui caso dê erro de ponteiro duplamente deletado
 }
 
 void ListEntities::include(Entity* pE) { lEs.include(pE); }

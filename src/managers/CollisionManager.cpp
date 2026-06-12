@@ -6,10 +6,33 @@
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "levels/Level.hpp"
+#include "entities/characters/Player.hpp"
 
-CollisionManager::CollisionManager() : pPlayer1(NULL), pPlayer2(NULL) {};
+CollisionManager* CollisionManager::instance = NULL;
 
-CollisionManager::~CollisionManager() { mListEnemies.clear(); };
+CollisionManager::CollisionManager() : pPlayer1(NULL), pPlayer2(NULL), pLevel(NULL),
+mListEnemies(), mListObstacle(), mListProjectables() {};
+
+CollisionManager::~CollisionManager() { clearComponents(); }
+CollisionManager* CollisionManager::getInstance()
+{
+    if (!instance)
+    {
+        instance = new CollisionManager();
+    }
+    return instance;
+}
+;
+
+void CollisionManager::clearComponents()
+{
+    mListEnemies.clear();
+    mListObstacle.clear();
+    mListProjectables.clear();
+    pPlayer1 = NULL;
+    pPlayer2 = NULL;
+    pLevel = NULL;
+}
 
 void CollisionManager::execute() {
   manageCollisionGround();
@@ -41,6 +64,11 @@ void CollisionManager::manageCollisionEnemyPlayer() {
       }
     }
   }
+}
+
+const bool CollisionManager::checkCollision(Player* pP1, Player* pP2) const
+{
+    return false;
 }
 
 void CollisionManager::manageCollisionObstaclesPlayer() {

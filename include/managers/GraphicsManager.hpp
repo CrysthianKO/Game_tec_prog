@@ -22,17 +22,20 @@ class GraphicsManager {
   sf::Font mFont;
   sf::Text mText;
 
- public:
+ private:
   sf::RenderWindow mWindow;  // VAI SER SINGLETON
-
- public:
+  static GraphicsManager* instance;
+ private:
   GraphicsManager();
+ public:
   ~GraphicsManager();
-
+  static GraphicsManager* getInstance();
+  
   void clear();
   void display();
   void close();
   bool isOpen();
+  bool pollEvent(sf::Event& event);
 
   void updateCameraPos(sf::Vector2f pos);
 
@@ -42,4 +45,6 @@ class GraphicsManager {
 
   void drawEnte(sf::Sprite* sprite);
   void drawPosition(sf::Vector2f position);
+
+  sf::RenderWindow* getWindow();
 };

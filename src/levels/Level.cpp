@@ -8,15 +8,25 @@
 #include "entities/characters/Player.hpp"
 #include "entities/characters/Velociraptor.hpp"
 #include "entities/obstacles/Platform.hpp"
+#include "managers/CollisionManager.hpp"
 
-Level::Level() {}
+Level::Level() : pCM(CollisionManager::getInstance()), mLayers(), mGround(), mGroundLevel(0.f), pListEntities(NULL)
+{
+    pListEntities = new ListEntities();
+    if (pCM) {
+        pCM->includeLevel(this);
+    }
+}
 
-Level::~Level() {}
+Level::~Level() {
+    delete pListEntities;
+    pListEntities = NULL;
+}
 
 void Level::includePlayer(Player* pE) {
   pE->setDestroyable(false);
-  mListEntities.include(pE);
-  CM.includePlayer(pE);
+  pListEntities->include(pE);
+  pCM->includePlayer(pE);
 }
 
 sf::Texture* Level::getTexture(string id) { return pGM->getTexture(id); }
@@ -75,18 +85,18 @@ float Level::getGround() { return mGroundLevel; }
 
 void Level::createEasyEnemies() {
   float numEnemies =
-      rand() % (3 - 5 + 1) + 3;  // (inicial - final + 1) + inicial
+      (rand() % (3 - 5 + 1)) + 3;  // (inicial - final + 1) + inicial
   for (int i = 0; i < numEnemies; i++) {
     Velociraptor* newEnemy = new Velociraptor();
-    mListEntities.include(newEnemy);
-    CM.includeEnemy(newEnemy);
+    pListEntities->include(newEnemy);
+    pCM->includeEnemy(newEnemy);
   }
 }
 void Level::createPlatforms() {
-  float numPlat = rand() % (3 - 6 + 1) + 3;  // (inicial - final + 1) + inicial
+  float numPlat = (rand() % (3 - 6 + 1)) + 3;  // (inicial - final + 1) + inicial
   for (int i = 0; i < numPlat; i++) {
     Platform* platform = new Platform();
-    mListEntities.include(platform);
-    CM.IncludeObstacle(platform);
+    pListEntities->include(platform);
+    pCM->IncludeObstacle(platform);
   }
 }

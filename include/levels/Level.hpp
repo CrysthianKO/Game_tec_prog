@@ -4,7 +4,10 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "entities/Ente.hpp"
 #include "entities/ListEntities.hpp"
-#include "managers/CollisionManager.hpp"
+//#include "managers/CollisionManager.hpp"
+
+class Player;
+class CollisionManager;
 
 struct BackgroundLayer {  // Struct para guardar o background e seus layers
   sf::Sprite sprite;
@@ -13,15 +16,19 @@ struct BackgroundLayer {  // Struct para guardar o background e seus layers
 
 class Level : public Ente {
  protected:
-  CollisionManager CM;
+  CollisionManager* pCM;
   vector<BackgroundLayer> mLayers;
   vector<sf::Sprite> mGround;
   float mGroundLevel;
-  ListEntities mListEntities;
+  ListEntities* pListEntities;
 
  public:
   Level();
-  ~Level();
+  virtual ~Level();
+
+  Level(const Level& other) = delete;
+  Level& operator=(const Level& other) = delete;
+
   virtual void execute() {}
   void includePlayer(Player* pE);
   void drawBackground();

@@ -78,10 +78,12 @@ void List<TYPE>::include(TYPE* p) {
     Element<TYPE>* pNew = new Element<TYPE>();
     pNew->setInfo(p);
 
-    if (!pFirst) {
+    if (pFirst == NULL || pLast == NULL || ((uintptr_t)pLast) >= 0xFFFFFFFFFFFFFFF0) {
       pFirst = pNew;
       pLast = pNew;
     } else {
+        if(!pLast){ cout << "ERRO: pLast é nulo mas pFirst não é!" << endl; }
+        cout << "Tentando dar setNext em: " << pLast << endl;
       pLast->setNext(pNew);
       pLast = pNew;
     }
@@ -152,7 +154,7 @@ typename List<TYPE>::Iterator List<TYPE>::erase(typename List<TYPE>::Iterator it
         pAux = pAux->getNext();
     }
     if (pAux == pToErase){
-        if (pPrev){
+        if (pPrev != pNextNode){
             pPrev->setNext(pNextNode);
         }
         else{

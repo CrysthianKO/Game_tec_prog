@@ -15,7 +15,7 @@ ForestLevel::ForestLevel() {
 ForestLevel::~ForestLevel() {}
 
 void ForestLevel::setup() {
-  CM.includeLevel(this);
+  pCM->includeLevel(this);
   createEasyEnemies();
   createEnemies();
   createScenario();
@@ -25,27 +25,27 @@ void ForestLevel::setup() {
 
 void ForestLevel::render() {
   drawBackground();
-  mListEntities.drawEntities();
+  pListEntities->drawEntities();
   drawGround();
 }
 
 void ForestLevel::execute() {
-  CM.execute();
-  mListEntities.execute();
+  pCM->execute();
+  pListEntities->execute();
 }
 void ForestLevel::createEnemies() {
   for (int i = 0; i < maxMidEnemies; i++) {
     Pterodactyl* newPtero = new Pterodactyl();
-    mListEntities.include(newPtero);
-    CM.includeEnemy(newPtero);
+    pListEntities->include(newPtero);
+    pCM->includeEnemy(newPtero);
   }
 }
 
 void ForestLevel::createObstacles() {
   for (int i = 0; i < maxMidObstacles; i++) {
     Vine* vine = new Vine();
-    mListEntities.include(vine);
-    CM.IncludeObstacle(vine);
+    pListEntities->include(vine);
+    pCM->IncludeObstacle(vine);
   }
 }
 

@@ -5,11 +5,13 @@
 
 using namespace std;
 
-Game::Game() : GM() {
-  Ente::setGM(&GM);
+Game::Game() : pGM(GraphicsManager::getInstance()) {
+  Ente::setGM(pGM);
 
-  mPlayer.setup();
-  mForestLevel.includePlayer(&mPlayer);
+  mPlayer = new Player();
+
+  mPlayer->setup();
+  mForestLevel.includePlayer(mPlayer);
   mForestLevel.setup();
 
   std::srand(static_cast<unsigned int>(std::time(NULL)));
@@ -21,7 +23,7 @@ Game::~Game() {}
 void Game::run() {
   TimeManager& timeManager = TimeManager::getInstance();
 
-  while (GM.isOpen()) {
+  while (pGM->isOpen()) {
     timeManager.updateClock();
     processEvents();
     execute();
@@ -34,20 +36,20 @@ void Game::run() {
 void Game::processEvents() {
   sf::Event event;
 
-  while (GM.mWindow.pollEvent(event)) {
+  while (pGM->pollEvent(event)) {
     if (event.type == sf::Event::Closed) {
-      GM.close();
+      pGM->close();
     }
 
     else if (event.type == sf::Event::KeyPressed) {
       if (event.key.code == sf::Keyboard::Escape)
-        GM.close();  // temporario fechar pq ja basta ter q clicar n "X" toda
+        pGM->close();  // temporario fechar pq ja basta ter q clicar n "X" toda
                      // vez :P
-      mPlayer.handleInput(event.key.code, true);
+      mPlayer->handleInput(event.key.code, true);
     }
 
     else if (event.type == sf::Event::KeyReleased) {
-      mPlayer.handleInput(event.key.code, false);
+      mPlayer->handleInput(event.key.code, false);
     }
   }
 }
@@ -59,11 +61,11 @@ void Game::execute() { mForestLevel.execute(); }
 // atualiza a tela: apaga a tela anterior, desenha os novos objetos e mostra a
 // nova tela para o usuario
 void Game::render() {
-  GM.clear();
-  GM.updateCameraPos(mPlayer.getPosition());
+  pGM->clear();
+  pGM->updateCameraPos(mPlayer->getPosition());
   mForestLevel.render();
   // GM.showMousePosition();
-  GM.drawPosition(mPlayer.getPosition());
+  pGM->drawPosition(mPlayer->getPosition());
   //  mCurrentBone.draw(&GG.mWindow);
-  GM.display();
+  pGM->display();
 }

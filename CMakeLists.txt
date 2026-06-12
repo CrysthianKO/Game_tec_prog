@@ -28,6 +28,11 @@ set(SOURCES
   src/Main.cpp
   src/Game.cpp
   # src/Menu.cpp
+  src/state_machine/State.cpp
+  src/state_machine/ExtinctionLevelState.cpp
+  src/state_machine/ForestLevelState.cpp
+  src/state_machine/Ranking.cpp
+  src/state_machine/Menu.cpp
   src/entities/Ente.cpp
   src/entities/Entity.cpp
   src/entities/ListEntities.cpp

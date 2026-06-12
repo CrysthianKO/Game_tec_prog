@@ -11,6 +11,8 @@
 #include "SFML/Window/VideoMode.hpp"
 #include "SFML/Window/WindowStyle.hpp"
 
+GraphicsManager* GraphicsManager::instance = NULL;
+
 GraphicsManager::GraphicsManager() : mWidth(1280), mHeight(720) {
   mWindow.create(sf::VideoMode(mWidth, mHeight), "JOGO MASSA DINOSSAUR 2000X",
                  sf::Style::Titlebar |
@@ -66,10 +68,20 @@ GraphicsManager::GraphicsManager() : mWidth(1280), mHeight(720) {
 
 GraphicsManager::~GraphicsManager() {}
 
+GraphicsManager* GraphicsManager::getInstance()
+{
+    if (!instance)
+    {
+        instance = new GraphicsManager();
+    }
+    return instance;
+}
+
 void GraphicsManager::clear() { mWindow.clear(); }
 void GraphicsManager::display() { mWindow.display(); }
 void GraphicsManager::close() { mWindow.close(); }
 bool GraphicsManager::isOpen() { return mWindow.isOpen(); };
+bool GraphicsManager::pollEvent(sf::Event& event){return mWindow.pollEvent(event); }
 
 void GraphicsManager::drawEnte(sf::Sprite* sprite) {
   if (!sprite) {

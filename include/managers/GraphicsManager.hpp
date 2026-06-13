@@ -47,4 +47,7 @@ class GraphicsManager {
   void drawPosition(sf::Vector2f position);
 
   sf::RenderWindow* getWindow();
+
+  const float getWindowWidth() const;
+  const float getWindowHeight() const;
 };

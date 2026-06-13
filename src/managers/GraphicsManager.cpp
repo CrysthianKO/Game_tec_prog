@@ -138,3 +138,17 @@ void GraphicsManager::showMousePosition() {
   mText.setPosition(camPos.x - (mWidth / 2), camPos.y - (mHeight / 2));
   mWindow.draw(mText);
 }
+
+sf::RenderWindow* GraphicsManager::getWindow() {
+    return &mWindow;
+}
+
+const float GraphicsManager::getWindowWidth() const
+{
+    return static_cast<float>(mWindow.getSize().x);
+}
+
+const float GraphicsManager::getWindowHeight() const
+{
+    return static_cast<float>(mWindow.getSize().y);
+}

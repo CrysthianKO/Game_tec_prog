@@ -3,20 +3,20 @@
 ListEntities::ListEntities() : lEs() {}
 
 ListEntities::~ListEntities() {
-	List<Entity>::Iterator it = lEs.begin();
-	while (it != lEs.end())
-	{
-		Entity* pE = *it; //desreferencia (&(*it))
-		if (pE)
-		{
-			if (pE->isDestroyable()) {
-				delete pE;
-			}
-			pE = NULL;
-		}
-		it = lEs.erase(it);
-		//++it;
-	}
+	//List<Entity>::Iterator it = lEs.begin();
+	//while (it != lEs.end())
+	//{
+	//	Entity* pE = *it; //desreferencia (&(*it))
+	//	if (pE)
+	//	{
+	//		if (pE->isDestroyable()) {
+	//			delete pE;
+	//		}
+	//		pE = NULL;
+	//	}
+	//	it = lEs.erase(it);
+	//	//++it;
+	//}
 	lEs.wipe(); //comentar aqui caso dê erro de ponteiro duplamente deletado
 }
 

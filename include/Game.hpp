@@ -13,19 +13,24 @@
 #include "levels/ForestLevel.hpp"
 #include "managers/GraphicsManager.hpp"
 
+class State;
+class CollisionManager;
 class Game {
  private:
   GraphicsManager* pGM;
-  Player* mPlayer;
-  ForestLevel mForestLevel;
+  CollisionManager* pCM;
+  State* currentState;
+  //Player* mPlayer;
+  //ForestLevel mForestLevel;
 
  public:
   Game();
   ~Game();
   void run();
+  void changeState(State* newState);
 
  private:
   void processEvents();
-  void execute();
+  void update();
   void render();
 };

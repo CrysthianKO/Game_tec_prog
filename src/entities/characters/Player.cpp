@@ -11,6 +11,11 @@ Player::Player() {}
 Player::~Player() {}
 
 void Player::setup() {
+  mNumberLives = 5;
+
+  mAnimationTimer = 0.0f;
+  mDamageTimer = 0.0f;
+
   mVelocity.x = 0.f;
   mVelocity.y = 0.f;
 
@@ -49,43 +54,49 @@ void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
 
 void Player::execute() {
   float dt = TimeManager::getInstance().getDeltaTime();
-
-  sf::Vector2f movement(0.f, 0.f);
+  sf::Vector2f moviment(0.f, 0.f);
+  pPhysics->applyGravity(mVelocity);
 
   // aplica gravidade ao player, aumentando a velocidade vertical do player
   // cada frame
-  Physics::applyGravity(&mVelocity);
-  if (mRunning)
-    mSpeed = 6.3f;
-  else
-    mSpeed = 3.7f;
+  if (mDamageTimer > 0.f) {
+    moviment.x = mVelocity.x;
+    mDamageTimer -= dt;
+    mSprite.setColor(sf::Color::Red);
+  } else {
+    mSprite.setColor(sf::Color::White);
+    if (mRunning)
+      mSpeed = 6.3f;
+    else
+      mSpeed = 3.7f;
 
-  if (mMoviment.right) {
-    movement.x += mSpeed;
-    mSprite.setScale(1.f, 1.f);
-  }
-  if (mMoviment.left) {
-    movement.x -= mSpeed;
-    mSprite.setScale(-1.f, 1.f);
-  }
+    if (mMoviment.right) {
+      moviment.x += mSpeed;
+      mSprite.setScale(1.f, 1.f);
+    }
+    if (mMoviment.left) {
+      moviment.x -= mSpeed;
+      mSprite.setScale(-1.f, 1.f);
+    }
 
-  if (mMoviment.up && mOnGround) {
-    float jumpForce = 870.f;
-    mVelocity.y = -jumpForce;
-    mOnGround = false;
-  }
+    if (mMoviment.up && mOnGround) {
+      float jumpForce = 870.f;
+      mVelocity.y = -jumpForce;
+      mOnGround = false;
+    }
 
-  if (!mMoviment.up && mVelocity.y < 0.0f) {
-    mVelocity.y *= 0.5;
-  }
-  if (mMoviment.down) {
-    mVelocity.y *= 1.02f;
-  }
+    if (!mMoviment.up && mVelocity.y < 0.0f) {
+      mVelocity.y *= 0.5;
+    }
+    if (mMoviment.down) {
+      mVelocity.y *= 1.02f;
+    }
 
-  movement.y = mVelocity.y * dt;
+    // dx = v * dt
+  }
+  moviment.y = mVelocity.y * dt;
 
-  // dx = v * dt
-  mSprite.move(movement);
+  mSprite.move(moviment);
 
   if (mOnGround) {
     mVelocity.y = 0.f;
@@ -95,10 +106,17 @@ void Player::execute() {
   updateAnimation(dt);
 }
 
-void Player::bounce() {
-  float dt = TimeManager::getInstance().getDeltaTime();
-  mVelocity = -mVelocity * 0.2f;
-  mSprite.move(mVelocity * dt);
+void Player::takeDamage(int damage, float directionX) {
+  if (mDamageTimer > 0.f) return;
+
+  mNumberLives--;
+
+  mDamageTimer = 0.3f;
+
+  mVelocity.y = -580.f;
+  mVelocity.x = 2.8f * directionX;
+
+  mOnGround = false;
 }
 
 void Player::slow() { mVelocity *= 0.3f; }

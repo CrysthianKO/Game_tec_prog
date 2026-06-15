@@ -8,8 +8,8 @@
 #include "managers/CollisionManager.hpp"
 
 ForestLevel::ForestLevel() {
-  maxMidEnemies = 5;
-  maxMidObstacles = 5;
+  maxMidEnemies = 7;
+  maxMidObstacles = 7;
 }
 
 ForestLevel::~ForestLevel() {}
@@ -34,7 +34,8 @@ void ForestLevel::execute() {
   pListEntities->execute();
 }
 void ForestLevel::createEnemies() {
-  for (int i = 0; i < maxMidEnemies; i++) {
+  int max = rand() % (maxMidEnemies - 3 + 1) + 3;
+  for (int i = 0; i < max; i++) {
     Pterodactyl* newPtero = new Pterodactyl();
     pListEntities->include(newPtero);
     pCM->includeEnemy(newPtero);
@@ -42,7 +43,8 @@ void ForestLevel::createEnemies() {
 }
 
 void ForestLevel::createObstacles() {
-  for (int i = 0; i < maxMidObstacles; i++) {
+  int max = rand() % (maxMidObstacles - 3 + 1) + 3;
+  for (int i = 0; i < max; i++) {
     Vine* vine = new Vine();
     pListEntities->include(vine);
     pCM->IncludeObstacle(vine);

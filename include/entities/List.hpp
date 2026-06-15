@@ -14,8 +14,9 @@ class List {
   List();
   ~List();
 
-  List(const List& other) = delete;            // Bloqueia construtor de cópia
-  List& operator=(const List& other) = delete; // Bloqueia operador de atribuição
+  List(const List& other) = delete;  // Bloqueia construtor de cópia
+  List& operator=(const List& other) =
+      delete;  // Bloqueia operador de atribuição
 
   void include(TYPE* p);
   void wipe();
@@ -51,9 +52,7 @@ class List {
       return pCurrent == other.pCurrent;
     }
 
-    Element<TYPE>* getCurrentElement() const {
-        return pCurrent;
-    }
+    Element<TYPE>* getCurrentElement() const { return pCurrent; }
   };
 
   Iterator begin() const { return Iterator(pFirst); }
@@ -78,12 +77,16 @@ void List<TYPE>::include(TYPE* p) {
     Element<TYPE>* pNew = new Element<TYPE>();
     pNew->setInfo(p);
 
-    if (pFirst == NULL || pLast == NULL || ((uintptr_t)pLast) >= 0xFFFFFFFFFFFFFFF0) {
+    if (pFirst == NULL || pLast == NULL
+        //   || ((__uintptr_t)pLast) >= 0xFFFFFFFFFFFFFFF0
+    ) {
       pFirst = pNew;
       pLast = pNew;
     } else {
-        if(!pLast){ cout << "ERRO: pLast é nulo mas pFirst não é!" << endl; }
-        cout << "Tentando dar setNext em: " << pLast << endl;
+      if (!pLast) {
+        cout << "ERRO: pLast é nulo mas pFirst não é!" << endl;
+      }
+      cout << "Tentando dar setNext em: " << pLast << endl;
       pLast->setNext(pNew);
       pLast = pNew;
     }
@@ -140,31 +143,31 @@ void List<TYPE>::remove(TYPE* p) {
   }
 }
 
-template<class TYPE>
-typename List<TYPE>::Iterator List<TYPE>::erase(typename List<TYPE>::Iterator it){
-    Element<TYPE>* pToErase = it.getCurrentElement();
-    if (!pToErase){
-        return end();
+template <class TYPE>
+typename List<TYPE>::Iterator List<TYPE>::erase(
+    typename List<TYPE>::Iterator it) {
+  Element<TYPE>* pToErase = it.getCurrentElement();
+  if (!pToErase) {
+    return end();
+  }
+  Element<TYPE>* pNextNode = pToErase->getNext();
+  Element<TYPE>* pAux = pFirst;
+  Element<TYPE>* pPrev = NULL;
+  while (pAux && pAux != pToErase) {
+    pPrev = pAux;
+    pAux = pAux->getNext();
+  }
+  if (pAux == pToErase) {
+    if (pPrev != pNextNode) {
+      pPrev->setNext(pNextNode);
+    } else {
+      pFirst = pNextNode;
     }
-    Element<TYPE>* pNextNode = pToErase->getNext();
-    Element<TYPE>* pAux = pFirst;
-    Element<TYPE>* pPrev = NULL;
-    while (pAux && pAux != pToErase){
-        pPrev = pAux;
-        pAux = pAux->getNext();
+    if (pToErase == pLast) {
+      pLast = pPrev;
     }
-    if (pAux == pToErase){
-        if (pPrev != pNextNode){
-            pPrev->setNext(pNextNode);
-        }
-        else{
-            pFirst = pNextNode;
-        }
-        if (pToErase == pLast){
-            pLast = pPrev;
-        }
-        delete pToErase;
-        pToErase = NULL;
-    }
-    return Iterator(pNextNode);
+    delete pToErase;
+    pToErase = NULL;
+  }
+  return Iterator(pNextNode);
 }

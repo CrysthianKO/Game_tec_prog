@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include "SFML/System/Vector2.hpp"
 #include "entities/Entity.hpp"
 #include "entities/EntityType.hpp"
 
@@ -9,7 +8,6 @@ class Character : public Entity {
  protected:
   int mNumberLives;
   float mSpeed;
-  sf::Vector2f mVelocity;
   bool mOnGround;
 
  public:

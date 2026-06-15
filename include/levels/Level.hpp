@@ -4,7 +4,7 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "entities/Ente.hpp"
 #include "entities/ListEntities.hpp"
-//#include "managers/CollisionManager.hpp"
+// #include "managers/CollisionManager.hpp"
 
 class Player;
 class CollisionManager;
@@ -29,7 +29,7 @@ class Level : public Ente {
   Level(const Level& other) = delete;
   Level& operator=(const Level& other) = delete;
 
-  virtual void execute() {}
+  virtual void execute() = 0;
   void includePlayer(Player* pE);
   void drawBackground();
   void drawGround();

@@ -5,33 +5,34 @@
 
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/System/Vector2.hpp"
-#include "levels/Level.hpp"
 #include "entities/characters/Player.hpp"
+#include "levels/Level.hpp"
 
 CollisionManager* CollisionManager::instance = NULL;
 
-CollisionManager::CollisionManager() : pPlayer1(NULL), pPlayer2(NULL), pLevel(NULL),
-mListEnemies(), mListObstacle(), mListProjectables() {};
+CollisionManager::CollisionManager()
+    : pPlayer1(NULL),
+      pPlayer2(NULL),
+      pLevel(NULL),
+      mListEnemies(),
+      mListObstacle(),
+      mListProjectables() {};
 
 CollisionManager::~CollisionManager() { clearComponents(); }
-CollisionManager* CollisionManager::getInstance()
-{
-    if (!instance)
-    {
-        instance = new CollisionManager();
-    }
-    return instance;
-}
-;
+CollisionManager* CollisionManager::getInstance() {
+  if (!instance) {
+    instance = new CollisionManager();
+  }
+  return instance;
+};
 
-void CollisionManager::clearComponents()
-{
-    mListEnemies.clear();
-    mListObstacle.clear();
-    mListProjectables.clear();
-    pPlayer1 = NULL;
-    pPlayer2 = NULL;
-    pLevel = NULL;
+void CollisionManager::clearComponents() {
+  mListEnemies.clear();
+  mListObstacle.clear();
+  mListProjectables.clear();
+  pPlayer1 = NULL;
+  pPlayer2 = NULL;
+  pLevel = NULL;
 }
 
 void CollisionManager::execute() {
@@ -53,22 +54,20 @@ void CollisionManager::manageCollisionEnemyPlayer() {
         if (pPlayer1->getVelocity().y > 0.f &&
             pPlayer1->getPosition().y < mListEnemies[i]->getPosition().y) {
           mListEnemies[i]->damage();
-          pPlayer1->bounce();
         }
       } else {  // colidiu pelos lados
-        if (pPlayer1->getPosition().x < mListEnemies[i]->getPosition().x)
-          pPlayer1->move(sf::Vector2f(-intercession.width, 0.f));
-        else
-          pPlayer1->move(sf::Vector2f(intercession.width, 0.f));
-        pPlayer1->bounce();
+        if (pPlayer1->getPosition().x < mListEnemies[i]->getPosition().x) {
+          pPlayer1->takeDamage(1, -1);
+        } else {
+          pPlayer1->takeDamage(1, 1);
+        }
       }
     }
   }
 }
 
-const bool CollisionManager::checkCollision(Player* pP1, Player* pP2) const
-{
-    return false;
+const bool CollisionManager::checkCollision(Player* pP1, Player* pP2) const {
+  return false;
 }
 
 void CollisionManager::manageCollisionObstaclesPlayer() {

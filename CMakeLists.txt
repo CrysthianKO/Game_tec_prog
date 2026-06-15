@@ -42,17 +42,19 @@ set(SOURCES
   # src/entities/personagens/Tanystropheus.cpp
   src/entities/characters/Pterodactyl.cpp
   src/entities/characters/Velociraptor.cpp
+  src/entities/characters/DinoBoss.cpp
   # src/entities/personagens/Mamenchissauro.cpp
   # src/entities/collectables/Collectable.cpp
   # src/entities/collectables/Bone.cpp
   src/entities/obstacles/Obstacle.cpp
   src/entities/obstacles/Platform.cpp
-   src/entities/obstacles/Vine.cpp
-  # src/entities/obstacles/Fogo.cpp
+  src/entities/obstacles/Vine.cpp
+  src/entities/obstacles/Fire.cpp
   src/entities/projectables/Projectable.cpp
   # src/entities/projectables/LaserBall.cpp
   src/levels/Level.cpp
   src/levels/ForestLevel.cpp
+  src/levels/ExtinctionLevel.cpp
   # src/levels/ExtinctionLevel.cpp
   src/managers/GraphicsManager.cpp
   src/managers/CollisionManager.cpp

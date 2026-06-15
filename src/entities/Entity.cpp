@@ -1,9 +1,13 @@
 #include "entities/Entity.hpp"
 
 #include "SFML/System/Vector2.hpp"
+#include "managers/Physics.hpp"
 
-Entity::Entity() : mDestroyable(true) {} 
-Entity::~Entity() { cout << "Apagando Entity ID: " << mId << " da memoria." << endl; }
+Entity::Entity()
+    : mDestroyable(true), pPhysics(Physics::getInstance()), mVelocity(0, 0) {}
+Entity::~Entity() {
+  cout << "Apagando Entity ID: " << mId << " da memoria." << endl;
+}
 
 void Entity::setTexture(string id) {
   sf::Texture* texture = pGM->getTexture(id);

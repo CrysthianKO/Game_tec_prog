@@ -26,62 +26,64 @@ GraphicsManager::GraphicsManager() : mWidth(1280), mHeight(720) {
   mCamera.zoom(0.8f);
   mWindow.setView(mCamera);
 
-  bool texturesLoaded;
   for (int i = 0; i <= 9; i++) {
     string id = "FOREST_BACKGROUND_" + to_string(i);
     string filename = "./media/forest/Layer_" + to_string(i) + ".png";
-    texturesLoaded = mTextureManager.load(id, filename);
-    if (!texturesLoaded) break;
+    mTextureManager.load(id, filename);
   }
 
   for (int i = 0; i <= 1; i++) {
     string id = "FOREST_GROUND_" + to_string(i);
     string filename = "./media/forest/Ground_" + to_string(i) + ".png";
-    texturesLoaded = mTextureManager.load(id, filename);
-    if (!texturesLoaded) break;
+    mTextureManager.load(id, filename);
   }
 
+  for (int i = 0; i <= 5; i++) {
+    string id = "EXTINCTION_BACKGROUND_" + to_string(i);
+    string filename = "./media/extinction/Layer_" + to_string(i) + ".png";
+    mTextureManager.load(id, filename);
+  }
+
+  for (int i = 0; i <= 1; i++) {
+    string id = "EXTINCTION_GROUND_" + to_string(i);
+    string filename = "./media/extinction/Ground_" + to_string(i) + ".png";
+    mTextureManager.load(id, filename);
+  }
   // ResourceManagers funcionando para carregar as texturas
   // talvez mudar para ficar melhor carregar texturas?
-  mTextureManager.load("RAPTOR", "./media/entities/raptor-idle.png");
-  mTextureManager.load("BULLET", "./media/projectiles/PistolAmmoBig.png");
+  mTextureManager.load("LASERBALL", "./media/projectiles/laserball.png");
   mTextureManager.load("VINE", "./media/obstacles/vine.png");
+  mTextureManager.load("FIRE", "./media/obstacles/fire.png");
   mTextureManager.load("PLATFORM", "./media/obstacles/platform.png");
+
+  mTextureManager.load("RAPTOR", "./media/entities/raptor-idle.png");
   mTextureManager.load("PTERODACYL", "./media/entities/Pterodacyl.png");
+  mTextureManager.load("PLAYER_TEXTURE",
+                       "./media/Massospondylus_idle_spritesheet.png");
+  mTextureManager.load("BOSS", "./media/entities/Boss.png");
 
-  bool playerLoaded = mTextureManager.load(
-      "PLAYER_TEXTURE", "./media/Massospondylus_idle_spritesheet.png");
-
-  bool testFontLoaded =
-      mFontManager.load("FONT_TESTE", "./media/fonte_teste.ttf");
-
-  bool platformTexture =
-      mTextureManager.load("PLATFORM_TEXTURE", "./media/platform-test.png");
-
-  if (!texturesLoaded || !platformTexture || !testFontLoaded ||
-      !platformTexture) {
-    throw invalid_argument("ERRO: Nao foi possivel carregar texturas");
-  }
+  mFontManager.load("FONT_TESTE", "./media/fonte_teste.ttf");
+  mTextureManager.load("PLATFORM_TEXTURE", "./media/platform-test.png");
   mFont.loadFromFile("./media/fonte_teste.ttf");
   mText.setFont(mFont);
 }
 
 GraphicsManager::~GraphicsManager() {}
 
-GraphicsManager* GraphicsManager::getInstance()
-{
-    if (!instance)
-    {
-        instance = new GraphicsManager();
-    }
-    return instance;
+GraphicsManager* GraphicsManager::getInstance() {
+  if (!instance) {
+    instance = new GraphicsManager();
+  }
+  return instance;
 }
 
 void GraphicsManager::clear() { mWindow.clear(); }
 void GraphicsManager::display() { mWindow.display(); }
 void GraphicsManager::close() { mWindow.close(); }
 bool GraphicsManager::isOpen() { return mWindow.isOpen(); };
-bool GraphicsManager::pollEvent(sf::Event& event){return mWindow.pollEvent(event); }
+bool GraphicsManager::pollEvent(sf::Event& event) {
+  return mWindow.pollEvent(event);
+}
 
 void GraphicsManager::drawEnte(sf::Sprite* sprite) {
   if (!sprite) {
@@ -139,16 +141,12 @@ void GraphicsManager::showMousePosition() {
   mWindow.draw(mText);
 }
 
-sf::RenderWindow* GraphicsManager::getWindow() {
-    return &mWindow;
+sf::RenderWindow* GraphicsManager::getWindow() { return &mWindow; }
+
+const float GraphicsManager::getWindowWidth() const {
+  return static_cast<float>(mWindow.getSize().x);
 }
 
-const float GraphicsManager::getWindowWidth() const
-{
-    return static_cast<float>(mWindow.getSize().x);
-}
-
-const float GraphicsManager::getWindowHeight() const
-{
-    return static_cast<float>(mWindow.getSize().y);
+const float GraphicsManager::getWindowHeight() const {
+  return static_cast<float>(mWindow.getSize().y);
 }

@@ -10,17 +10,21 @@
 #include "entities/obstacles/Platform.hpp"
 #include "managers/CollisionManager.hpp"
 
-Level::Level() : pCM(CollisionManager::getInstance()), mLayers(), mGround(), mGroundLevel(0.f), pListEntities(NULL)
-{
-    pListEntities = new ListEntities();
-    if (pCM) {
-        pCM->includeLevel(this);
-    }
+Level::Level()
+    : pCM(CollisionManager::getInstance()),
+      mLayers(),
+      mGround(),
+      mGroundLevel(0.f),
+      pListEntities(NULL) {
+  pListEntities = new ListEntities();
+  if (pCM) {
+    pCM->includeLevel(this);
+  }
 }
 
 Level::~Level() {
-    delete pListEntities;
-    pListEntities = NULL;
+  delete pListEntities;
+  pListEntities = NULL;
 }
 
 void Level::includePlayer(Player* pE) {
@@ -93,7 +97,8 @@ void Level::createEasyEnemies() {
   }
 }
 void Level::createPlatforms() {
-  float numPlat = (rand() % (3 - 6 + 1)) + 3;  // (inicial - final + 1) + inicial
+  float numPlat =
+      (rand() % (3 - 6 + 1)) + 3;  // (inicial - final + 1) + inicial
   for (int i = 0; i < numPlat; i++) {
     Platform* platform = new Platform();
     pListEntities->include(platform);

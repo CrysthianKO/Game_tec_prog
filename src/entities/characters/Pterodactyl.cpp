@@ -50,7 +50,7 @@ void Pterodactyl::execute() {
   else
     mVelocity.x -= mSpeed;
 
-  Physics::applyGravity(&mVelocity);
+  Physics::applyGravity(mVelocity);
 
   if (getPosition().y > 500.f) {
     mVelocity.y = -400.f;
@@ -64,7 +64,7 @@ void Pterodactyl::execute() {
   mSprite.move(moviment);
 }
 void Pterodactyl::save() {}
-void Pterodactyl::damage() {}
+void Pterodactyl::damage() { mSprite.move(sf::Vector2f(10000, 1000)); }
 
 EnemyType Pterodactyl::getEnemyType() const {
   return EnemyType::EN_PTERODACTYL;

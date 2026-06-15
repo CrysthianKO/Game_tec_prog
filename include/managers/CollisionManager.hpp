@@ -1,12 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <list>
-#include <vector>
 #include <set>
+#include <vector>
+
 #include "entities/characters/Enemy.hpp"
-//#include "entities/characters/Player.hpp"
+// #include "entities/characters/Player.hpp"
 #include "entities/obstacles/Obstacle.hpp"
-#include "Projectable.hpp"
+#include "entities/projectile/Projectile.hpp"
 
 class Player;
 class Level;
@@ -17,7 +18,7 @@ class CollisionManager {
  private:
   vector<Enemy*> mListEnemies;
   list<Obstacle*> mListObstacle;
-  set<Projectable*> mListProjectables;
+  set<Projectile*> mListProjectables;
   Player* pPlayer1;
   Player* pPlayer2;
   Level* pLevel;
@@ -32,6 +33,7 @@ class CollisionManager {
 
  private:
   CollisionManager();
+
  public:
   ~CollisionManager();
   static CollisionManager* getInstance();

@@ -4,11 +4,14 @@
 #include "Ente.hpp"
 #include "EntityType.hpp"
 #include "SFML/System/Vector2.hpp"
+#include "managers/Physics.hpp"
 
 class Entity : public Ente {
  protected:
   sf::Sprite mSprite;
   bool mDestroyable;
+  Physics* pPhysics;
+  sf::Vector2f mVelocity;
 
  protected:
   void setTexture(string id);

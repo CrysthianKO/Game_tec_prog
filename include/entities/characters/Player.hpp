@@ -19,6 +19,7 @@ class Player : public Character {
   Moviment mMoviment;
   sf::IntRect mCurrentFrame;
   float mAnimationTimer;
+  float mDamageTimer;
 
  public:
   Player();
@@ -28,7 +29,7 @@ class Player : public Character {
   void move(sf::Vector2f move);
   void setup();
   void slow();
-  void bounce();
+  void takeDamage(int damage, float directionX);
   void handleInput(sf::Keyboard::Key key, bool isPressed);
   void updateAnimation(float dt);
 

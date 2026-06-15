@@ -13,6 +13,7 @@ class ExtinctionLevel : public Level {
   ~ExtinctionLevel();
   void setup();
   void render();
+  void execute();
 
  protected:
   void createEnemies();

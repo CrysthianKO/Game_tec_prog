@@ -1,37 +1,40 @@
-#include "entities/characters/Velociraptor.hpp"
+#include "entities/characters/DinoBoss.hpp"
 
-#include <cmath>
-
-#include "SFML/System/Vector2.hpp"
-#include "managers/Physics.hpp"
 #include "managers/TimeManager.hpp"
 
-float Velociraptor::position(0.f);
+float DinoBoss::position(0.f);
 
-Velociraptor::Velociraptor() {
-  mSpeed = 3.8f;
-  mVelocity.y = 600.f;
+DinoBoss::DinoBoss() {
+  mSpeed = 2.8f;
+  mStrength = 3;
+  mVelocity.y = 300.f;
   mWalkingTime = 0;
   mMovingRight = true;
   mRange = 160.f;
-  this->setTexture("RAPTOR");
+  this->setTexture("BOSS");
   mSprite.scale(sf::Vector2f(1.8, 1.8));
-  position += 1065.f;
+  position += 865.f;
   mSpawnX = position;
   mSprite.setPosition(position, 500);
-  mSprite.setTextureRect(sf::IntRect({0, 0}, {51, 26}));
-  mSprite.setOrigin(25.5f, 13.f);
+  mSprite.setTextureRect(sf::IntRect({0, 0}, {33, 46}));
+  mSprite.setOrigin(16.5f, 23.f);
 }
+DinoBoss::~DinoBoss() {}
 
-Velociraptor::~Velociraptor() {}
-
-void Velociraptor::save() {}
-void Velociraptor::execute() {
+void DinoBoss::save() {}
+void DinoBoss::execute() {
   float dt = TimeManager::getInstance().getDeltaTime();
+
+  pPhysics->applyGravity(mVelocity);
+
   mWalkingTime += dt;
   if (mWalkingTime > 0.5f) {
     mMovingRight = rand() % 2;
     mWalkingTime = 0.f;
+    if (mOnGround) {
+      mVelocity.y = -550;
+      mOnGround = false;
+    }
   }
 
   float leftWall = mSpawnX - mRange;
@@ -56,21 +59,16 @@ void Velociraptor::execute() {
     mSprite.setScale(-1.8f, 1.8f);
   }
 
-  Physics::applyGravity(mVelocity);
   moviment.y = mVelocity.y * dt;
 
   mSprite.move(moviment);
 
   if (mOnGround) mVelocity.y = 0.f;
 }
+void DinoBoss::move() {}
 
-void Velociraptor::damage() { mSprite.move(sf::Vector2f(10000, 1000)); }
+void DinoBoss::damage() {}
 
-// sf::FloatRect Velociraptor::getBounds() const {
-//	//temporiariamente retorna um retângulo vazio, já que o cogumelo ainda
-// não tem uma sprite ou forma definida 	return sf::FloatRect();
-// }
-
-EnemyType Velociraptor::getEnemyType() const {
-  return EnemyType::EN_VELOCIRAPTOR;
+EnemyType DinoBoss::getEnemyType() const {
+  return EnemyType::EN_MAMENCHISSAURO;
 }

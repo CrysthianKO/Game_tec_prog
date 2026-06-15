@@ -20,3 +20,4 @@ sf::FloatRect Entity::getGlobalBounds() { return mSprite.getGlobalBounds(); }
 sf::Vector2f Entity::getPosition() { return mSprite.getPosition(); }
 
 void Entity::setPosition(sf::Vector2f pos) { mSprite.setPosition(pos); }
+void Entity::setVelocity(sf::Vector2f vel) { mVelocity = vel; }

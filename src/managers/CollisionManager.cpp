@@ -14,9 +14,9 @@ CollisionManager::CollisionManager()
     : pPlayer1(NULL),
       pPlayer2(NULL),
       pLevel(NULL),
-      mListEnemies(),
+      mVecEnemies(),
       mListObstacle(),
-      mListProjectables() {};
+      mSetProjectables() {};
 
 CollisionManager::~CollisionManager() { clearComponents(); }
 CollisionManager* CollisionManager::getInstance() {
@@ -27,9 +27,9 @@ CollisionManager* CollisionManager::getInstance() {
 };
 
 void CollisionManager::clearComponents() {
-  mListEnemies.clear();
+  mVecEnemies.clear();
   mListObstacle.clear();
-  mListProjectables.clear();
+  mSetProjectables.clear();
   pPlayer1 = NULL;
   pPlayer2 = NULL;
   pLevel = NULL;
@@ -45,18 +45,18 @@ void CollisionManager::manageCollisionEnemyPlayer() {
   sf::FloatRect hitboxP1 = pPlayer1->getGlobalBounds();
   sf::FloatRect hitBoxEnemy;
   sf::FloatRect intercession;
-  for (int i = 0; i < mListEnemies.size(); i++) {
-    hitBoxEnemy = mListEnemies[i]->getGlobalBounds();
+  for (int i = 0; i < mVecEnemies.size(); i++) {
+    hitBoxEnemy = mVecEnemies[i]->getGlobalBounds();
     bool collision = hitboxP1.intersects(hitBoxEnemy, intercession);
     if (collision) {  // Colidiu
       bool verticalCollision = intercession.width > intercession.height;
       if (verticalCollision) {  // Colidiu verticalmente
         if (pPlayer1->getVelocity().y > 0.f &&
-            pPlayer1->getPosition().y < mListEnemies[i]->getPosition().y) {
-          mListEnemies[i]->damage();
+            pPlayer1->getPosition().y < mVecEnemies[i]->getPosition().y) {
+          mVecEnemies[i]->damage();
         }
       } else {  // colidiu pelos lados
-        if (pPlayer1->getPosition().x < mListEnemies[i]->getPosition().x) {
+        if (pPlayer1->getPosition().x < mVecEnemies[i]->getPosition().x) {
           pPlayer1->takeDamage(1, -1);
         } else {
           pPlayer1->takeDamage(1, 1);
@@ -100,15 +100,15 @@ void CollisionManager::manageCollisionGround() {
 
   bool onGround;
 
-  for (int i = 0; i < mListEnemies.size(); i++) {
-    difference = ground - mListEnemies[i]->getGlobalBounds().height / 2;
-    if (mListEnemies[i]->getPosition().y > difference) {
-      mListEnemies[i]->setPosition(
-          sf::Vector2f(mListEnemies[i]->getPosition().x, difference));
+  for (int i = 0; i < mVecEnemies.size(); i++) {
+    difference = ground - mVecEnemies[i]->getGlobalBounds().height / 2;
+    if (mVecEnemies[i]->getPosition().y > difference) {
+      mVecEnemies[i]->setPosition(
+          sf::Vector2f(mVecEnemies[i]->getPosition().x, difference));
       onGround = true;
     } else
       onGround = false;
-    mListEnemies[i]->setOnGround(onGround);
+    mVecEnemies[i]->setOnGround(onGround);
   }
 }
 
@@ -132,7 +132,7 @@ void CollisionManager::includeEnemy(Enemy* pE) {
   if (!pE)
     throw invalid_argument(
         "Ponteiro vazio ao incluir inimigo no gerenciador de colisoes");
-  mListEnemies.push_back(pE);
+  mVecEnemies.push_back(pE);
 }
 
 void CollisionManager::IncludeObstacle(Obstacle* pO) {
@@ -143,4 +143,9 @@ void CollisionManager::IncludeObstacle(Obstacle* pO) {
 void CollisionManager::includeLevel(Level* pL) {
   if (!pL) throw invalid_argument("Ponteiro da fase NULO!");
   pLevel = pL;
+}
+
+void CollisionManager::includeProjectile(Projectile* pE) {
+  if (!pE) throw invalid_argument("Ponteiro projetil NULO!");
+  mSetProjectables.insert(pE);
 }

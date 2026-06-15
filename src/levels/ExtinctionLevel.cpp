@@ -2,6 +2,7 @@
 
 #include "entities/characters/DinoBoss.hpp"
 #include "entities/obstacles/Fire.hpp"
+#include "entities/projectile/LaserBall.hpp"
 #include "managers/CollisionManager.hpp"
 
 ExtinctionLevel::ExtinctionLevel() {
@@ -35,8 +36,12 @@ void ExtinctionLevel::createEnemies() {
   int max = rand() % (maxBoss - 3 + 1) + 3;
   for (int i = 0; i < max; i++) {
     DinoBoss* boss = new DinoBoss();
+    LaserBall* laser = new LaserBall();
+    boss->setLaserBall(laser);
     pListEntities->include(boss);
     pCM->includeEnemy(boss);
+    pListEntities->include(laser);
+    pCM->includeProjectile(laser);
   }
 }
 void ExtinctionLevel::createObstacles() {

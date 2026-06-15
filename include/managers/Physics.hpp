@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+#include "managers/TimeManager.hpp"
+
 class Physics {
  protected:
   Physics();
@@ -10,5 +12,5 @@ class Physics {
  public:
   static Physics* getInstance();
   static const float gravity;
-  static void applyGravity(sf::Vector2f& velocity);
+  void applyGravity(TimeManager* pTM, sf::Vector2f& velocity);
 };

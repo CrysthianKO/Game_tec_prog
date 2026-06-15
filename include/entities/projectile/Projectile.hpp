@@ -9,8 +9,7 @@ class Projectile : public Entity {
   Projectile();
   virtual ~Projectile();
   void setActive(bool a);
-  virtual void run() = 0;
-  virtual void saveData() = 0;
-  virtual void setTarget(Entity* pE) = 0;
+  virtual void execute() = 0;
   virtual void respawn() = 0;
+  virtual EntityType getEntityType() const;
 };

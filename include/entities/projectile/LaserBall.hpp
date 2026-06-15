@@ -14,8 +14,7 @@ class LaserBall : public Projectile {
  public:
   LaserBall();
   virtual ~LaserBall();
-  void execute() override;
-  void saveData() override;
-  void setTarget(Entity* pE) override;
-  void respawn() override;
+  void execute();
+  void save();
+  void respawn();
 };

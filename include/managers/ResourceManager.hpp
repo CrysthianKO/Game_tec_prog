@@ -58,6 +58,8 @@ bool ResourceManager<ResourceType, Identifier>::exists(
 template <typename ResourceType, typename Identifier>
 void ResourceManager<ResourceType, Identifier>::clear() {
   class map<Identifier, ResourceType*>::iterator it = mResourceMap.begin();
+  cout << "Limpando arquivos de manager de " << typeid(ResourceType).name()
+       << endl;
   while (it != mResourceMap.end()) {
     delete it->second;
     ++it;

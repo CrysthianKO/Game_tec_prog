@@ -3,12 +3,17 @@
 #include <iostream>
 
 using namespace std;
+TimeManager* TimeManager::instance = NULL;
+
 TimeManager::TimeManager() : mDeltaTime(0.f) {
   cout << "Clock criado!" << endl;
 }
-TimeManager& TimeManager::getInstance() {
-  static TimeManager instance;
+TimeManager* TimeManager::getInstance() {
+  if (!instance) {
+    instance = new TimeManager();
+  }
   return instance;
 }
+
 void TimeManager::updateClock() { mDeltaTime = mClock.restart().asSeconds(); }
 float TimeManager::getDeltaTime() const { return mDeltaTime; }

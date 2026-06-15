@@ -50,8 +50,8 @@ set(SOURCES
   src/entities/obstacles/Platform.cpp
   src/entities/obstacles/Vine.cpp
   src/entities/obstacles/Fire.cpp
-  src/entities/projectables/Projectable.cpp
-  # src/entities/projectables/LaserBall.cpp
+  src/entities/projectile/Projectile.cpp
+  src/entities/projectile/LaserBall.cpp
   src/levels/Level.cpp
   src/levels/ForestLevel.cpp
   src/levels/ExtinctionLevel.cpp

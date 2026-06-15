@@ -1,5 +1,6 @@
 #include "entities/characters/DinoBoss.hpp"
 
+#include "entities/projectile/LaserBall.hpp"
 #include "managers/TimeManager.hpp"
 
 float DinoBoss::position(0.f);
@@ -19,13 +20,27 @@ DinoBoss::DinoBoss() {
   mSprite.setTextureRect(sf::IntRect({0, 0}, {33, 46}));
   mSprite.setOrigin(16.5f, 23.f);
 }
-DinoBoss::~DinoBoss() {}
+DinoBoss::~DinoBoss() {
+  if (pLaser) delete pLaser;
+}
 
 void DinoBoss::save() {}
 void DinoBoss::execute() {
-  float dt = TimeManager::getInstance().getDeltaTime();
+  float dt = pTM->getDeltaTime();
+  mTimerShoot -= dt;
 
-  pPhysics->applyGravity(mVelocity);
+  if (mTimerShoot <= 0.0f) {
+    pLaser->setPosition(this->getPosition());
+    float direcaoX = 1.f;
+    if (mSprite.getScale().x < 0.f) {
+      direcaoX = -1.f;
+    }
+    pLaser->setVelocity(sf::Vector2f(direcaoX * 600.f, 0.f));
+    pLaser->setActive(true);
+    mTimerShoot = 2.5;
+  }
+
+  pPhysics->applyGravity(pTM, mVelocity);
 
   mWalkingTime += dt;
   if (mWalkingTime > 0.5f) {
@@ -68,6 +83,8 @@ void DinoBoss::execute() {
 void DinoBoss::move() {}
 
 void DinoBoss::damage() {}
+
+void DinoBoss::setLaserBall(LaserBall* pL) { pLaser = pL; }
 
 EnemyType DinoBoss::getEnemyType() const {
   return EnemyType::EN_MAMENCHISSAURO;

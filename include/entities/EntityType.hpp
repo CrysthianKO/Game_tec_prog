@@ -6,7 +6,7 @@ enum EntityType : char {
   ET_COLLECTABLE,
   ET_OBSTACLE,
   ET_CHARACTER,
-  ET_PROJECTABLE,
+  ET_PROJECTILE,
   ET_UNKNOWN
 };
 

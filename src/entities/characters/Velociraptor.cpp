@@ -27,7 +27,8 @@ Velociraptor::~Velociraptor() {}
 
 void Velociraptor::save() {}
 void Velociraptor::execute() {
-  float dt = TimeManager::getInstance().getDeltaTime();
+  float dt = pTM->getDeltaTime();
+
   mWalkingTime += dt;
   if (mWalkingTime > 0.5f) {
     mMovingRight = rand() % 2;
@@ -56,7 +57,7 @@ void Velociraptor::execute() {
     mSprite.setScale(-1.8f, 1.8f);
   }
 
-  Physics::applyGravity(mVelocity);
+  pPhysics->applyGravity(pTM, mVelocity);
   moviment.y = mVelocity.y * dt;
 
   mSprite.move(moviment);

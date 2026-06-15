@@ -16,8 +16,8 @@ Physics* Physics::getInstance() {
   return instance;
 }
 
-void Physics::applyGravity(sf::Vector2f& velocity) {
-  float dt = TimeManager::getInstance().getDeltaTime();
+void Physics::applyGravity(TimeManager* pTM, sf::Vector2f& velocity) {
+  float dt = pTM->getDeltaTime();
 
   velocity.y += gravity * dt;
 }

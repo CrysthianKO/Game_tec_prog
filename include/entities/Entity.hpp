@@ -27,5 +27,6 @@ class Entity : public Ente {
   sf::FloatRect getGlobalBounds();
   sf::Vector2f getPosition();
   void setPosition(sf::Vector2f pos);
+  void setVelocity(sf::Vector2f vel);
   virtual EntityType getEntityType() const = 0;
 };

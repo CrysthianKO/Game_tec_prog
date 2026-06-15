@@ -9,9 +9,8 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <ctime>
 
-#include "entities/characters/Player.hpp"
-#include "levels/ForestLevel.hpp"
 #include "managers/GraphicsManager.hpp"
+#include "managers/TimeManager.hpp"
 
 class State;
 class CollisionManager;
@@ -19,9 +18,8 @@ class Game {
  private:
   GraphicsManager* pGM;
   CollisionManager* pCM;
+  TimeManager* pTM;
   State* currentState;
-  //Player* mPlayer;
-  //ForestLevel mForestLevel;
 
  public:
   Game();

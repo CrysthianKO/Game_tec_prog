@@ -16,9 +16,9 @@ using namespace std;
 
 class CollisionManager {
  private:
-  vector<Enemy*> mListEnemies;
+  vector<Enemy*> mVecEnemies;
   list<Obstacle*> mListObstacle;
-  set<Projectile*> mListProjectables;
+  set<Projectile*> mSetProjectables;
   Player* pPlayer1;
   Player* pPlayer2;
   Level* pLevel;
@@ -41,7 +41,7 @@ class CollisionManager {
   void includeEnemy(Enemy* pE);
   void IncludeObstacle(Obstacle* pO);
   void includeLevel(Level* pL);
-  // void includeProjectile();
+  void includeProjectile(Projectile* pE);
   void clearComponents();
   void execute();
 };

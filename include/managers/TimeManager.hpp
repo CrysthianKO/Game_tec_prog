@@ -5,6 +5,7 @@ class TimeManager {
  private:
   sf::Clock mClock;
   float mDeltaTime;
+  static TimeManager* instance;
 
  protected:
   TimeManager();
@@ -12,7 +13,7 @@ class TimeManager {
   void operator=(const TimeManager&) = delete;
 
  public:
-  static TimeManager& getInstance();
+  static TimeManager* getInstance();
 
   void updateClock();
   float getDeltaTime() const;

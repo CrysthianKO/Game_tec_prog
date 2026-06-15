@@ -53,9 +53,9 @@ void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
 }
 
 void Player::execute() {
-  float dt = TimeManager::getInstance().getDeltaTime();
+  float dt = pTM->getDeltaTime();
   sf::Vector2f moviment(0.f, 0.f);
-  pPhysics->applyGravity(mVelocity);
+  pPhysics->applyGravity(pTM, mVelocity);
 
   // aplica gravidade ao player, aumentando a velocidade vertical do player
   // cada frame

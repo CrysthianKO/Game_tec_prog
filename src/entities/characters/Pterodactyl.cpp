@@ -23,7 +23,7 @@ Pterodactyl::Pterodactyl() {
 Pterodactyl::~Pterodactyl() {}
 
 void Pterodactyl::execute() {
-  float dt = TimeManager::getInstance().getDeltaTime();
+  float dt = pTM->getDeltaTime();
 
   mWalkingTime += dt;
   if (mWalkingTime > 0.8f) {
@@ -50,7 +50,7 @@ void Pterodactyl::execute() {
   else
     mVelocity.x -= mSpeed;
 
-  Physics::applyGravity(mVelocity);
+  pPhysics->applyGravity(pTM, mVelocity);
 
   if (getPosition().y > 500.f) {
     mVelocity.y = -400.f;

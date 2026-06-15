@@ -12,7 +12,7 @@ Fire::Fire() {
 
 Fire::~Fire() {}
 
-void Fire::execute() { pPhysics->applyGravity(mVelocity); }
+void Fire::execute() { pPhysics->applyGravity(pTM, mVelocity); }
 void Fire::save() {}
 
 void Fire::obstruct(Player* pPlayer, sf::FloatRect intercession) {

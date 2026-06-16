@@ -158,7 +158,7 @@ typename List<TYPE>::Iterator List<TYPE>::erase(
     pAux = pAux->getNext();
   }
   if (pAux == pToErase) {
-    if (pPrev != pNextNode) {
+    if (pPrev /* != pNextNode */ ) {
       pPrev->setNext(pNextNode);
     } else {
       pFirst = pNextNode;

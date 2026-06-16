@@ -12,7 +12,7 @@ ForestLevel::ForestLevel() : maxMidEnemies(7), maxMidObstacles(7) {}
 ForestLevel::~ForestLevel() {}
 
 void ForestLevel::setup() {
-  pCM->includeLevel(this);
+ // pCM->includeLevel(this);
   createEasyEnemies();
   createEnemies();
   createScenario();

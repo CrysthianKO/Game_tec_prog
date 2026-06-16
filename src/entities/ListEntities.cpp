@@ -7,17 +7,24 @@ ListEntities::~ListEntities() {
   while (it != lEs.end())
 
   {
+      if (it.getCurrentElement() == nullptr) {
+          break;
+      }
     Entity* pE = *it;  // desreferencia (&(*it))
     if (pE) {
-      if (pE->isDestroyable()) {
-        delete pE;
-      }
-      pE = NULL;
+        uintptr_t* vptr = reinterpret_cast<uintptr_t*>(pE);
+        if (vptr && *vptr != 0xDDDDDDDDDDDDDDDD && *vptr != 0x00000000) {
+            if (pE->isDestroyable()) {
+                delete pE;
+                pE = NULL;
+            }
+            pE = NULL;
+        }
     }
-    //  it = lEs.erase(it); o Wipe ja vai fazer esse papel
-    ++it;
+      it = lEs.erase(it); //o Wipe não vai fazer esse papel
+    //++it;
   }
-  lEs.wipe();  // comentar aqui caso dê erro de ponteiro duplamente deletado
+  //lEs.wipe();  // comentar aqui caso dê erro de ponteiro duplamente deletado
 }
 
 void ListEntities::include(Entity* pE) { lEs.include(pE); }

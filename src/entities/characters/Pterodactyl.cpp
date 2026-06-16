@@ -14,13 +14,14 @@ Pterodactyl::Pterodactyl() {
   mRange = 120.f;
 
   this->setTexture("PTERODACYL");
+  // TEXTURA BAIXADA DO SITE https://tonguesurgery.itch.io/tiny-dinosaur
   mSprite.scale(sf::Vector2f(2.3, 2.3));
   position += 915.f;
   mSpawnX = position;
   mSprite.setPosition(position, 460.f);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {31, 17}));
 }
-Pterodactyl::~Pterodactyl() {}
+Pterodactyl::~Pterodactyl() { position = 0.f; }
 
 void Pterodactyl::execute() {
   float dt = pTM->getDeltaTime();

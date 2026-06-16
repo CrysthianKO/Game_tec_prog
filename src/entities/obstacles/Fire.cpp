@@ -3,6 +3,7 @@ float Fire::position(0.f);
 
 Fire::Fire() {
   this->setTexture("FIRE");
+  // TEXTURE BAIXADA DO SITE https://devkidd.itch.io/pixel-fire-asset-pack
   position += 985.f;
   mSprite.setPosition(position, 688.f);
   mSprite.setScale(sf::Vector2f(1.7f, 1.7f));
@@ -10,7 +11,7 @@ Fire::Fire() {
   mSprite.setOrigin(16, 16);
 }
 
-Fire::~Fire() {}
+Fire::~Fire() { position = 0.f; }
 
 void Fire::execute() { pPhysics->applyGravity(pTM, mVelocity); }
 void Fire::save() {}

@@ -26,6 +26,7 @@ void Player::setup() {
 
   mCurrentFrame = sf::IntRect({0, 0}, {64, 64});
   this->setTexture("PLAYER_TEXTURE");
+  // TEXTURA DE USO AUTORAL
   mSprite.setPosition(0.f, 0.f);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {64, 64}));
   mSprite.setOrigin(32.f, 32.f);

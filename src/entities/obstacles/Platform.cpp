@@ -7,12 +7,13 @@ float Platform::position(0.f);
 Platform::Platform() {
   height = 580.f;
   this->setTexture("PLATFORM");
+  // TEXTURA BAIXADA DO SITE  https://szadiart.itch.io/pixel-dark-forest
   position += 1185.f;
   mSprite.setPosition(position, height);
   mSprite.setScale(sf::Vector2f(1.7f, 1.7f));
   mSprite.setTextureRect(sf::IntRect({0, 0}, {128, 23}));
 }
-Platform::~Platform() {}
+Platform::~Platform() { position = 0.f; }
 
 void Platform::execute() {}
 void Platform::save() {}

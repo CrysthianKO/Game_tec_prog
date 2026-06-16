@@ -7,10 +7,7 @@
 #include "entities/obstacles/Vine.hpp"
 #include "managers/CollisionManager.hpp"
 
-ForestLevel::ForestLevel() {
-  maxMidEnemies = 7;
-  maxMidObstacles = 7;
-}
+ForestLevel::ForestLevel() : maxMidEnemies(7), maxMidObstacles(7) {}
 
 ForestLevel::~ForestLevel() {}
 
@@ -54,10 +51,12 @@ void ForestLevel::createObstacles() {
 void ForestLevel::createScenario() {
   for (int i = 0; i <= 9; i++) {
     string id = "FOREST_BACKGROUND_" + to_string(i);
+    // TEXTURA DO SITE https://edermunizz.itch.io/free-pixel-art-forest
     addBackgroundLayer(id, 0.0f);
   }
   for (int i = 0; i <= 1; i++) {
     string id = "FOREST_GROUND_" + to_string(i);
+    // TEXTURA DO SITE https://edermunizz.itch.io/free-pixel-art-forest
     addGroundLayer(id);
   }
 

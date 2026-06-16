@@ -5,8 +5,8 @@
 
 class ForestLevel : public Level {
  private:
-  int maxMidEnemies;
-  int maxMidObstacles;
+  const int maxMidEnemies;
+  const int maxMidObstacles;
 
  public:
   ForestLevel();

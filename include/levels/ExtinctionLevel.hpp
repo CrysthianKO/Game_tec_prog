@@ -5,8 +5,8 @@
 
 class ExtinctionLevel : public Level {
  private:
-  int maxBoss;
-  int maxHardObstacles;
+  const int maxBoss;
+  const int maxHardObstacles;
 
  public:
   ExtinctionLevel();

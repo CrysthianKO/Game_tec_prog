@@ -5,7 +5,6 @@ class DinoBoss : public Enemy {
  private:
   int mStrength;
   static float position;
-  float mTime;
   float mTimerShoot;
   LaserBall* pLaser;
 

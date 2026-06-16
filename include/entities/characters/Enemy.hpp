@@ -9,7 +9,6 @@ class Enemy : public Character {
   float mWalkingTime;
   bool mMovingRight;
   float mRange;
-  sf::Vector2f mVelocity;
   float mSpawnX;
 
  public:

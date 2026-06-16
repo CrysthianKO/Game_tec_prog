@@ -29,7 +29,7 @@ class CollisionManager {
   void manageCollisionObstaclesPlayer();
   void manageCollisionEnemyPlayer();
   void manageCollisionGround();
-  // void manageCollisionProjectilePlayer();
+  void manageCollisionProjectilePlayer();
 
  private:
   CollisionManager();

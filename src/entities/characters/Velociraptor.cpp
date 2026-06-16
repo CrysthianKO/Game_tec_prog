@@ -15,6 +15,8 @@ Velociraptor::Velociraptor() {
   mMovingRight = true;
   mRange = 160.f;
   this->setTexture("RAPTOR");
+  // TEXTURA BAIXADA DO SITE
+  // https://pixramen.itch.io/2d-dino-character-velociraptor
   mSprite.scale(sf::Vector2f(1.8, 1.8));
   position += 1065.f;
   mSpawnX = position;
@@ -23,7 +25,7 @@ Velociraptor::Velociraptor() {
   mSprite.setOrigin(25.5f, 13.f);
 }
 
-Velociraptor::~Velociraptor() {}
+Velociraptor::~Velociraptor() { position = 0.f; }
 
 void Velociraptor::save() {}
 void Velociraptor::execute() {

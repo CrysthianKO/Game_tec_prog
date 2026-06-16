@@ -20,6 +20,7 @@ class Game {
   CollisionManager* pCM;
   TimeManager* pTM;
   State* currentState;
+  float mScore;
 
  public:
   Game();

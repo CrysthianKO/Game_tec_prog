@@ -5,10 +5,7 @@
 #include "entities/projectile/LaserBall.hpp"
 #include "managers/CollisionManager.hpp"
 
-ExtinctionLevel::ExtinctionLevel() {
-  maxBoss = 4;
-  maxHardObstacles = 6;
-}
+ExtinctionLevel::ExtinctionLevel() : maxBoss(4), maxHardObstacles(6) {}
 
 ExtinctionLevel::~ExtinctionLevel() {}
 
@@ -55,10 +52,12 @@ void ExtinctionLevel::createObstacles() {
 void ExtinctionLevel::createScenario() {
   for (int i = 0; i <= 5; i++) {
     string id = "EXTINCTION_BACKGROUND_" + to_string(i);
+    // TEXTURA DO SITE https://ansimuz.itch.io/mountain-dusk-parallax-background
     addBackgroundLayer(id, 0.0f);
   }
   for (int i = 0; i <= 1; i++) {
     string id = "EXTINCTION_GROUND_" + to_string(i);
+    // TEXTURA DO SITE https://edermunizz.itch.io/free-pixel-art-forest
     addGroundLayer(id);
   }
 

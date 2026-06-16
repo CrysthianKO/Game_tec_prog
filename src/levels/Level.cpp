@@ -23,8 +23,10 @@ Level::Level()
 }
 
 Level::~Level() {
-  delete pListEntities;
-  pListEntities = NULL;
+  if (pListEntities) {
+    delete pListEntities;
+    pListEntities = NULL;
+  }
 }
 
 void Level::includePlayer(Player* pE) {

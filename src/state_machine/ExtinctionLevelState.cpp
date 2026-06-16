@@ -4,6 +4,7 @@
 #include "entities/characters/Player.hpp"
 #include "levels/ExtinctionLevel.hpp"
 #include "managers/CollisionManager.hpp"
+#include "state_machine/Menu.hpp"
 
 ExtinctionLevelState::ExtinctionLevelState()
     : State(),
@@ -33,8 +34,8 @@ void ExtinctionLevelState::processEvents(const sf::Event& event) {
       player1->handleInput(event.key.code, false);
       break;
   }
-  // if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-  //	pGame->changeState(new Menu());
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    pGame->changeState(new Menu());
 }
 
 void ExtinctionLevelState::update() {

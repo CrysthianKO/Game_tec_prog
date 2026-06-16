@@ -1,11 +1,13 @@
 #include "entities/characters/DinoBoss.hpp"
 
+#include "SFML/Graphics/Color.hpp"
 #include "entities/projectile/LaserBall.hpp"
 #include "managers/TimeManager.hpp"
 
 float DinoBoss::position(0.f);
 
 DinoBoss::DinoBoss() {
+  mNumberLives = 3;
   mSpeed = 2.8f;
   mStrength = 3;
   mVelocity.y = 300.f;
@@ -13,6 +15,8 @@ DinoBoss::DinoBoss() {
   mMovingRight = true;
   mRange = 160.f;
   this->setTexture("BOSS");
+  // TEXTURA BAIXADA NO SITE
+  // https://splitwing77.itch.io/anthropomorphic-dinosaur-npcs-rpg-maker-mz
   mSprite.scale(sf::Vector2f(1.8, 1.8));
   position += 865.f;
   mSpawnX = position;
@@ -20,9 +24,7 @@ DinoBoss::DinoBoss() {
   mSprite.setTextureRect(sf::IntRect({0, 0}, {33, 46}));
   mSprite.setOrigin(16.5f, 23.f);
 }
-DinoBoss::~DinoBoss() {
-  if (pLaser) delete pLaser;
-}
+DinoBoss::~DinoBoss() { position = 0.f; }
 
 void DinoBoss::save() {}
 void DinoBoss::execute() {
@@ -31,12 +33,13 @@ void DinoBoss::execute() {
 
   if (mTimerShoot <= 0.0f) {
     pLaser->setPosition(this->getPosition());
+    pLaser->setStart(this->getPosition());
     float direcaoX = 1.f;
     if (mSprite.getScale().x < 0.f) {
       direcaoX = -1.f;
     }
-    pLaser->setVelocity(sf::Vector2f(direcaoX * 600.f, 0.f));
     pLaser->setActive(true);
+    pLaser->setVelocity(sf::Vector2f(direcaoX * 260.f, 0.f));
     mTimerShoot = 2.5;
   }
 
@@ -82,7 +85,19 @@ void DinoBoss::execute() {
 }
 void DinoBoss::move() {}
 
-void DinoBoss::damage() {}
+void DinoBoss::damage() {
+  sf::Color color;
+  switch (mNumberLives) {
+    case 2:
+      color = sf::Color::Yellow;
+    case 1:
+      color = sf::Color::Red;
+  }
+  if (mNumberLives <= 0) {
+    mSprite.setPosition(-99999.f, -99999.f);
+  }
+  mNumberLives--;
+}
 
 void DinoBoss::setLaserBall(LaserBall* pL) { pLaser = pL; }
 

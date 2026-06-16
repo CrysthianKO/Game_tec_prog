@@ -4,7 +4,6 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "entities/Ente.hpp"
 #include "entities/ListEntities.hpp"
-// #include "managers/CollisionManager.hpp"
 
 class Player;
 class CollisionManager;

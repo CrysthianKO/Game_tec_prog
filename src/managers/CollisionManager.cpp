@@ -39,6 +39,7 @@ void CollisionManager::execute() {
   manageCollisionGround();
   manageCollisionEnemyPlayer();
   manageCollisionObstaclesPlayer();
+  manageCollisionProjectilePlayer();
 }
 
 void CollisionManager::manageCollisionEnemyPlayer() {
@@ -54,6 +55,9 @@ void CollisionManager::manageCollisionEnemyPlayer() {
         if (pPlayer1->getVelocity().y > 0.f &&
             pPlayer1->getPosition().y < mVecEnemies[i]->getPosition().y) {
           mVecEnemies[i]->damage();
+          pPlayer1->move(sf::Vector2f(0.f, -intercession.height));
+          pPlayer1->setVelocity(
+              sf::Vector2f(pPlayer1->getVelocity().x, -520.f));
         }
       } else {  // colidiu pelos lados
         if (pPlayer1->getPosition().x < mVecEnemies[i]->getPosition().x) {
@@ -109,6 +113,26 @@ void CollisionManager::manageCollisionGround() {
     } else
       onGround = false;
     mVecEnemies[i]->setOnGround(onGround);
+  }
+}
+
+void CollisionManager::manageCollisionProjectilePlayer() {
+  sf::FloatRect playerHitbox = pPlayer1->getGlobalBounds();
+  sf::FloatRect projectileHitBox;
+  sf::FloatRect intercession;
+  set<Projectile*>::iterator it = mSetProjectables.begin();
+
+  for (; it != mSetProjectables.end(); it++) {
+    Projectile* projecile = *it;
+    projectileHitBox = projecile->getGlobalBounds();
+    if (playerHitbox.intersects(projectileHitBox, intercession)) {
+      if (pPlayer1->getPosition().x < projecile->getPosition().x) {
+        pPlayer1->takeDamage(1, -1);
+      } else {
+        pPlayer1->takeDamage(1, 1);
+      }
+      projecile->setPosition(sf::Vector2f(-999999.f, -99999.f));
+    }
   }
 }
 

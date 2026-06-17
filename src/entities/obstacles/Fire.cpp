@@ -4,7 +4,7 @@ float Fire::position(0.f);
 Fire::Fire() {
   this->setTexture("FIRE");
   // TEXTURE BAIXADA DO SITE https://devkidd.itch.io/pixel-fire-asset-pack
-  position += 985.f;
+  position += 1285.f;
   mSprite.setPosition(position, 688.f);
   mSprite.setScale(sf::Vector2f(1.7f, 1.7f));
   mSprite.setTextureRect(sf::IntRect({0, 0}, {32, 32}));

@@ -18,7 +18,7 @@ DinoBoss::DinoBoss() {
   // TEXTURA BAIXADA NO SITE
   // https://splitwing77.itch.io/anthropomorphic-dinosaur-npcs-rpg-maker-mz
   mSprite.scale(sf::Vector2f(1.8, 1.8));
-  position += 865.f;
+  position += 1365.f;
   mSpawnX = position;
   mSprite.setPosition(position, 500);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {33, 46}));

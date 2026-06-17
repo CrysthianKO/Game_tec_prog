@@ -148,8 +148,8 @@ void Menu::update() {
 }
 
 void Menu::render() {
-  float posX = pGM->getWindowWidth() / 2;
-  float posY = pGM->getWindowHeight() / 2;
+  float posX = float(pGM->getWindowSize().x) / 2;
+  float posY = float(pGM->getWindowSize().y) / 2;
   pGM->updateCameraPos({posX, posY});
   // desenha menu
   sf::RenderWindow* window = pGM->getWindow();

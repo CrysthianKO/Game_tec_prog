@@ -25,12 +25,14 @@ class GraphicsManager {
  private:
   sf::RenderWindow mWindow;  // VAI SER SINGLETON
   static GraphicsManager* instance;
+
  private:
   GraphicsManager();
+
  public:
   ~GraphicsManager();
   static GraphicsManager* getInstance();
-  
+
   void clear();
   void display();
   void close();

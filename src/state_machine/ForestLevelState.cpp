@@ -14,6 +14,7 @@ ForestLevelState::ForestLevelState()
       pPlayer2(NULL),
       pGM(GraphicsManager::getInstance()),
       pCM(CollisionManager::getInstance()) {
+  id = StateID::ForestLevel;
   forestLevel.setup();
 }
 

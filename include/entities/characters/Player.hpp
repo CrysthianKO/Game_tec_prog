@@ -45,6 +45,7 @@ class Player : public Character {
   void takeDamage(int damage, float directionX);
   void handleInput(sf::Keyboard::Key key, bool isPressed);
   void updateAnimation(float dt);
+  int getScore() const;
 
   // virtual sf::FloatRect getBounds() const override;
   virtual CharacterType getCharacterType() const;

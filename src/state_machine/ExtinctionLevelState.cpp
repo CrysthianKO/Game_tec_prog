@@ -16,7 +16,7 @@ ExtinctionLevelState::ExtinctionLevelState()
       pCM(CollisionManager::getInstance()),
       extinctionLevel()
 {
-  
+    id = StateID::ExtinctionLevel;
 }
 
 ExtinctionLevelState::~ExtinctionLevelState() { pCM->clearComponents(); }

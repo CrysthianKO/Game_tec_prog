@@ -4,6 +4,9 @@
 #include "managers/CollisionManager.hpp"
 #include "managers/TimeManager.hpp"
 #include "state_machine/Menu.hpp"
+#include "state_machine/Ranking.hpp"
+#include "state_machine/ForestLevelState.hpp"
+#include "state_machine/ExtinctionLevelState.hpp"
 #include "state_machine/State.hpp"
 
 using namespace std;
@@ -71,8 +74,26 @@ void Game::run() {
 void Game::applyChangeState(/*State* newState*/) {
     if (nextState) {
         if (currentState) {
-            delete currentState;
-            currentState = NULL;
+            if (currentState->getID() == StateID::Menu) {
+                delete static_cast<Menu*>(currentState);
+                currentState = NULL;
+            }
+            else if (currentState->getID() == StateID::Ranking) {
+                delete static_cast<Ranking*>(currentState);
+                currentState = NULL;
+            }
+            else if (currentState->getID() == StateID::ForestLevel) {
+                delete static_cast<ForestLevelState*>(currentState);
+                currentState = NULL;
+            }
+            else if (currentState->getID() == StateID::ExtinctionLevel) {
+                delete static_cast<ExtinctionLevelState*>(currentState);
+                currentState = NULL;
+            }
+            else {
+                delete currentState;
+                currentState = NULL;
+            }
         }
         else {
             std::cout << "Game changeState currentState is already NULL." << std::endl;

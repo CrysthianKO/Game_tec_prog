@@ -6,6 +6,7 @@
 #include "state_machine/Ranking.hpp"
 
 Menu::Menu() : Ente(), State(), selectedOption(1) {
+  id = StateID::Menu;
   // std::cout << "Menu Inicializado. Use as teclas 1 ou 2 para selecionar a
   // fase." << std::endl;
   if (!font.loadFromFile("media/fonte_teste.ttf")) {
@@ -19,7 +20,7 @@ Menu::Menu() : Ente(), State(), selectedOption(1) {
   txtTitle.setString("Massospondylus The Revenge");
   txtTitle.setCharacterSize(40);
   txtTitle.setFillColor(sf::Color::White);
-  txtTitle.setPosition(sf::Vector2f(posX / 2 - 150.f, posY / 2 - 300.f));
+  txtTitle.setPosition(sf::Vector2f(posX / 2 - 200.f, posY / 2 - 270.f));
 
   // Configuração do Botão 1 (Fase Floresta)
   btnLevel1.setSize(sf::Vector2f(200.f, 50.f));
@@ -97,14 +98,14 @@ void Menu::processEvents(const sf::Event& event) {
         } else if (isMouseOver(btnLevel2, *window)) {
           pGame->changeState(new ExtinctionLevelState());
         }
-        // else if (isMouseOver(btnRanking, *window))
-        //{
-        //     Ranking* rankingState = new Ranking();
-        //     //em caso do player morrer ou vencer o jogo
-        //     //rankingState->setPlayer(&player1, player1.getScore());
-        //     rankingState->setPlayer(NULL, 0);
-        //     pGame->changeState(rankingState);
-        // }
+         else if (isMouseOver(btnRanking, *window))
+        {
+             Ranking* rankingState = new Ranking();
+             //em caso do player morrer ou vencer o jogo
+             //rankingState->setPlayer(&player1, player1.getScore());
+             //rankingState->setPlayer(NULL, 0);
+             pGame->changeState(rankingState);
+         }
         else if (isMouseOver(btnQuit, *window)) {
           pGM->close();
         }

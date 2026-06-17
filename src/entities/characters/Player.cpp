@@ -6,8 +6,10 @@
 #include "managers/Physics.hpp"
 #include "managers/TimeManager.hpp"
 
-Player::Player() {}
-Player::Player(int playerNum) {
+Player::Player() : mAnimationTimer(0.f), mConfig(), mDamageTimer(0.f), mMoviment(),
+mRunning(false), score(0) {}
+Player::Player(int playerNum) : mAnimationTimer(0.f), mConfig(), mDamageTimer(0.f), mMoviment(),
+mRunning(false), score(0) {
   if (playerNum == 1) {
     mConfig.jump = sf::Keyboard::Space;
     mConfig.run = sf::Keyboard::LShift;
@@ -149,6 +151,10 @@ void Player::updateAnimation(float dt) {
     mSprite.setTextureRect(mCurrentFrame);
     mAnimationTimer = 0.f;
   }
+}
+int Player::getScore() const
+{
+    return score;
 }
 sf::Vector2f Player::getVelocity() { return mVelocity; }
 CharacterType Player::getCharacterType() const { return CH_PLAYER; }

@@ -10,7 +10,7 @@
 #include "entities/Ente.hpp"
 class Game;
 class Menu :
-	public Ente, public State
+	public State, public Ente
 {
 private:
 	//justo deixar pGame em State no caso

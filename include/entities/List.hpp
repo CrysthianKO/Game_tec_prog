@@ -77,9 +77,7 @@ void List<TYPE>::include(TYPE* p) {
     Element<TYPE>* pNew = new Element<TYPE>();
     pNew->setInfo(p);
 
-    if (pFirst == NULL || pLast == NULL
-        //   || ((__uintptr_t)pLast) >= 0xFFFFFFFFFFFFFFF0
-    ) {
+    if (pFirst == NULL || pLast == NULL) {
       pFirst = pNew;
       pLast = pNew;
     } else {
@@ -158,7 +156,7 @@ typename List<TYPE>::Iterator List<TYPE>::erase(
     pAux = pAux->getNext();
   }
   if (pAux == pToErase) {
-    if (pPrev != pNextNode) {
+    if (pPrev != NULL) {
       pPrev->setNext(pNextNode);
     } else {
       pFirst = pNextNode;

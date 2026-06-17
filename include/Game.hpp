@@ -9,6 +9,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <ctime>
 
+#include "entities/characters/Player.hpp"
 #include "managers/GraphicsManager.hpp"
 #include "managers/TimeManager.hpp"
 
@@ -20,6 +21,8 @@ class Game {
   CollisionManager* pCM;
   TimeManager* pTM;
   State* currentState;
+  Player* pPlayer1;
+  Player* pPlayer2;
   float mScore;
 
  public:
@@ -27,6 +30,9 @@ class Game {
   ~Game();
   void run();
   void changeState(State* newState);
+  void setPlayers(Player*& p1, Player*& p2);
+  Player* getPlayer1();
+  Player* getPlayer2();
 
  private:
   void processEvents();

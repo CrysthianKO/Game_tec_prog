@@ -5,6 +5,7 @@
 
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/System/Vector2.hpp"
+#include "entities/Entity.hpp"
 #include "entities/characters/Player.hpp"
 #include "levels/Level.hpp"
 
@@ -19,6 +20,7 @@ CollisionManager::CollisionManager()
       mSetProjectables() {};
 
 CollisionManager::~CollisionManager() { clearComponents(); }
+
 CollisionManager* CollisionManager::getInstance() {
   if (!instance) {
     instance = new CollisionManager();
@@ -40,98 +42,153 @@ void CollisionManager::execute() {
   manageCollisionEnemyPlayer();
   manageCollisionObstaclesPlayer();
   manageCollisionProjectilePlayer();
+  manageCollisionWall();
+}
+
+const bool CollisionManager::checkCollision(Entity* pE1, Entity* pE2) const {
+  if (!pE1 || !pE2) cout << "Ponteiros vazio ao tratar colisoes." << endl;
+  return pE1->getGlobalBounds().intersects(pE2->getGlobalBounds());
+}
+
+sf::FloatRect CollisionManager::getIntersection(Entity* pE1, Entity* pE2) {
+  sf::FloatRect intercession;
+  pE1->getGlobalBounds().intersects(pE2->getGlobalBounds(), intercession);
+  return intercession;
 }
 
 void CollisionManager::manageCollisionEnemyPlayer() {
-  sf::FloatRect hitboxP1 = pPlayer1->getGlobalBounds();
-  sf::FloatRect hitBoxEnemy;
+  vector<Player*> vecPlayer;
+  if (pPlayer1) vecPlayer.push_back(pPlayer1);
+  if (pPlayer2) vecPlayer.push_back(pPlayer2);
   sf::FloatRect intercession;
-  for (int i = 0; i < mVecEnemies.size(); i++) {
-    hitBoxEnemy = mVecEnemies[i]->getGlobalBounds();
-    bool collision = hitboxP1.intersects(hitBoxEnemy, intercession);
-    if (collision) {  // Colidiu
-      bool verticalCollision = intercession.width > intercession.height;
-      if (verticalCollision) {  // Colidiu verticalmente
-        if (pPlayer1->getVelocity().y > 0.f &&
-            pPlayer1->getPosition().y < mVecEnemies[i]->getPosition().y) {
-          mVecEnemies[i]->damage();
-          pPlayer1->move(sf::Vector2f(0.f, -intercession.height));
-          pPlayer1->setVelocity(
-              sf::Vector2f(pPlayer1->getVelocity().x, -520.f));
-        }
-      } else {  // colidiu pelos lados
-        if (pPlayer1->getPosition().x < mVecEnemies[i]->getPosition().x) {
-          pPlayer1->takeDamage(1, -1);
-        } else {
-          pPlayer1->takeDamage(1, 1);
+
+  for (int i = 0; i < vecPlayer.size(); i++) {
+    Player* currentPlayer = vecPlayer[i];
+
+    for (int j = 0; j < mVecEnemies.size(); j++) {
+      Enemy* currentEnemy = mVecEnemies[j];
+      bool collided = checkCollision(currentPlayer, currentEnemy);
+      if (collided) {  // Colidiu
+        intercession = getIntersection(static_cast<Entity*>(currentPlayer),
+                                       static_cast<Entity*>(currentEnemy));
+
+        bool verticalCollision = intercession.width > intercession.height;
+        if (verticalCollision) {  // Colidiu verticalmente
+          if (currentPlayer->getVelocity().y > 0.f &&
+              currentPlayer->getPosition().y < currentEnemy->getPosition().y) {
+            currentEnemy->damage();
+            currentPlayer->move(sf::Vector2f(0.f, -intercession.height));
+            currentPlayer->bounce();
+          }
+        } else {  // colidiu pelos lados
+          if (currentPlayer->getPosition().x < currentEnemy->getPosition().x) {
+            currentPlayer->takeDamage(1, -1);
+          } else {
+            currentPlayer->takeDamage(1, 1);
+          }
         }
       }
     }
   }
 }
 
-const bool CollisionManager::checkCollision(Player* pP1, Player* pP2) const {
-  return false;
-}
-
 void CollisionManager::manageCollisionObstaclesPlayer() {
-  sf::FloatRect hitboxP1 = pPlayer1->getGlobalBounds();
-  list<Obstacle*>::iterator it = mListObstacle.begin();
-  sf::FloatRect hitBoxObject;
+  vector<Player*> vecPlayer;
+  if (pPlayer1) vecPlayer.push_back(pPlayer1);
+  if (pPlayer2) vecPlayer.push_back(pPlayer2);
   sf::FloatRect intercession;
 
-  while (it != mListObstacle.end()) {
-    Obstacle* obstacle = *it;
-    hitBoxObject = obstacle->getGlobalBounds();
-    if (hitboxP1.intersects(hitBoxObject, intercession)) {
-      obstacle->obstruct(pPlayer1, intercession);
+  for (int i = 0; i < vecPlayer.size(); i++) {
+    Player* currentPlayer = vecPlayer[i];
+
+    list<Obstacle*>::iterator it = mListObstacle.begin();
+    while (it != mListObstacle.end()) {
+      Obstacle* obstacle = *it;
+      bool collided = checkCollision(static_cast<Entity*>(pPlayer1),
+                                     static_cast<Entity*>(*it));
+      if (collided) {
+        intercession = getIntersection(pPlayer1, *it);
+        obstacle->obstruct(pPlayer1, intercession);
+      }
+      it++;
     }
-    it++;
-  }
-}
-void CollisionManager::manageCollisionGround() {
-  if (!pLevel) throw invalid_argument("Ponteiro da fase NULO!");
-
-  float ground = pLevel->getGround();
-  float difference;
-
-  difference = ground - pPlayer1->getGlobalBounds().height / 2;
-  if (pPlayer1->getPosition().y > difference) {
-    pPlayer1->setPosition(sf::Vector2f(pPlayer1->getPosition().x, difference));
-    pPlayer1->setOnGround(true);
-  } else
-    pPlayer1->setOnGround(false);
-
-  bool onGround;
-
-  for (int i = 0; i < mVecEnemies.size(); i++) {
-    difference = ground - mVecEnemies[i]->getGlobalBounds().height / 2;
-    if (mVecEnemies[i]->getPosition().y > difference) {
-      mVecEnemies[i]->setPosition(
-          sf::Vector2f(mVecEnemies[i]->getPosition().x, difference));
-      onGround = true;
-    } else
-      onGround = false;
-    mVecEnemies[i]->setOnGround(onGround);
   }
 }
 
 void CollisionManager::manageCollisionProjectilePlayer() {
-  sf::FloatRect playerHitbox = pPlayer1->getGlobalBounds();
-  sf::FloatRect projectileHitBox;
-  sf::FloatRect intercession;
-  set<Projectile*>::iterator it = mSetProjectables.begin();
+  vector<Player*> vecPlayer;
+  if (pPlayer1) vecPlayer.push_back(pPlayer1);
+  if (pPlayer2) vecPlayer.push_back(pPlayer2);
 
-  for (; it != mSetProjectables.end(); it++) {
-    Projectile* projecile = *it;
-    projectileHitBox = projecile->getGlobalBounds();
-    if (playerHitbox.intersects(projectileHitBox, intercession)) {
-      if (pPlayer1->getPosition().x < projecile->getPosition().x) {
-        pPlayer1->takeDamage(1, -1);
-      } else {
-        pPlayer1->takeDamage(1, 1);
+  for (int i = 0; i < vecPlayer.size(); i++) {
+    Player* currentPlayer = vecPlayer[i];
+
+    set<Projectile*>::iterator it = mSetProjectables.begin();
+
+    for (; it != mSetProjectables.end(); it++) {
+      Projectile* projecile = *it;
+      bool collided =
+          checkCollision(static_cast<Entity*>(currentPlayer), projecile);
+      if (collided) {
+        if (currentPlayer->getPosition().x < projecile->getPosition().x) {
+          currentPlayer->takeDamage(1, -1);
+        } else {
+          currentPlayer->takeDamage(1, 1);
+        }
+        projecile->setPosition(sf::Vector2f(-999999.f, -99999.f));
       }
-      projecile->setPosition(sf::Vector2f(-999999.f, -99999.f));
+    }
+  }
+}
+
+void CollisionManager::manageCollisionGround() {
+  if (!pLevel) throw invalid_argument("Ponteiro da fase NULO!");
+
+  vector<Player*> vecPlayer;
+  if (pPlayer1) vecPlayer.push_back(pPlayer1);
+  if (pPlayer2) vecPlayer.push_back(pPlayer2);
+
+  float ground = pLevel->getGround();
+  float difference;
+
+  for (int i = 0; i < vecPlayer.size(); i++) {
+    Player* currentPlayer = vecPlayer[i];
+    difference = ground - currentPlayer->getGlobalBounds().height / 2;
+    if (currentPlayer->getPosition().y > difference) {
+      currentPlayer->setPosition(
+          sf::Vector2f(currentPlayer->getPosition().x, difference));
+      currentPlayer->setOnGround(true);
+    } else
+      currentPlayer->setOnGround(false);
+  }
+
+  bool onGround;
+
+  for (int i = 0; i < mVecEnemies.size(); i++) {
+    Enemy* currentEnemy = mVecEnemies[i];
+    difference = ground - currentEnemy->getGlobalBounds().height / 2;
+    if (currentEnemy->getPosition().y > difference) {
+      currentEnemy->setPosition(
+          sf::Vector2f(currentEnemy->getPosition().x, difference));
+      onGround = true;
+    } else
+      onGround = false;
+    currentEnemy->setOnGround(onGround);
+  }
+}
+
+void CollisionManager::manageCollisionWall() {
+  vector<Player*> vecPlayer;
+  if (pPlayer1) vecPlayer.push_back(pPlayer1);
+  if (pPlayer2) vecPlayer.push_back(pPlayer2);
+  float difference;
+
+  for (int i = 0; i < vecPlayer.size(); i++) {
+    Player* currentPlayer = vecPlayer[i];
+    difference = currentPlayer->getGlobalBounds().height / 2;
+    if (currentPlayer->getPosition().x < difference) {
+      currentPlayer->setPosition(
+          sf::Vector2f(difference, currentPlayer->getPosition().y));
     }
   }
 }

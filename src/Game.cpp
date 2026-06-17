@@ -1,5 +1,6 @@
 #include "Game.hpp"
 
+#include "entities/characters/Player.hpp"
 #include "managers/CollisionManager.hpp"
 #include "managers/TimeManager.hpp"
 #include "state_machine/Menu.hpp"
@@ -11,9 +12,16 @@ Game::Game()
     : pGM(GraphicsManager::getInstance()),
       pCM(CollisionManager::getInstance()),
       pTM(TimeManager::getInstance()),
+      pPlayer1(NULL),
+      pPlayer2(NULL),
       currentState(NULL) {
   Ente::setGM(pGM);
   Ente::setTM(pTM);
+  pPlayer1 = new Player(1);
+  pPlayer2 = new Player(2);
+  pPlayer1->setup();
+  pPlayer2->setup();
+
   changeState(new Menu());
 
   std::srand(static_cast<unsigned int>(std::time(NULL)));
@@ -28,12 +36,23 @@ Game::~Game() {
   }
   if (pGM) {
     delete pGM;
+    pGM = NULL;
   }
   if (pCM) {
     delete pCM;
+    pCM = NULL;
   }
   if (pTM) {
     delete pTM;
+    pTM = NULL;
+  }
+  if (pPlayer1) {
+    delete pPlayer1;
+    pPlayer1 = NULL;
+  }
+  if (pPlayer2) {
+    delete pPlayer2;
+    pPlayer2 = NULL;
   }
 }
 
@@ -116,3 +135,6 @@ void Game::render() {
   }
   pGM->display();
 }
+
+Player* Game::getPlayer1() { return pPlayer1; }
+Player* Game::getPlayer2() { return pPlayer2; }

@@ -47,7 +47,7 @@ void Level::addBackgroundLayer(string id, float speed) {
       true);  // Sprite "infinito" para nao acabar quando sair da tela
   newLayer.sprite.setTexture(*texture);
   sf::Vector2u sizeScreen = pGM->getWindowSize();
-  newLayer.sprite.setTextureRect(sf::IntRect(0, 0, 8000.f, sizeScreen.y));
+  newLayer.sprite.setTextureRect(sf::IntRect(0, 0, 5800.f, sizeScreen.y));
   newLayer.speedFactor = speed;
   mLayers.push_back(newLayer);
 }
@@ -64,7 +64,7 @@ void Level::addGroundLayer(string id) {
   sf::Vector2u sizeScreen = pGM->getWindowSize();
 
   sf::Vector2u sizeImg = texture->getSize();
-  newLayer.setTextureRect(sf::IntRect(0, 0, 8000.f, sizeImg.y));
+  newLayer.setTextureRect(sf::IntRect(0, 0, 5800.f, sizeImg.y));
   mGround.push_back(newLayer);
 }
 
@@ -89,9 +89,11 @@ void Level::drawBackground() {
 
 float Level::getGround() { return mGroundLevel; }
 
+float Level::getWall() { return mGround[0].getGlobalBounds().width; }
+
 void Level::createEasyEnemies() {
   float numEnemies =
-      (rand() % (3 - 5 + 1)) + 3;  // (inicial - final + 1) + inicial
+      (rand() % (3 - 6 + 1)) + 3;  // (inicial - final + 1) + inicial
   for (int i = 0; i < numEnemies; i++) {
     Velociraptor* newEnemy = new Velociraptor();
     pListEntities->include(newEnemy);

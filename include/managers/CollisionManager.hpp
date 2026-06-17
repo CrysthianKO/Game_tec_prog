@@ -4,6 +4,8 @@
 #include <set>
 #include <vector>
 
+#include "SFML/Graphics/Rect.hpp"
+#include "entities/Entity.hpp"
 #include "entities/characters/Enemy.hpp"
 // #include "entities/characters/Player.hpp"
 #include "entities/obstacles/Obstacle.hpp"
@@ -25,11 +27,13 @@ class CollisionManager {
   static CollisionManager* instance;
 
  private:
-  const bool checkCollision(Player* pP1, Player* pP2) const;
+  const bool checkCollision(Entity* pE1, Entity* pE2) const;
   void manageCollisionObstaclesPlayer();
   void manageCollisionEnemyPlayer();
   void manageCollisionGround();
   void manageCollisionProjectilePlayer();
+  void manageCollisionWall();
+  sf::FloatRect getIntersection(Entity* pE1, Entity* pE2);
 
  private:
   CollisionManager();

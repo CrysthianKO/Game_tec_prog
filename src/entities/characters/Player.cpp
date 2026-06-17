@@ -7,10 +7,28 @@
 #include "managers/TimeManager.hpp"
 
 Player::Player() {}
+Player::Player(int playerNum) {
+  if (playerNum == 1) {
+    mConfig.jump = sf::Keyboard::Space;
+    mConfig.run = sf::Keyboard::LShift;
+    mConfig.up = sf::Keyboard::W;
+    mConfig.down = sf::Keyboard::S;
+    mConfig.left = sf::Keyboard::A;
+    mConfig.right = sf::Keyboard::D;
+  } else if (playerNum == 2) {
+    mConfig.jump = sf::Keyboard::RControl;
+    mConfig.run = sf::Keyboard::RShift;
+    mConfig.up = sf::Keyboard::Up;
+    mConfig.down = sf::Keyboard::Down;
+    mConfig.left = sf::Keyboard::Left;
+    mConfig.right = sf::Keyboard::Right;
+  }
+}
 
 Player::~Player() {}
 
 void Player::setup() {
+  mRunning = false;
   mNumberLives = 5;
 
   mAnimationTimer = 0.0f;
@@ -31,25 +49,19 @@ void Player::setup() {
   mSprite.setTextureRect(sf::IntRect({0, 0}, {64, 64}));
   mSprite.setOrigin(32.f, 32.f);
 }
+
 void Player::save() {}
 void Player::move(sf::Vector2f move) { mSprite.move(move); }
 void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
-  // pulo
-  if (key == sf::Keyboard::Key::Space && isPressed && mOnGround) {
-    mVelocity.y = -550.f;  // Velocidade de pulo (ajuste conforme necessário)
-    mOnGround = false;
-  }
+  if (key == mConfig.run) mRunning = isPressed;
 
-  if (key == sf::Keyboard::Key::LShift) mRunning = isPressed;
-
-  // movimento(WASD)
-  if (key == sf::Keyboard::Key::W)
+  if (key == mConfig.up)
     mMoviment.up = isPressed;
-  else if (key == sf::Keyboard::Key::S)
+  else if (key == mConfig.down)
     mMoviment.down = isPressed;
-  else if (key == sf::Keyboard::Key::A)
+  else if (key == mConfig.left)
     mMoviment.left = isPressed;
-  else if (key == sf::Keyboard::Key::D)
+  else if (key == mConfig.right)
     mMoviment.right = isPressed;
 }
 
@@ -67,7 +79,8 @@ void Player::execute() {
   } else {
     mSprite.setColor(sf::Color::White);
     if (mRunning)
-      mSpeed = 6.3f;
+      // mSpeed = 6.3f;
+      mSpeed = 16.f;
     else
       mSpeed = 3.7f;
 
@@ -121,6 +134,8 @@ void Player::takeDamage(int damage, float directionX) {
 }
 
 void Player::slow() { mVelocity *= 0.3f; }
+
+void Player::bounce() { mVelocity.y = -520.f; }
 // atualiza a animacao do player, mudando o frame da sprite a cada 0.1 segundos
 // (hard coded)
 void Player::updateAnimation(float dt) {

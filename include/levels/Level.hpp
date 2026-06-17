@@ -33,6 +33,7 @@ class Level : public Ente {
   void drawBackground();
   void drawGround();
   float getGround();
+  float getWall();
 
  protected:
   void addBackgroundLayer(string id, float speed);

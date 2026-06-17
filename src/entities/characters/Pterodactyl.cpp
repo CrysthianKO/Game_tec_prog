@@ -15,7 +15,7 @@ Pterodactyl::Pterodactyl() {
 
   this->setTexture("PTERODACYL");
   // TEXTURA BAIXADA DO SITE https://tonguesurgery.itch.io/tiny-dinosaur
-  mSprite.scale(sf::Vector2f(2.3, 2.3));
+  mSprite.scale(sf::Vector2f(2.3, 2.8));
   position += 915.f;
   mSpawnX = position;
   mSprite.setPosition(position, 460.f);
@@ -46,10 +46,13 @@ void Pterodactyl::execute() {
 
   sf::Vector2f moviment = {0.f, 0.f};
 
-  if (mMovingRight)
+  if (mMovingRight) {
     mVelocity.x += mSpeed;
-  else
+    mSprite.setScale(2.3f, 2.8f);
+  } else {
+    mSprite.setScale(-2.3f, 2.8f);
     mVelocity.x -= mSpeed;
+  }
 
   pPhysics->applyGravity(pTM, mVelocity);
 

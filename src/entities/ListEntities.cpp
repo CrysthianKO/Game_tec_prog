@@ -7,7 +7,7 @@ ListEntities::~ListEntities() {
   while (it != lEs.end())
 
   {
-    Entity* pE = *it;  // desreferencia (&(*it))
+    Entity* pE = *it;
     if (pE) {
       if (pE->isDestroyable()) {
         delete pE;

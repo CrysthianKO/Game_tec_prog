@@ -99,6 +99,7 @@ void GraphicsManager::updateCameraPos(sf::Vector2f pos) {
   float maxDownView = 480.f;
   float maxUpperView = 300.f;
   float maxLeftView = 514.f;
+  float maxRightView = 8200;
   if (pos.y > maxDownView) {
     pos.y = maxDownView;
   }
@@ -107,6 +108,9 @@ void GraphicsManager::updateCameraPos(sf::Vector2f pos) {
   }
   if (pos.x < maxLeftView) {
     pos.x = maxLeftView;
+  }
+  if (pos.x > maxRightView) {
+    pos.x = maxRightView;
   }
   mCamera.setCenter(pos.x, pos.y);
   mWindow.setView(mCamera);

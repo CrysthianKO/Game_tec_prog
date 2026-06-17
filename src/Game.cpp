@@ -14,7 +14,8 @@ Game::Game()
       pTM(TimeManager::getInstance()),
       pPlayer1(NULL),
       pPlayer2(NULL),
-      currentState(NULL) {
+      currentState(NULL),
+      nextState(NULL) {
   Ente::setGM(pGM);
   Ente::setTM(pTM);
   pPlayer1 = new Player(1);
@@ -59,6 +60,7 @@ Game::~Game() {
 // junta o processEvents, update e render em um loop infinito rodando o jogo
 void Game::run() {
   while (pGM->isOpen()) {
+    applyChangeState();
     pTM->updateClock();
     processEvents();
     update();
@@ -66,19 +68,33 @@ void Game::run() {
   }
 }
 
-void Game::changeState(State* newState) {
-  if (currentState) {
-    delete currentState;
-    currentState = NULL;
-  } else {
-    std::cout << "Game changeState currentState is already NULL." << std::endl;
-  }
-  currentState = newState;
-  if (currentState) {
-    currentState->setGameContext(this);
-  } else {
-    std::cout << "Game changeState failed to setGameContext." << std::endl;
-  }
+void Game::applyChangeState(/*State* newState*/) {
+    if (nextState) {
+        if (currentState) {
+            delete currentState;
+            currentState = NULL;
+        }
+        else {
+            std::cout << "Game changeState currentState is already NULL." << std::endl;
+        }
+        currentState = nextState;
+        nextState = NULL;
+        if (currentState) {
+            currentState->setGameContext(this);
+        }
+        else {
+            std::cout << "Game changeState failed to setGameContext." << std::endl;
+        }
+    }
+}
+
+void Game::changeState(State* newState)
+{
+    if (nextState) {
+        delete nextState;
+        nextState = NULL;
+    }
+    nextState = newState;
 }
 
 // checa inputs do usuario e fecha a janela quando o usuario clicar no X da

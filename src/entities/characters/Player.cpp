@@ -80,9 +80,9 @@ void Player::execute() {
     mSprite.setColor(sf::Color::White);
     if (mRunning)
       // mSpeed = 6.3f;
-      mSpeed = 16.f;
+      mSpeed = 160.f;
     else
-      mSpeed = 3.7f;
+      mSpeed = 30.7f;
 
     if (mMoviment.right) {
       moviment.x += mSpeed;

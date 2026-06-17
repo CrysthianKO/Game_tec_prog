@@ -13,8 +13,10 @@ ExtinctionLevelState::ExtinctionLevelState()
       pPlayer1(NULL),
       pPlayer2(NULL),
       pGM(GraphicsManager::getInstance()),
-      pCM(CollisionManager::getInstance()) {
-  extinctionLevel.setup();
+      pCM(CollisionManager::getInstance()),
+      extinctionLevel()
+{
+  
 }
 
 ExtinctionLevelState::~ExtinctionLevelState() { pCM->clearComponents(); }
@@ -26,6 +28,7 @@ void ExtinctionLevelState::setGameContext(Game* game) {
     pPlayer2 = pGame->getPlayer2();
     pPlayer1->setPosition(sf::Vector2f(20.f, 510.f));
     pPlayer2->setPosition(sf::Vector2f(50.f, 510.f));
+    extinctionLevel.setup();
     extinctionLevel.includePlayer(pPlayer1);
     extinctionLevel.includePlayer(pPlayer2);
   }

@@ -19,7 +19,7 @@ CollisionManager::CollisionManager()
       mListObstacle(),
       mSetProjectables() {};
 
-CollisionManager::~CollisionManager() { clearComponents(); }
+CollisionManager::~CollisionManager() { /*clearComponents();*/ }
 
 CollisionManager* CollisionManager::getInstance() {
   if (!instance) {
@@ -142,7 +142,11 @@ void CollisionManager::manageCollisionProjectilePlayer() {
 }
 
 void CollisionManager::manageCollisionGround() {
-  if (!pLevel) throw invalid_argument("Ponteiro da fase NULO!");
+    if (!pLevel) //throw invalid_argument("Ponteiro da fase NULO!");
+    {
+        std::cout << "Ponteiro da fase NULO! Ignorando colisão." << std::endl;
+        return;
+    }
 
   vector<Player*> vecPlayer;
   if (pPlayer1) vecPlayer.push_back(pPlayer1);

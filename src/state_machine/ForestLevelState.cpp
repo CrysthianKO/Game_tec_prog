@@ -58,11 +58,13 @@ void ForestLevelState::winLevel() {
   if (pPlayer1) {
     if (pPlayer1->getPosition().x > forestLevel.getWall()) {
       pGame->changeState(new ExtinctionLevelState());
+      return;
     }
   }
   if (pPlayer2) {
     if (pPlayer2->getPosition().x > forestLevel.getWall()) {
       pGame->changeState(new ExtinctionLevelState());
+      return;
     }
   }
 }

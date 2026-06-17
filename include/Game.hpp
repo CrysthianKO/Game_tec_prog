@@ -21,6 +21,7 @@ class Game {
   CollisionManager* pCM;
   TimeManager* pTM;
   State* currentState;
+  State* nextState;
   Player* pPlayer1;
   Player* pPlayer2;
   float mScore;
@@ -29,8 +30,9 @@ class Game {
   Game();
   ~Game();
   void run();
+  void applyChangeState(/*State* newState*/);
   void changeState(State* newState);
-  void setPlayers(Player*& p1, Player*& p2);
+  //void setPlayers(Player*& p1, Player*& p2);
   Player* getPlayer1();
   Player* getPlayer2();
 

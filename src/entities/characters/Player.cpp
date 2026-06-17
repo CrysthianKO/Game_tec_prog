@@ -31,7 +31,7 @@ Player::~Player() {}
 
 void Player::setup() {
   mRunning = false;
-  mNumberLives = 5;
+  mNumberLives = 100;
 
   mAnimationTimer = 0.0f;
   mDamageTimer = 0.0f;
@@ -82,9 +82,9 @@ void Player::execute() {
     mSprite.setColor(sf::Color::White);
     if (mRunning)
       // mSpeed = 6.3f;
-      mSpeed = 160.f;
+      mSpeed = 16.f;
     else
-      mSpeed = 30.7f;
+      mSpeed = 3.7f;
 
     if (mMoviment.right) {
       moviment.x += mSpeed;
@@ -151,6 +151,10 @@ void Player::updateAnimation(float dt) {
     mSprite.setTextureRect(mCurrentFrame);
     mAnimationTimer = 0.f;
   }
+}
+void Player::setScore(int s)
+{
+    score = s;
 }
 int Player::getScore() const
 {

@@ -77,5 +77,6 @@ void ExtinctionLevelState::winLevel()
 void ExtinctionLevelState::render() {
   pGM->updateCameraPos(pPlayer1->getPosition());
   extinctionLevel.render();
+  extinctionLevel.drawHUD(pPlayer1, pPlayer2);
   pGM->drawPosition(pPlayer1->getPosition());
 }

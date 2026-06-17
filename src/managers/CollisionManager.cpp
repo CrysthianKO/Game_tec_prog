@@ -79,6 +79,8 @@ void CollisionManager::manageCollisionEnemyPlayer() {
             currentEnemy->damage();
             currentPlayer->move(sf::Vector2f(0.f, -intercession.height));
             currentPlayer->bounce();
+            int currentScore = currentPlayer->getScore();
+            currentPlayer->setScore(currentScore + ((rand() % 50) + 10));
           }
         } else {  // colidiu pelos lados
           if (currentPlayer->getPosition().x < currentEnemy->getPosition().x) {

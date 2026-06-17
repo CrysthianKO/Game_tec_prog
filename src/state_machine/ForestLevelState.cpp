@@ -74,5 +74,6 @@ void ForestLevelState::winLevel() {
 void ForestLevelState::render() {
   pGM->updateCameraPos(pPlayer1->getPosition());
   forestLevel.render();
+  forestLevel.drawHUD(pPlayer1, pPlayer2);
   pGM->drawPosition(pPlayer1->getPosition());
 }

@@ -21,6 +21,10 @@ class Level : public Ente {
   float mGroundLevel;
   ListEntities* pListEntities;
 
+  sf::Font mFont;
+  sf::Text txtPlayer1;
+  sf::Text txtPlayer2;
+
  public:
   Level();
   virtual ~Level();
@@ -30,8 +34,10 @@ class Level : public Ente {
 
   virtual void execute() = 0;
   void includePlayer(Player* pE);
+  void playerHUD();
   void drawBackground();
   void drawGround();
+  void drawHUD(Player* p1, Player* p2);
   float getGround();
   float getWall();
 

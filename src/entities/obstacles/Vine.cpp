@@ -13,7 +13,12 @@ Vine::Vine() {
 }
 Vine::~Vine() { position = 0.f; }
 
-void Vine::execute() {}
+void Vine::execute() {
+	float dt = pTM->getDeltaTime();
+	pPhysics->applyGravity(mVelocity);
+	pPhysics->applyLevitation(mVelocity);
+	mSprite.move(mVelocity * dt);
+}
 void Vine::save() {}
 void Vine::obstruct(Player* pPlayer, sf::FloatRect intercession) {
   pPlayer->slow();

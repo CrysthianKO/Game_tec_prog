@@ -15,7 +15,7 @@ ForestLevelState::ForestLevelState()
       pGM(GraphicsManager::getInstance()),
       pCM(CollisionManager::getInstance()) {
   id = StateID::ForestLevel;
-  forestLevel.setup();
+
 }
 
 ForestLevelState::~ForestLevelState() { pCM->clearComponents(); }
@@ -27,6 +27,7 @@ void ForestLevelState::setGameContext(Game* game) {
     pPlayer2 = pGame->getPlayer2();
     pPlayer1->setPosition(sf::Vector2f(20.f, 510.f));
     pPlayer2->setPosition(sf::Vector2f(50.f, 510.f));
+    forestLevel.setup();
     forestLevel.includePlayer(pPlayer1);
     forestLevel.includePlayer(pPlayer2);
   }

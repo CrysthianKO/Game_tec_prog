@@ -13,7 +13,7 @@ Fire::Fire() {
 
 Fire::~Fire() { position = 0.f; }
 
-void Fire::execute() { pPhysics->applyGravity(pTM, mVelocity); }
+void Fire::execute() { pPhysics->applyGravity(mVelocity); }
 void Fire::save() {}
 
 void Fire::obstruct(Player* pPlayer, sf::FloatRect intercession) {

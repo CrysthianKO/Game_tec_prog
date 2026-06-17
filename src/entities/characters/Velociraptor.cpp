@@ -59,7 +59,7 @@ void Velociraptor::execute() {
     mSprite.setScale(-1.8f, 1.8f);
   }
 
-  pPhysics->applyGravity(pTM, mVelocity);
+  pPhysics->applyGravity(mVelocity);
   moviment.y = mVelocity.y * dt;
 
   mSprite.move(moviment);

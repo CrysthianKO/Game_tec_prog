@@ -7,6 +7,7 @@
 #include "levels/ExtinctionLevel.hpp"
 #include "managers/CollisionManager.hpp"
 #include "state_machine/Menu.hpp"
+#include "state_machine/Ranking.hpp"
 
 ExtinctionLevelState::ExtinctionLevelState()
     : State(),
@@ -52,7 +53,26 @@ void ExtinctionLevelState::processEvents(const sf::Event& event) {
     pGame->changeState(new Menu());
 }
 
-void ExtinctionLevelState::update() { extinctionLevel.execute(); }
+void ExtinctionLevelState::update() { 
+    extinctionLevel.execute(); 
+    winLevel();
+}
+
+void ExtinctionLevelState::winLevel()
+{
+    if (pPlayer1) {
+        if (pPlayer1->getPosition().x > extinctionLevel.getWall()) {
+            pGame->changeState(new Ranking());
+            return;
+        }
+    }
+    if (pPlayer2) {
+        if (pPlayer2->getPosition().x > extinctionLevel.getWall()) {
+            pGame->changeState(new Ranking());
+            return;
+        }
+    }
+}
 
 void ExtinctionLevelState::render() {
   pGM->updateCameraPos(pPlayer1->getPosition());

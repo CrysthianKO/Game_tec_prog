@@ -43,7 +43,7 @@ void DinoBoss::execute() {
     mTimerShoot = 2.5;
   }
 
-  pPhysics->applyGravity(pTM, mVelocity);
+  pPhysics->applyGravity(mVelocity);
 
   mWalkingTime += dt;
   if (mWalkingTime > 0.5f) {

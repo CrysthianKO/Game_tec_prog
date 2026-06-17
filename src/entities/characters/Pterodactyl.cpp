@@ -54,7 +54,7 @@ void Pterodactyl::execute() {
     mVelocity.x -= mSpeed;
   }
 
-  pPhysics->applyGravity(pTM, mVelocity);
+  pPhysics->applyGravity(mVelocity);
 
   if (getPosition().y > 500.f) {
     mVelocity.y = -400.f;

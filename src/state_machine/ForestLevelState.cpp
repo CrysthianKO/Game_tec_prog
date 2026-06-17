@@ -13,18 +13,20 @@ ForestLevelState::ForestLevelState()
       pPlayer1(NULL),
       pPlayer2(NULL),
       pGM(GraphicsManager::getInstance()),
-      pCM(CollisionManager::getInstance()) {}
+      pCM(CollisionManager::getInstance()) {
+  id = StateID::ForestLevel;
+}
 
 ForestLevelState::~ForestLevelState() { pCM->clearComponents(); }
 
 void ForestLevelState::setGameContext(Game* game) {
   State::setGameContext(game);
   if (pGame) {
-    forestLevel.setup();
     pPlayer1 = pGame->getPlayer1();
     pPlayer2 = pGame->getPlayer2();
     pPlayer1->setPosition(sf::Vector2f(20.f, 510.f));
     pPlayer2->setPosition(sf::Vector2f(50.f, 510.f));
+    forestLevel.setup();
     forestLevel.includePlayer(pPlayer1);
     forestLevel.includePlayer(pPlayer2);
   }
@@ -44,8 +46,11 @@ void ForestLevelState::processEvents(const sf::Event& event) {
       if (pPlayer1) pPlayer1->handleInput(event.key.code, false);
       break;
   }
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
     pGame->changeState(new Menu());
+    pPlayer1->setScore(0);
+    pPlayer2->setScore(0);
+  }
 }
 
 void ForestLevelState::update() {
@@ -57,11 +62,13 @@ void ForestLevelState::winLevel() {
   if (pPlayer1) {
     if (pPlayer1->getPosition().x > forestLevel.getWall()) {
       pGame->changeState(new ExtinctionLevelState());
+      return;
     }
   }
   if (pPlayer2) {
     if (pPlayer2->getPosition().x > forestLevel.getWall()) {
       pGame->changeState(new ExtinctionLevelState());
+      return;
     }
   }
 }
@@ -69,5 +76,6 @@ void ForestLevelState::winLevel() {
 void ForestLevelState::render() {
   pGM->updateCameraPos(pPlayer1->getPosition());
   forestLevel.render();
+  forestLevel.drawHUD(pPlayer1, pPlayer2);
   pGM->drawPosition(pPlayer1->getPosition());
 }

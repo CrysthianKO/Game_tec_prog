@@ -4,6 +4,9 @@
 #include "managers/CollisionManager.hpp"
 #include "managers/TimeManager.hpp"
 #include "state_machine/Menu.hpp"
+#include "state_machine/Ranking.hpp"
+#include "state_machine/ForestLevelState.hpp"
+#include "state_machine/ExtinctionLevelState.hpp"
 #include "state_machine/State.hpp"
 
 using namespace std;
@@ -14,7 +17,8 @@ Game::Game()
       pTM(TimeManager::getInstance()),
       pPlayer1(NULL),
       pPlayer2(NULL),
-      currentState(NULL) {
+      currentState(NULL),
+      nextState(NULL) {
   Ente::setGM(pGM);
   Ente::setTM(pTM);
   pPlayer1 = new Player(1);
@@ -59,6 +63,7 @@ Game::~Game() {
 // junta o processEvents, update e render em um loop infinito rodando o jogo
 void Game::run() {
   while (pGM->isOpen()) {
+    applyChangeState();
     pTM->updateClock();
     processEvents();
     update();
@@ -66,19 +71,51 @@ void Game::run() {
   }
 }
 
-void Game::changeState(State* newState) {
-  if (currentState) {
-    delete currentState;
-    currentState = NULL;
-  } else {
-    std::cout << "Game changeState currentState is already NULL." << std::endl;
-  }
-  currentState = newState;
-  if (currentState) {
-    currentState->setGameContext(this);
-  } else {
-    std::cout << "Game changeState failed to setGameContext." << std::endl;
-  }
+void Game::applyChangeState(/*State* newState*/) {
+    if (nextState) {
+        if (currentState) {
+            if (currentState->getID() == StateID::Menu) {
+                delete static_cast<Menu*>(currentState);
+                currentState = NULL;
+            }
+            else if (currentState->getID() == StateID::Ranking) {
+                delete static_cast<Ranking*>(currentState);
+                currentState = NULL;
+            }
+            else if (currentState->getID() == StateID::ForestLevel) {
+                delete static_cast<ForestLevelState*>(currentState);
+                currentState = NULL;
+            }
+            else if (currentState->getID() == StateID::ExtinctionLevel) {
+                delete static_cast<ExtinctionLevelState*>(currentState);
+                currentState = NULL;
+            }
+            else {
+                delete currentState;
+                currentState = NULL;
+            }
+        }
+        else {
+            std::cout << "Game changeState currentState is already NULL." << std::endl;
+        }
+        currentState = nextState;
+        nextState = NULL;
+        if (currentState) {
+            currentState->setGameContext(this);
+        }
+        else {
+            std::cout << "Game changeState failed to setGameContext." << std::endl;
+        }
+    }
+}
+
+void Game::changeState(State* newState)
+{
+    if (nextState) {
+        delete nextState;
+        nextState = NULL;
+    }
+    nextState = newState;
 }
 
 // checa inputs do usuario e fecha a janela quando o usuario clicar no X da

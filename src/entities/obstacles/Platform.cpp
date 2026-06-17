@@ -2,20 +2,25 @@
 
 #include "SFML/System/Vector2.hpp"
 
-float Platform::position(0.f);
-
-Platform::Platform() {
+Platform::Platform() : position(0.f) {
   height = 580.f;
   this->setTexture("PLATFORM");
   // TEXTURA BAIXADA DO SITE  https://szadiart.itch.io/pixel-dark-forest
   position += 1185.f;
   mSprite.setPosition(position, height);
+  targetPosition = sf::Vector2f(position, height);
   mSprite.setScale(sf::Vector2f(1.7f, 1.7f));
   mSprite.setTextureRect(sf::IntRect({0, 0}, {128, 23}));
 }
 Platform::~Platform() { position = 0.f; }
 
-void Platform::execute() {}
+void Platform::execute() {
+    float dt = pTM->getDeltaTime();
+    pPhysics->applyGravity(mVelocity);
+    pPhysics->applyLevitation(mVelocity);
+    pPhysics->applyDampedOscillator(mVelocity, mSprite.getPosition(), targetPosition );
+    mSprite.move(mVelocity * dt);
+}
 void Platform::save() {}
 
 void Platform::obstruct(Player* pPlayer, sf::FloatRect intercession) {
@@ -25,6 +30,7 @@ void Platform::obstruct(Player* pPlayer, sf::FloatRect intercession) {
     if (hitTop) {
       pPlayer->move(sf::Vector2f(0.f, -intercession.height + 9.f));
       pPlayer->setOnGround(true);
+      mVelocity.y = 100.f;
 
     } else {  // foi embaixo
       pPlayer->move(sf::Vector2f(0.f, intercession.height));

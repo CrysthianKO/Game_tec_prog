@@ -14,6 +14,7 @@ ListEntities::~ListEntities() {
     }
     ++it;
   }
+  lEs.wipe();
 }
 
 void ListEntities::include(Entity* pE) { lEs.include(pE); }

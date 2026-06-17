@@ -19,5 +19,6 @@ class ExtinctionLevelState : public State {
   virtual void setGameContext(Game* game);
   void processEvents(const sf::Event& event);
   void update();
+  void winLevel();
   void render();
 };

@@ -5,12 +5,18 @@
 
 class Physics {
  private:
-  Physics();
+  TimeManager* pTM;
+  const float gravity;
+  const float springStiffness;
+  const float dampingFactor;
   static Physics* instance;
-
+private:
+	Physics();
  public:
   ~Physics();
   static Physics* getInstance();
-  static const float gravity;
-  void applyGravity(TimeManager* pTM, sf::Vector2f& velocity);
+
+  void applyGravity(sf::Vector2f& velocity);
+  void applyLevitation(sf::Vector2f& velocity);
+  void applyDampedOscillator(sf::Vector2f& velocity, const sf::Vector2f& currentPos, const sf::Vector2f targetPos);
 };

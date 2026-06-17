@@ -158,6 +158,8 @@ void Ranking::processEvents(const sf::Event& event)
         else if (event.key.code == sf::Keyboard::Escape)
         {
             pGame->changeState(new Menu());
+            pGame->getPlayer1()->setScore(0);
+            pGame->getPlayer2()->setScore(0);
         }
     }
 }

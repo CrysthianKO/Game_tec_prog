@@ -47,8 +47,11 @@ void ForestLevelState::processEvents(const sf::Event& event) {
       if (pPlayer1) pPlayer1->handleInput(event.key.code, false);
       break;
   }
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-    pGame->changeState(new Menu());
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+      pGame->changeState(new Menu());
+      pPlayer1->setScore(0);
+      pPlayer2->setScore(0);
+  }
 }
 
 void ForestLevelState::update() {

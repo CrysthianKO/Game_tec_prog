@@ -9,9 +9,8 @@ Menu::Menu() : Ente(), State(), selectedOption(1) {
   id = StateID::Menu;
   // std::cout << "Menu Inicializado. Use as teclas 1 ou 2 para selecionar a
   // fase." << std::endl;
-  if (!font.loadFromFile("media/fonte_teste.ttf")) {
-    std::cout << "Erro ao carregar a fonte no menu" << std::endl;
-  }
+  font = *pGM->getFont("MAIN_FONT");
+
   float posX = pGM->getWindowWidth() - 100.f;
   float posY = pGM->getWindowHeight();
 
@@ -97,16 +96,13 @@ void Menu::processEvents(const sf::Event& event) {
           pGame->changeState(new ForestLevelState());
         } else if (isMouseOver(btnLevel2, *window)) {
           pGame->changeState(new ExtinctionLevelState());
-        }
-         else if (isMouseOver(btnRanking, *window))
-        {
-             Ranking* rankingState = new Ranking();
-             //em caso do player morrer ou vencer o jogo
-             //rankingState->setPlayer(&player1, player1.getScore());
-             //rankingState->setPlayer(NULL, 0);
-             pGame->changeState(rankingState);
-         }
-        else if (isMouseOver(btnQuit, *window)) {
+        } else if (isMouseOver(btnRanking, *window)) {
+          Ranking* rankingState = new Ranking();
+          // em caso do player morrer ou vencer o jogo
+          // rankingState->setPlayer(&player1, player1.getScore());
+          // rankingState->setPlayer(NULL, 0);
+          pGame->changeState(rankingState);
+        } else if (isMouseOver(btnQuit, *window)) {
           pGM->close();
         }
       }

@@ -4,7 +4,6 @@
 #include <stdexcept>
 #include <string>
 
-#include "SFML/Graphics/Rect.hpp"
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Mouse.hpp"
@@ -62,7 +61,7 @@ GraphicsManager::GraphicsManager() : mWidth(1280), mHeight(720) {
                        "./media/Massospondylus_idle_spritesheet.png");
   mTextureManager.load("BOSS", "./media/entities/Boss.png");
 
-  mFontManager.load("FONT_TESTE", "./media/fonte_teste.ttf");
+  mFontManager.load("MAIN_FONT", "./media/fonte_teste.ttf");
   mTextureManager.load("PLATFORM_TEXTURE", "./media/platform-test.png");
   mFont.loadFromFile("./media/fonte_teste.ttf");
   mText.setFont(mFont);
@@ -99,7 +98,7 @@ void GraphicsManager::updateCameraPos(sf::Vector2f pos) {
   float maxDownView = 480.f;
   float maxUpperView = 300.f;
   float maxLeftView = 514.f;
-  float maxRightView = 8200;
+  float maxRightView = 6200;
   if (pos.y > maxDownView) {
     pos.y = maxDownView;
   }
@@ -117,22 +116,23 @@ void GraphicsManager::updateCameraPos(sf::Vector2f pos) {
 }
 
 sf::Texture* GraphicsManager::getTexture(string id) {
-  sf::Texture* texture = mTextureManager.get(
-      id);  // Se o resource tiver carregado vai nos retornar a textura
+  try {
+    sf::Texture* texture = mTextureManager.get(
+        id);  // Se o resource tiver carregado vai nos retornar a textura
+    return texture;
+  } catch (const char* errorMsg) {
+    cerr << "Excecao capturada: " << errorMsg << endl;
+  }
   // Ja ha uma msg de erro caso de errado
-  return texture;
+  return NULL;
+}
+
+sf::Font* GraphicsManager::getFont(string id) {
+  sf::Font* font = mFontManager.get(id);
+  return font;
 }
 
 sf::Vector2u GraphicsManager::getWindowSize() { return mWindow.getSize(); }
-
-void GraphicsManager::drawPosition(sf::Vector2f position) {
-  sf::String msg = "Player position:\nx = " + std::to_string(position.x) +
-                   ", y = " + std::to_string(position.y);
-  mText.setString(msg);
-  sf::Vector2f camPos = mCamera.getCenter();
-  mText.setPosition(camPos.x - (mWidth / 2), camPos.y - (mHeight / 2));
-  mWindow.draw(mText);
-}
 
 void GraphicsManager::showMousePosition() {
   sf::Vector2i mousePos = sf::Mouse::getPosition();

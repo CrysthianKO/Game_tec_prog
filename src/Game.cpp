@@ -3,10 +3,10 @@
 #include "entities/characters/Player.hpp"
 #include "managers/CollisionManager.hpp"
 #include "managers/TimeManager.hpp"
+#include "state_machine/ExtinctionLevelState.hpp"
+#include "state_machine/ForestLevelState.hpp"
 #include "state_machine/Menu.hpp"
 #include "state_machine/Ranking.hpp"
-#include "state_machine/ForestLevelState.hpp"
-#include "state_machine/ExtinctionLevelState.hpp"
 #include "state_machine/State.hpp"
 
 using namespace std;
@@ -72,50 +72,44 @@ void Game::run() {
 }
 
 void Game::applyChangeState(/*State* newState*/) {
-    if (nextState) {
-        if (currentState) {
-            if (currentState->getID() == StateID::Menu) {
-                delete static_cast<Menu*>(currentState);
-                currentState = NULL;
-            }
-            else if (currentState->getID() == StateID::Ranking) {
-                delete static_cast<Ranking*>(currentState);
-                currentState = NULL;
-            }
-            else if (currentState->getID() == StateID::ForestLevel) {
-                delete static_cast<ForestLevelState*>(currentState);
-                currentState = NULL;
-            }
-            else if (currentState->getID() == StateID::ExtinctionLevel) {
-                delete static_cast<ExtinctionLevelState*>(currentState);
-                currentState = NULL;
-            }
-            else {
-                delete currentState;
-                currentState = NULL;
-            }
-        }
-        else {
-            std::cout << "Game changeState currentState is already NULL." << std::endl;
-        }
-        currentState = nextState;
-        nextState = NULL;
-        if (currentState) {
-            currentState->setGameContext(this);
-        }
-        else {
-            std::cout << "Game changeState failed to setGameContext." << std::endl;
-        }
+  if (nextState) {
+    if (currentState) {
+      if (currentState->getID() == StateID::Menu) {
+        delete static_cast<Menu*>(currentState);
+        currentState = NULL;
+      } else if (currentState->getID() == StateID::Ranking) {
+        delete static_cast<Ranking*>(currentState);
+        currentState = NULL;
+      } else if (currentState->getID() == StateID::ForestLevel) {
+        delete static_cast<ForestLevelState*>(currentState);
+        currentState = NULL;
+      } else if (currentState->getID() == StateID::ExtinctionLevel) {
+        delete static_cast<ExtinctionLevelState*>(currentState);
+        currentState = NULL;
+      } else {
+        delete currentState;
+        currentState = NULL;
+      }
+    } else {
+      std::cout << "Game changeState currentState is already NULL."
+                << std::endl;
     }
+    currentState = nextState;
+    nextState = NULL;
+    if (currentState) {
+      currentState->setGameContext(this);
+    } else {
+      std::cout << "Game changeState failed to setGameContext." << std::endl;
+    }
+  }
 }
 
-void Game::changeState(State* newState)
-{
-    if (nextState) {
-        delete nextState;
-        nextState = NULL;
-    }
-    nextState = newState;
+void Game::changeState(State* newState) {
+  if (nextState) {
+    delete nextState;
+    nextState = NULL;
+  }
+  nextState = newState;
 }
 
 // checa inputs do usuario e fecha a janela quando o usuario clicar no X da
@@ -156,7 +150,6 @@ void Game::processEvents() {
 // atualiza a logica do jogo, como movimentacao de personagens, verificacao de
 // colisoes, etc
 void Game::update() {
-  // mForestLevel.execute();
   if (currentState) {
     currentState->updateTime();
     currentState->update();

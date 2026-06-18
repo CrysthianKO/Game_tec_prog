@@ -27,6 +27,8 @@ void LaserBall::execute() {
     return;
   }
   float dt = pTM->getDeltaTime();
+  pPhysics->applyGravity(mVelocity);
+  pPhysics->applyLevitation(mVelocity);
   mElapsedTime += dt;
 
   float nextX = mSprite.getPosition().x + (mVelocity.x * dt);

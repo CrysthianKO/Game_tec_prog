@@ -10,6 +10,7 @@
 #include "managers/ResourceManager.hpp"
 
 class Ente;
+class Player;
 
 class GraphicsManager {
  private:
@@ -42,11 +43,11 @@ class GraphicsManager {
   void updateCameraPos(sf::Vector2f pos);
 
   sf::Texture* getTexture(string id);
+  sf::Font* getFont(string id);
   sf::Vector2u getWindowSize();
   void showMousePosition();
 
   void drawEnte(sf::Sprite* sprite);
-  void drawPosition(sf::Vector2f position);
 
   sf::RenderWindow* getWindow();
 

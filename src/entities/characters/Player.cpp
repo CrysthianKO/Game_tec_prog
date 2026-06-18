@@ -1,15 +1,21 @@
 #include "entities/characters/Player.hpp"
 
+#include "SFML/Graphics/Color.hpp"
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
 #include "managers/Physics.hpp"
 #include "managers/TimeManager.hpp"
 
-Player::Player() : mAnimationTimer(0.f), mConfig(), mDamageTimer(0.f), mMoviment(),
-mRunning(false), score(0) {}
-Player::Player(int playerNum) : mAnimationTimer(0.f), mConfig(), mDamageTimer(0.f), mMoviment(),
-mRunning(false), score(0) {
+Player::Player()
+    : mAnimationTimer(0.f),
+      mConfig(),
+      mDamageTimer(0.f),
+      mMoviment(),
+      mRunning(false),
+      score(0) {}
+
+Player::Player(int playerNum) : mConfig(), mMoviment(), score(0) {
   if (playerNum == 1) {
     mConfig.jump = sf::Keyboard::Space;
     mConfig.run = sf::Keyboard::LShift;
@@ -31,7 +37,7 @@ Player::~Player() {}
 
 void Player::setup() {
   mRunning = false;
-  mNumberLives = 100;
+  mNumberLives = 3;
 
   mAnimationTimer = 0.0f;
   mDamageTimer = 0.0f;
@@ -70,10 +76,16 @@ void Player::handleInput(sf::Keyboard::Key key, bool isPressed) {
 void Player::execute() {
   float dt = pTM->getDeltaTime();
   sf::Vector2f moviment(0.f, 0.f);
-  pPhysics->applyGravity(mVelocity);
 
   // aplica gravidade ao player, aumentando a velocidade vertical do player
   // cada frame
+  if (mNumberLives <= 0) {
+    mSprite.setPosition(-1111.f, -1111.f);
+    return;
+  }
+
+  pPhysics->applyGravity(mVelocity);
+
   if (mDamageTimer > 0.f) {
     moviment.x = mVelocity.x;
     mDamageTimer -= dt;
@@ -135,6 +147,28 @@ void Player::takeDamage(int damage, float directionX) {
   mOnGround = false;
 }
 
+void Player::collide(Enemy* pEnemy) {
+  sf::FloatRect intercession;
+  mSprite.getGlobalBounds().intersects(pEnemy->getGlobalBounds(), intercession);
+
+  bool verticalCollision = intercession.width > intercession.height;
+  if (verticalCollision) {  // Colidiu verticalmente
+    if (mVelocity.y > 0.f &&
+        mSprite.getPosition().y < pEnemy->getPosition().y) {
+      pEnemy->damage();
+      mSprite.move(sf::Vector2f(0.f, -intercession.height));
+      bounce();
+      score += 1;
+    }
+  } else {  // colidiu pelos lados
+    if (mSprite.getPosition().x < pEnemy->getPosition().x) {
+      takeDamage(1, -1);
+    } else {
+      takeDamage(1, 1);
+    }
+  }
+}
+
 void Player::slow() { mVelocity *= 0.3f; }
 
 void Player::bounce() { mVelocity.y = -520.f; }
@@ -152,13 +186,7 @@ void Player::updateAnimation(float dt) {
     mAnimationTimer = 0.f;
   }
 }
-void Player::setScore(int s)
-{
-    score = s;
-}
-int Player::getScore() const
-{
-    return score;
-}
+void Player::setScore(int s) { score = s; }
+int Player::getScore() const { return score; }
 sf::Vector2f Player::getVelocity() { return mVelocity; }
 CharacterType Player::getCharacterType() const { return CH_PLAYER; }

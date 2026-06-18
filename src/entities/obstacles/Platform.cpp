@@ -2,7 +2,9 @@
 
 #include "SFML/System/Vector2.hpp"
 
-Platform::Platform() : position(0.f) {
+float Platform::position(0.f);
+
+Platform::Platform() {
   height = 580.f;
   this->setTexture("PLATFORM");
   // TEXTURA BAIXADA DO SITE  https://szadiart.itch.io/pixel-dark-forest
@@ -15,11 +17,12 @@ Platform::Platform() : position(0.f) {
 Platform::~Platform() { position = 0.f; }
 
 void Platform::execute() {
-    float dt = pTM->getDeltaTime();
-    pPhysics->applyGravity(mVelocity);
-    pPhysics->applyLevitation(mVelocity);
-    pPhysics->applyDampedOscillator(mVelocity, mSprite.getPosition(), targetPosition );
-    mSprite.move(mVelocity * dt);
+  float dt = pTM->getDeltaTime();
+  pPhysics->applyGravity(mVelocity);
+  pPhysics->applyLevitation(mVelocity);
+  pPhysics->applyDampedOscillator(mVelocity, mSprite.getPosition(),
+                                  targetPosition);
+  mSprite.move(mVelocity * dt);
 }
 void Platform::save() {}
 

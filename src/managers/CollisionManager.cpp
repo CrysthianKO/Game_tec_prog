@@ -60,7 +60,6 @@ void CollisionManager::manageCollisionEnemyPlayer() {
   vector<Player*> vecPlayer;
   if (pPlayer1) vecPlayer.push_back(pPlayer1);
   if (pPlayer2) vecPlayer.push_back(pPlayer2);
-  sf::FloatRect intercession;
 
   for (int i = 0; i < vecPlayer.size(); i++) {
     Player* currentPlayer = vecPlayer[i];
@@ -69,26 +68,7 @@ void CollisionManager::manageCollisionEnemyPlayer() {
       Enemy* currentEnemy = mVecEnemies[j];
       bool collided = checkCollision(currentPlayer, currentEnemy);
       if (collided) {  // Colidiu
-        intercession = getIntersection(static_cast<Entity*>(currentPlayer),
-                                       static_cast<Entity*>(currentEnemy));
-
-        bool verticalCollision = intercession.width > intercession.height;
-        if (verticalCollision) {  // Colidiu verticalmente
-          if (currentPlayer->getVelocity().y > 0.f &&
-              currentPlayer->getPosition().y < currentEnemy->getPosition().y) {
-            currentEnemy->damage();
-            currentPlayer->move(sf::Vector2f(0.f, -intercession.height));
-            currentPlayer->bounce();
-            int currentScore = currentPlayer->getScore();
-            currentPlayer->setScore(currentScore + ((rand() % 50) + 10));
-          }
-        } else {  // colidiu pelos lados
-          if (currentPlayer->getPosition().x < currentEnemy->getPosition().x) {
-            currentPlayer->takeDamage(1, -1);
-          } else {
-            currentPlayer->takeDamage(1, 1);
-          }
-        }
+        currentPlayer->collide(currentEnemy);
       }
     }
   }
@@ -106,11 +86,11 @@ void CollisionManager::manageCollisionObstaclesPlayer() {
     list<Obstacle*>::iterator it = mListObstacle.begin();
     while (it != mListObstacle.end()) {
       Obstacle* obstacle = *it;
-      bool collided = checkCollision(static_cast<Entity*>(pPlayer1),
+      bool collided = checkCollision(static_cast<Entity*>(currentPlayer),
                                      static_cast<Entity*>(*it));
       if (collided) {
-        intercession = getIntersection(pPlayer1, *it);
-        obstacle->obstruct(pPlayer1, intercession);
+        intercession = getIntersection(currentPlayer, *it);
+        obstacle->obstruct(currentPlayer, intercession);
       }
       it++;
     }
@@ -144,11 +124,11 @@ void CollisionManager::manageCollisionProjectilePlayer() {
 }
 
 void CollisionManager::manageCollisionGround() {
-    if (!pLevel) //throw invalid_argument("Ponteiro da fase NULO!");
-    {
-        std::cout << "Ponteiro da fase NULO! Ignorando colisão." << std::endl;
-        return;
-    }
+  if (!pLevel)  // throw invalid_argument("Ponteiro da fase NULO!");
+  {
+    std::cout << "Ponteiro da fase NULO! Ignorando colisão." << std::endl;
+    return;
+  }
 
   vector<Player*> vecPlayer;
   if (pPlayer1) vecPlayer.push_back(pPlayer1);

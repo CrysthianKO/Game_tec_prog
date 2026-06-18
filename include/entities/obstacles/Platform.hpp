@@ -5,9 +5,10 @@
 #include "entities/obstacles/Obstacle.hpp"
 class Platform : public Obstacle {
  private:
-  float position;
+  static float position;
   float height;
   sf::Vector2f targetPosition;
+
  public:
   Platform();
   ~Platform();

@@ -5,6 +5,7 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include "entities/characters/Character.hpp"
+#include "entities/characters/Enemy.hpp"
 
 struct Moviment {
   bool up;
@@ -43,6 +44,7 @@ class Player : public Character {
   void bounce();
   void configKeys();
   void takeDamage(int damage, float directionX);
+  void collide(Enemy* enemy);
   void handleInput(sf::Keyboard::Key key, bool isPressed);
   void updateAnimation(float dt);
   void setScore(int s);

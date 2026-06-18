@@ -4,6 +4,7 @@
 #include "managers/CollisionManager.hpp"
 #include "state_machine/ExtinctionLevelState.hpp"
 #include "state_machine/Menu.hpp"
+#include "state_machine/Ranking.hpp"
 // #include "entities/characters/Player.hpp"
 // #include "levels/ForestLevel.hpp"
 
@@ -24,6 +25,8 @@ void ForestLevelState::setGameContext(Game* game) {
   if (pGame) {
     pPlayer1 = pGame->getPlayer1();
     pPlayer2 = pGame->getPlayer2();
+    pPlayer1->setup();
+    pPlayer2->setup();
     pPlayer1->setPosition(sf::Vector2f(20.f, 510.f));
     pPlayer2->setPosition(sf::Vector2f(50.f, 510.f));
     forestLevel.setup();
@@ -56,6 +59,8 @@ void ForestLevelState::processEvents(const sf::Event& event) {
 void ForestLevelState::update() {
   forestLevel.execute();
   winLevel();
+  if (pPlayer1->getNumberLives() <= 0 && pPlayer2->getNumberLives() <= 0)
+    pGame->changeState(new Ranking());
 }
 
 void ForestLevelState::winLevel() {
@@ -74,8 +79,11 @@ void ForestLevelState::winLevel() {
 }
 
 void ForestLevelState::render() {
-  pGM->updateCameraPos(pPlayer1->getPosition());
+  if (pPlayer1->getNumberLives() > 0) {
+    pGM->updateCameraPos(pPlayer1->getPosition());
+  } else {
+    pGM->updateCameraPos(pPlayer2->getPosition());
+  }
   forestLevel.render();
   forestLevel.drawHUD(pPlayer1, pPlayer2);
-  pGM->drawPosition(pPlayer1->getPosition());
 }

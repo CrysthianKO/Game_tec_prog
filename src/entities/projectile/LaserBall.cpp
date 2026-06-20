@@ -5,6 +5,9 @@
 #include "SFML/System/Vector2.hpp"
 #include "entities/projectile/Projectile.hpp"
 
+namespace DinoGame {
+namespace Entities {
+
 LaserBall::LaserBall()
     : Projectile(),
       lightning(false),
@@ -49,3 +52,6 @@ void LaserBall::respawn() {
   mSprite.setPosition(-99999.f, -99999.f);
   mVelocity = sf::Vector2f(0.f, 0.f);
 }
+
+}  // namespace Entities
+}  // namespace DinoGame

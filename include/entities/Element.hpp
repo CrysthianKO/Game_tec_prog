@@ -1,6 +1,9 @@
 #pragma once
 #include <cstddef>
 
+namespace DinoGame {
+namespace Lists {
+
 template <class TYPE>
 class Element {
  private:
@@ -17,3 +20,6 @@ class Element {
   void setInfo(TYPE* pI) { pInfo = pI; }
   TYPE* getInfo() { return pInfo; }
 };
+
+}  // namespace Lists
+}  // namespace DinoGame

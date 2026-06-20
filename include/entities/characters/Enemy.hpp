@@ -3,6 +3,10 @@
 
 #include "Character.hpp"
 
+namespace DinoGame {
+namespace Entities {
+namespace Characters {
+
 class Enemy : public Character {
  protected:
   int badLevel;
@@ -14,8 +18,12 @@ class Enemy : public Character {
  public:
   Enemy();
   virtual ~Enemy();
-  // virtual void update(sf::Time deltaTime) = 0;
+  void saveDataBuffer();
+  virtual void execute() = 0;
+  virtual void save() = 0;
   virtual void damage() = 0;
-  virtual EnemyType getEnemyType() const = 0;
-  CharacterType getCharacterType() const;
 };
+
+}  // namespace Characters
+}  // namespace Entities
+}  // namespace DinoGame

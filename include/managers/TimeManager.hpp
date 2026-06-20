@@ -1,6 +1,9 @@
 #pragma once
 #include "SFML/System/Clock.hpp"
 
+namespace DinoGame {
+namespace Managers {
+
 class TimeManager {
  private:
   sf::Clock mClock;
@@ -18,3 +21,6 @@ class TimeManager {
   void updateClock();
   float getDeltaTime() const;
 };
+
+}  // namespace Managers
+}  // namespace DinoGame

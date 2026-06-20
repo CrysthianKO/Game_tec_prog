@@ -1,11 +1,11 @@
 #pragma once
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Rect.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-
 #include "entities/characters/Character.hpp"
-#include "entities/characters/Enemy.hpp"
+
+namespace DinoGame {
+namespace Entities {
+namespace Characters {
+class Enemy;
+namespace Player {
 
 struct Moviment {
   bool up;
@@ -13,6 +13,7 @@ struct Moviment {
   bool right;
   bool left;
 };
+
 struct KeysConfig {
   sf::Keyboard::Key jump;
   sf::Keyboard::Key run;
@@ -48,10 +49,12 @@ class Player : public Character {
   void handleInput(sf::Keyboard::Key key, bool isPressed);
   void updateAnimation(float dt);
   void setScore(int s);
+
   int getScore() const;
-
-  // virtual sf::FloatRect getBounds() const override;
-  virtual CharacterType getCharacterType() const;
-
   sf::Vector2f getVelocity();
 };
+
+}  // namespace Player
+}  // namespace Characters
+}  // namespace Entities
+}  // namespace DinoGame

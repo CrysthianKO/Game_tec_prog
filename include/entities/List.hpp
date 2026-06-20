@@ -3,7 +3,11 @@
 
 #include "Element.hpp"
 
+namespace DinoGame {
+namespace Lists {
+
 using namespace std;
+
 template <class TYPE>
 class List {
  private:
@@ -169,3 +173,6 @@ typename List<TYPE>::Iterator List<TYPE>::erase(
   }
   return Iterator(pNextNode);
 }
+
+}  // namespace Lists
+}  // namespace DinoGame

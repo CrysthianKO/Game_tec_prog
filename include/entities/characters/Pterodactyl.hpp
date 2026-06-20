@@ -1,8 +1,13 @@
 #include "entities/characters/Enemy.hpp"
 
+namespace DinoGame {
+namespace Entities {
+namespace Characters {
+
 class Pterodactyl : public Enemy {
  private:
   static float position;
+  float flyPosition;
 
  public:
   Pterodactyl();
@@ -10,5 +15,8 @@ class Pterodactyl : public Enemy {
   void execute();
   void save();
   void damage();
-  EnemyType getEnemyType() const;
 };
+
+}  // namespace Characters
+}  // namespace Entities
+}  // namespace DinoGame

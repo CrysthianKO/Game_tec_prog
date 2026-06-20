@@ -2,6 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 // #include "state_machine/Menu.hpp"
+
+namespace DinoGame {
+namespace StateMachine {
+
 class Game;
 
 enum class StateID { Unknown, Menu, Ranking, ForestLevel, ExtinctionLevel };
@@ -27,3 +31,6 @@ class State {
   virtual void update() = 0;
   virtual void render() = 0;
 };
+
+}  // namespace StateMachine
+}  // namespace DinoGame

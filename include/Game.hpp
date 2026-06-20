@@ -9,12 +9,15 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <ctime>
 
-#include "entities/characters/Player.hpp"
 #include "managers/GraphicsManager.hpp"
-#include "managers/TimeManager.hpp"
+
+namespace DinoGame {
 
 class State;
 class CollisionManager;
+class TimeManager;
+class GraphicsManager;
+
 class Game {
  private:
   GraphicsManager* pGM;
@@ -32,7 +35,7 @@ class Game {
   void run();
   void applyChangeState(/*State* newState*/);
   void changeState(State* newState);
-  //void setPlayers(Player*& p1, Player*& p2);
+  // void setPlayers(Player*& p1, Player*& p2);
   Player* getPlayer1();
   Player* getPlayer2();
 
@@ -41,3 +44,5 @@ class Game {
   void update();
   void render();
 };
+
+}  // namespace DinoGame

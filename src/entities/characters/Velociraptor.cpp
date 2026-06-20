@@ -6,6 +6,10 @@
 #include "managers/Physics.hpp"
 #include "managers/TimeManager.hpp"
 
+namespace DinoGame {
+namespace Entities {
+namespace Characters {
+
 float Velociraptor::position(0.f);
 
 Velociraptor::Velociraptor() {
@@ -69,11 +73,6 @@ void Velociraptor::execute() {
 
 void Velociraptor::damage() { mSprite.move(sf::Vector2f(10000, 1000)); }
 
-// sf::FloatRect Velociraptor::getBounds() const {
-//	//temporiariamente retorna um retângulo vazio, já que o cogumelo ainda
-// não tem uma sprite ou forma definida 	return sf::FloatRect();
-// }
-
-EnemyType Velociraptor::getEnemyType() const {
-  return EnemyType::EN_VELOCIRAPTOR;
-}
+}  // namespace Characters
+}  // namespace Entities
+}  // namespace DinoGame

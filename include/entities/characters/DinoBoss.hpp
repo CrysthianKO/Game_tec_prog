@@ -1,5 +1,9 @@
 #include "entities/characters/Enemy.hpp"
-#include "entities/projectile/LaserBall.hpp"
+
+namespace DinoGame {
+namespace Entities {
+class LaserBall;
+namespace Characters {
 
 class DinoBoss : public Enemy {
  private:
@@ -16,6 +20,8 @@ class DinoBoss : public Enemy {
   void move();
   void damage();
   void setLaserBall(LaserBall* pL);
-  EnemyType getEnemyType() const;
-  // LaserBall* getLaserBall();
+  LaserBall* getLaserBall();
 };
+}  // namespace Characters
+}  // namespace Entities
+}  // namespace DinoGame

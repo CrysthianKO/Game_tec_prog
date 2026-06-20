@@ -4,9 +4,12 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "entities/Ente.hpp"
 #include "entities/ListEntities.hpp"
+#include "managers/CollisionManager.hpp"
+
+namespace DinoGame {
+namespace Levels {
 
 class Player;
-class CollisionManager;
 
 struct BackgroundLayer {  // Struct para guardar o background e seus layers
   sf::Sprite sprite;
@@ -15,11 +18,11 @@ struct BackgroundLayer {  // Struct para guardar o background e seus layers
 
 class Level : public Ente {
  protected:
-  CollisionManager* pCM;
+  Managers::CollisionManager* pCM;
   vector<BackgroundLayer> mLayers;
   vector<sf::Sprite> mGround;
   float mGroundLevel;
-  ListEntities* pListEntities;
+  Lists::ListEntities* pListEntities;
 
   sf::Font mFont;
   sf::Text txtPlayer1;
@@ -53,3 +56,6 @@ class Level : public Ente {
   virtual void createObstacles() = 0;
   virtual void createScenario() = 0;
 };
+
+}  // namespace Levels
+}  // namespace DinoGame

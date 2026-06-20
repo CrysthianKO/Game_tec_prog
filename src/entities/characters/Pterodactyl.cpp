@@ -4,23 +4,30 @@
 #include "managers/Physics.hpp"
 #include "managers/TimeManager.hpp"
 
+namespace DinoGame {
+namespace Entities {
+namespace Characters {
+
 float Pterodactyl::position(0.f);
 
 Pterodactyl::Pterodactyl() {
+  mNumberLives = 2;
   mVelocity = {0.f, 0.f};
   mSpeed = 2.7f;
   mWalkingTime = 0;
   mMovingRight = true;
   mRange = 120.f;
+  flyPosition = 460.f;
 
   this->setTexture("PTERODACYL");
   // TEXTURA BAIXADA DO SITE https://tonguesurgery.itch.io/tiny-dinosaur
   mSprite.scale(sf::Vector2f(2.3, 2.8));
   position += 915.f;
   mSpawnX = position;
-  mSprite.setPosition(position, 460.f);
+  mSprite.setPosition(position, flyPosition);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {31, 17}));
 }
+
 Pterodactyl::~Pterodactyl() { position = 0.f; }
 
 void Pterodactyl::execute() {
@@ -70,6 +77,6 @@ void Pterodactyl::execute() {
 void Pterodactyl::save() {}
 void Pterodactyl::damage() { mSprite.move(sf::Vector2f(10000, 1000)); }
 
-EnemyType Pterodactyl::getEnemyType() const {
-  return EnemyType::EN_PTERODACTYL;
-}
+}  // namespace Characters
+}  // namespace Entities
+}  // namespace DinoGame

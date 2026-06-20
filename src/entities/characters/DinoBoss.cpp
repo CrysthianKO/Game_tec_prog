@@ -4,6 +4,11 @@
 #include "entities/projectile/LaserBall.hpp"
 #include "managers/TimeManager.hpp"
 
+namespace DinoGame {
+namespace Entities {
+class LaserBall;
+namespace Characters {
+
 float DinoBoss::position(0.f);
 
 DinoBoss::DinoBoss() {
@@ -101,6 +106,6 @@ void DinoBoss::damage() {
 
 void DinoBoss::setLaserBall(LaserBall* pL) { pLaser = pL; }
 
-EnemyType DinoBoss::getEnemyType() const {
-  return EnemyType::EN_MAMENCHISSAURO;
-}
+}  // namespace Characters
+}  // namespace Entities
+}  // namespace DinoGame

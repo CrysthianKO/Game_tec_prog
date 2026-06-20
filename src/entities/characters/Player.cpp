@@ -4,8 +4,15 @@
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "SFML/Window/Keyboard.hpp"
+#include "entities/characters/Enemy.hpp"
 #include "managers/Physics.hpp"
 #include "managers/TimeManager.hpp"
+
+namespace DinoGame {
+namespace Entities {
+namespace Characters {
+class Enemy;
+namespace Player {
 
 Player::Player()
     : mAnimationTimer(0.f),
@@ -189,4 +196,8 @@ void Player::updateAnimation(float dt) {
 void Player::setScore(int s) { score = s; }
 int Player::getScore() const { return score; }
 sf::Vector2f Player::getVelocity() { return mVelocity; }
-CharacterType Player::getCharacterType() const { return CH_PLAYER; }
+
+}  // namespace Player
+}  // namespace Characters
+}  // namespace Entities
+}  // namespace DinoGame

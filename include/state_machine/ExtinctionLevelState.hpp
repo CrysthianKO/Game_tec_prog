@@ -1,15 +1,18 @@
 #pragma once
-#include "state_machine/State.hpp"
-// #include "Game.hpp"
-#include "entities/characters/Player.hpp"
 #include "levels/ExtinctionLevel.hpp"
+#include "state_machine/State.hpp"
+
+namespace DinoGame {
+namespace StateMachine {
+
+class Player;
 
 class CollisionManager;
 class ExtinctionLevelState : public State {
  private:
   Player* pPlayer1;
   Player* pPlayer2;
-  ExtinctionLevel extinctionLevel;
+  Levels::ExtinctionLevel extinctionLevel;
   GraphicsManager* pGM;
   CollisionManager* pCM;
 
@@ -22,3 +25,6 @@ class ExtinctionLevelState : public State {
   void winLevel();
   void render();
 };
+
+}  // namespace StateMachine
+}  // namespace DinoGame

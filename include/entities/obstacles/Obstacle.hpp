@@ -1,7 +1,11 @@
 #pragma once
 #include "entities/Entity.hpp"
-#include "entities/EntityType.hpp"
-#include "entities/characters/Player.hpp"
+
+namespace DinoGame {
+namespace Entities {
+namespace Obstacles {
+
+class Player;
 
 class Obstacle : public Entity {
  protected:
@@ -15,5 +19,9 @@ class Obstacle : public Entity {
   virtual void save() = 0;
   virtual void obstruct(Player* pPlayer,
                         sf::FloatRect intercession) = 0;  // OBSTACULIZAR
-  EntityType getEntityType() const;
+  //
 };
+
+}  // namespace Obstacles
+}  // namespace Entities
+}  // namespace DinoGame

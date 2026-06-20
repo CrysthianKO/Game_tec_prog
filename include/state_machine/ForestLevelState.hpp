@@ -1,14 +1,18 @@
 #pragma once
-#include "entities/characters/Player.hpp"
 #include "levels/ForestLevel.hpp"
 #include "state_machine/State.hpp"
 
+namespace DinoGame {
+namespace StateMachine {
+
 class CollisionManager;
+class Player;
+
 class ForestLevelState : public State {
  private:
   Player* pPlayer1;
   Player* pPlayer2;
-  ForestLevel forestLevel;
+  Levels::ForestLevel forestLevel;
   GraphicsManager* pGM;
   CollisionManager* pCM;
 
@@ -21,3 +25,6 @@ class ForestLevelState : public State {
   void winLevel();
   void render();
 };
+
+}  // namespace StateMachine
+}  // namespace DinoGame

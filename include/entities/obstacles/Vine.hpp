@@ -1,4 +1,9 @@
 #include "entities/obstacles/Obstacle.hpp"
+
+namespace DinoGame {
+namespace Entities {
+namespace Obstacles {
+
 class Vine : public Obstacle {
  private:
   static float position;
@@ -11,3 +16,7 @@ class Vine : public Obstacle {
   void save();
   void obstruct(Player* pPlayer, sf::FloatRect intercession);
 };
+
+}  // namespace Obstacles
+}  // namespace Entities
+}  // namespace DinoGame

@@ -1,9 +1,13 @@
 #include "entities/characters/Enemy.hpp"
 
+namespace DinoGame {
+namespace Entities {
+namespace Characters {
+
 Enemy::Enemy() {}
 
 Enemy::~Enemy() {}
 
-CharacterType Enemy::getCharacterType() const {
-  return CharacterType::CH_ENEMY;
-}
+}  // namespace Characters
+}  // namespace Entities
+}  // namespace DinoGame

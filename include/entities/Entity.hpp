@@ -6,15 +6,18 @@
 #include "SFML/System/Vector2.hpp"
 #include "managers/Physics.hpp"
 
+namespace DinoGame {
+namespace Entities {
+
 class Entity : public Ente {
  protected:
   sf::Sprite mSprite;
   bool mDestroyable;
-  Physics* pPhysics;
+  Managers::Physics* pPhysics;
   sf::Vector2f mVelocity;
 
  protected:
-  void setTexture(string id);
+  void setTexture(std::string id);
 
  public:
   Entity();
@@ -30,3 +33,5 @@ class Entity : public Ente {
   void setVelocity(sf::Vector2f vel);
   virtual EntityType getEntityType() const = 0;
 };
+}  // namespace Entities
+}  // namespace DinoGame

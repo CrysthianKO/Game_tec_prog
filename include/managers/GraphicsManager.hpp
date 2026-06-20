@@ -12,6 +12,9 @@
 class Ente;
 class Player;
 
+namespace DinoGame {
+namespace Managers {
+
 class GraphicsManager {
  private:
   unsigned int mWidth;   // compri janela
@@ -54,3 +57,5 @@ class GraphicsManager {
   const float getWindowWidth() const;
   const float getWindowHeight() const;
 };
+}  // namespace Managers
+}  // namespace DinoGame

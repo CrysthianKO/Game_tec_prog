@@ -1,6 +1,9 @@
 #pragma once
 #include "entities/Entity.hpp"
 
+namespace DinoGame {
+namespace Entities {
+
 class Projectile : public Entity {
  protected:
   bool active;
@@ -13,3 +16,5 @@ class Projectile : public Entity {
   virtual void respawn() = 0;
   virtual EntityType getEntityType() const;
 };
+}  // namespace Entities
+}  // namespace DinoGame

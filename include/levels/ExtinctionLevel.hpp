@@ -3,6 +3,9 @@
 
 #include "levels/Level.hpp"
 
+namespace DinoGame {
+namespace Levels {
+
 class ExtinctionLevel : public Level {
  private:
   const int maxBoss;
@@ -20,3 +23,6 @@ class ExtinctionLevel : public Level {
   void createObstacles();
   void createScenario();
 };
+
+}  // namespace Levels
+}  // namespace DinoGame

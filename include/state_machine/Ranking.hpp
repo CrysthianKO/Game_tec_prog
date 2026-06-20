@@ -1,10 +1,13 @@
 #pragma once
-#include <algorithm>  // sort dos scores
 #include <string>
 #include <vector>
 
 #include "entities/Ente.hpp"
 #include "state_machine/State.hpp"
+
+namespace DinoGame {
+namespace StateMachine {
+
 class Player;
 class Game;
 
@@ -44,3 +47,6 @@ class Ranking : public State, public Ente {
   // void setPlayers(Player* pP1, Player* pP2, int score);
   void setGameContext(Game* game);
 };
+
+}  // namespace StateMachine
+}  // namespace DinoGame

@@ -1,5 +1,11 @@
-#include "Entity.hpp"
+#pragma once
 #include "List.hpp"
+
+namespace DinoGame {
+namespace Lists {
+
+class Entity;
+
 class ListEntities {
  private:
   List<Entity> lEs;
@@ -15,3 +21,6 @@ class ListEntities {
   void execute();
   void drawEntities();
 };
+
+}  // namespace Lists
+}  // namespace DinoGame

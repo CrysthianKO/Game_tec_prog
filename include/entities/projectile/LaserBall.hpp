@@ -1,8 +1,10 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-
-#include "SFML/System/Vector2.hpp"
 #include "entities/projectile/Projectile.hpp"
+
+namespace DinoGame {
+namespace Entities {
+
+class DinoBoss;
 
 class LaserBall : public Projectile {
  private:
@@ -11,6 +13,7 @@ class LaserBall : public Projectile {
   float maxDistance;
   float laserSpeed;
   float mElapsedTime;
+  DinoBoss* pOwner;
 
  public:
   LaserBall();
@@ -20,3 +23,6 @@ class LaserBall : public Projectile {
   void respawn();
   void setStart(sf::Vector2f pos);
 };
+
+}  // namespace Entities
+}  // namespace DinoGame

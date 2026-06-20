@@ -3,6 +3,12 @@
 #include "managers/GraphicsManager.hpp"
 #include "managers/TimeManager.hpp"
 
+using namespace std;
+
+namespace DinoGame {
+
+using namespace Managers;
+
 int Ente::cont_id(0);
 GraphicsManager* Ente::pGM = NULL;
 TimeManager* Ente::pTM = NULL;
@@ -27,3 +33,5 @@ void Ente::setTM(TimeManager* pT) {
 }
 
 int Ente::getId() const { return mId; }
+
+}  // namespace DinoGame

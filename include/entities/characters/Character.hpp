@@ -1,8 +1,9 @@
 #pragma once
-#include <SFML/Graphics.hpp>
-
 #include "entities/Entity.hpp"
-#include "entities/EntityType.hpp"
+
+namespace DinoGame {
+namespace Entities {
+namespace Characters {
 
 class Character : public Entity {
  protected:
@@ -10,12 +11,15 @@ class Character : public Entity {
   float mSpeed;
   bool mOnGround;
   bool alive;
+
  public:
   Character();
   virtual ~Character();
   void lifeCheck();
   void setOnGround(bool onG);
   int getNumberLives() const;
-  EntityType getEntityType() const;
-  virtual CharacterType getCharacterType() const = 0;
 };
+
+}  // namespace Characters
+}  // namespace Entities
+}  // namespace DinoGame

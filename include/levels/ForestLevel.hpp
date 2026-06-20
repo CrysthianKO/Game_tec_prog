@@ -3,6 +3,9 @@
 
 #include "levels/Level.hpp"
 
+namespace DinoGame {
+namespace Levels {
+
 class ForestLevel : public Level {
  private:
   const int maxMidEnemies;
@@ -20,3 +23,6 @@ class ForestLevel : public Level {
   void createObstacles();
   void createScenario();
 };
+
+}  // namespace Levels
+}  // namespace DinoGame

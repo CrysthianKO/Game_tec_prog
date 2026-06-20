@@ -1,5 +1,9 @@
 #include "entities/obstacles/Obstacle.hpp"
 
+namespace DinoGame {
+namespace Entities {
+namespace Obstacles {
+
 class Fire : public Obstacle {
  private:
   float static position;
@@ -11,5 +15,8 @@ class Fire : public Obstacle {
   void execute();
   void save();
   void obstruct(Player* pPlayer, sf::FloatRect intercession);
-  ObstacleType getObstacleType() const;
 };
+
+}  // namespace Obstacles
+}  // namespace Entities
+}  // namespace DinoGame

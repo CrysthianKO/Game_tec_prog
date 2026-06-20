@@ -5,16 +5,18 @@
 #include <vector>
 
 #include "SFML/Graphics/Rect.hpp"
-#include "entities/Entity.hpp"
-#include "entities/characters/Enemy.hpp"
-// #include "entities/characters/Player.hpp"
-#include "entities/obstacles/Obstacle.hpp"
-#include "entities/projectile/Projectile.hpp"
-
-class Player;
-class Level;
 
 using namespace std;
+
+namespace DinoGame {
+namespace Managers {
+
+class Entity;
+class Enemy;
+class Obstacle;
+class Projectile;
+class Player;
+class Level;
 
 class CollisionManager {
  private:
@@ -49,3 +51,5 @@ class CollisionManager {
   void clearComponents();
   void execute();
 };
+}  // namespace Managers
+}  // namespace DinoGame

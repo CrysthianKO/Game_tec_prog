@@ -13,6 +13,7 @@ using namespace Characters;
 float Fire::position(0.f);
 
 Fire::Fire() {
+  mDamage = 2;
   this->setTexture("FIRE");
   // TEXTURE BAIXADA DO SITE https://devkidd.itch.io/pixel-fire-asset-pack
   position += 1285.f;
@@ -29,9 +30,9 @@ void Fire::save() {}
 
 void Fire::obstruct(Player* pPlayer, sf::FloatRect intercession) {
   if (pPlayer->getPosition().x < mSprite.getPosition().x) {
-    pPlayer->takeDamage(1, -1);
+    pPlayer->takeDamage(mDamage, -1);
   } else {
-    pPlayer->takeDamage(1, 1);
+    pPlayer->takeDamage(mDamage, 1);
   }
 }
 

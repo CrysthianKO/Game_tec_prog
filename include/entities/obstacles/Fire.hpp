@@ -9,6 +9,7 @@ namespace Obstacles {
 
 class Fire : public Obstacle {
  private:
+  int mDamage;
   float static position;
 
  public:

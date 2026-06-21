@@ -165,7 +165,7 @@ void Player::collide(Enemy* pEnemy) {
       pEnemy->damage();
       mSprite.move(sf::Vector2f(0.f, -intercession.height));
       bounce();
-      score += 1;
+      score += ((rand() % 50) + 10);
     }
   } else {  // colidiu pelos lados
     int damage = pEnemy->getBadLevel();

@@ -44,7 +44,7 @@ Player::~Player() {}
 
 void Player::setup() {
   mRunning = false;
-  mNumberLives = 1929;
+  mNumberLives = 100;
 
   mAnimationTimer = 0.0f;
   mDamageTimer = 0.0f;

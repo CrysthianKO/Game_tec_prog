@@ -1,9 +1,15 @@
 #include "levels/ExtinctionLevel.hpp"
 
 #include "entities/characters/DinoBoss.hpp"
+#include "entities/characters/Enemy.hpp"
 #include "entities/obstacles/Fire.hpp"
 #include "entities/projectile/LaserBall.hpp"
 #include "managers/CollisionManager.hpp"
+
+namespace DinoGame {
+namespace Levels {
+using namespace Entities::Obstacles;
+using namespace Entities::Characters;
 
 ExtinctionLevel::ExtinctionLevel() : maxBoss(4), maxHardObstacles(6) {}
 
@@ -30,17 +36,31 @@ void ExtinctionLevel::execute() {
 }
 
 void ExtinctionLevel::createEnemies() {
+  vector<Enemy*> tempBosses;
+
   int max = rand() % (maxBoss - 3 + 1) + 3;
+
   for (int i = 0; i < max; i++) {
     DinoBoss* boss = new DinoBoss();
-    LaserBall* laser = new LaserBall();
-    boss->setLaserBall(laser);
+
     pListEntities->include(boss);
     pCM->includeEnemy(boss);
+    tempBosses.push_back(boss);
+  }
+
+  createProjectiles(tempBosses);
+}
+
+void ExtinctionLevel::createProjectiles(vector<Enemy*>& rTempBosses) {
+  for (int i = 0; i < rTempBosses.size(); i++) {
+    DinoBoss* boss = static_cast<DinoBoss*>(rTempBosses[i]);
+    Entities::LaserBall* laser = new Entities::LaserBall();
+    boss->setLaserBall(laser);
     pListEntities->include(laser);
     pCM->includeProjectile(laser);
   }
 }
+
 void ExtinctionLevel::createObstacles() {
   int max = rand() % (maxHardObstacles - 3 + 1) + 3;
   for (int i = 0; i < max; i++) {
@@ -54,6 +74,7 @@ void ExtinctionLevel::createScenario() {
     string id = "EXTINCTION_BACKGROUND_" + to_string(i);
     // TEXTURA DO SITE https://ansimuz.itch.io/mountain-dusk-parallax-background
     addBackgroundLayer(id, 0.0f);
+    mLayers[i].sprite.scale(4.f, 4.f);
   }
   for (int i = 0; i <= 1; i++) {
     string id = "EXTINCTION_GROUND_" + to_string(i);
@@ -66,3 +87,6 @@ void ExtinctionLevel::createScenario() {
   mGround[1].setPosition(oldPos.x, -20);
   mGroundLevel = mGround[0].getLocalBounds().height - 75.f;
 }
+
+}  // namespace Levels
+}  // namespace DinoGame

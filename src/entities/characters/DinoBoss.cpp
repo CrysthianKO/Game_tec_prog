@@ -12,9 +12,11 @@ namespace Characters {
 float DinoBoss::position(0.f);
 
 DinoBoss::DinoBoss() {
-  mNumberLives = 3;
+  pLaser = NULL;
+  mColor = sf::Color::White;
+  badLevel = rand() % 6 + 3;
+  mNumberLives = 4;
   mSpeed = 2.8f;
-  mStrength = 3;
   mVelocity.y = 300.f;
   mWalkingTime = 0;
   mMovingRight = true;
@@ -33,6 +35,7 @@ DinoBoss::~DinoBoss() { position = 0.f; }
 
 void DinoBoss::save() {}
 void DinoBoss::execute() {
+  mSprite.setColor(mColor);
   float dt = pTM->getDeltaTime();
   mTimerShoot -= dt;
 
@@ -92,19 +95,21 @@ void DinoBoss::move() {}
 
 void DinoBoss::damage() {
   sf::Color color;
-  switch (mNumberLives) {
-    case 2:
-      color = sf::Color::Yellow;
-    case 1:
-      color = sf::Color::Red;
-  }
+  if (mNumberLives > 3) mColor = sf::Color::White;
+  if ((mNumberLives == 2)) mColor = sf::Color::Yellow;
+  if ((mNumberLives == 1)) mColor = sf::Color::Red;
   if (mNumberLives <= 0) {
     mSprite.setPosition(-99999.f, -99999.f);
   }
   mNumberLives--;
 }
 
-void DinoBoss::setLaserBall(LaserBall* pL) { pLaser = pL; }
+void DinoBoss::setLaserBall(LaserBall* pL) {
+  if (!pL)
+    throw std::invalid_argument("Ponteio Laser Ball Para DinoBoss nulo!");
+  pLaser = pL;
+  pLaser->setOwner(this);
+}
 
 }  // namespace Characters
 }  // namespace Entities

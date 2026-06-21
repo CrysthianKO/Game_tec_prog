@@ -11,20 +11,21 @@ namespace Characters {
 float Pterodactyl::position(0.f);
 
 Pterodactyl::Pterodactyl() {
-  mNumberLives = 2;
+  badLevel = rand() % 2 + 2;
+  mNumberLives = 3;
   mVelocity = {0.f, 0.f};
   mSpeed = 2.7f;
   mWalkingTime = 0;
   mMovingRight = true;
   mRange = 120.f;
-  flyPosition = 460.f;
+  mFlyPosition = 460.f;
 
   this->setTexture("PTERODACYL");
   // TEXTURA BAIXADA DO SITE https://tonguesurgery.itch.io/tiny-dinosaur
   mSprite.scale(sf::Vector2f(2.3, 2.8));
   position += 915.f;
   mSpawnX = position;
-  mSprite.setPosition(position, flyPosition);
+  mSprite.setPosition(position, mFlyPosition);
   mSprite.setTextureRect(sf::IntRect({0, 0}, {31, 17}));
 }
 
@@ -63,7 +64,7 @@ void Pterodactyl::execute() {
 
   pPhysics->applyGravity(mVelocity);
 
-  if (getPosition().y > 500.f) {
+  if (getPosition().y > mFlyPosition) {
     mVelocity.y = -400.f;
   }
   if (mVelocity.x > 120.f) {
@@ -75,7 +76,11 @@ void Pterodactyl::execute() {
   mSprite.move(moviment);
 }
 void Pterodactyl::save() {}
-void Pterodactyl::damage() { mSprite.move(sf::Vector2f(10000, 1000)); }
+void Pterodactyl::damage() {
+  if (mNumberLives <= 0) mSprite.move(sf::Vector2f(10000, 1000));
+  mNumberLives--;
+  mFlyPosition += 22.f;
+}
 
 }  // namespace Characters
 }  // namespace Entities

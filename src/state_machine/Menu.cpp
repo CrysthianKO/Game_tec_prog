@@ -5,6 +5,9 @@
 #include "state_machine/ForestLevelState.hpp"
 #include "state_machine/Ranking.hpp"
 
+namespace DinoGame {
+namespace StateMachine {
+
 Menu::Menu() : Ente(), State(), selectedOption(1) {
   id = StateID::Menu;
   // std::cout << "Menu Inicializado. Use as teclas 1 ou 2 para selecionar a
@@ -164,3 +167,6 @@ void Menu::render() {
     std::cout << "window nulo em render no menu" << std::endl;
   }
 }
+
+}  // namespace StateMachine
+}  // namespace DinoGame

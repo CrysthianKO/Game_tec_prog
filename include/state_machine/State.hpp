@@ -1,12 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
-// #include "state_machine/Menu.hpp"
 
 namespace DinoGame {
-namespace StateMachine {
-
 class Game;
+
+namespace StateMachine {
 
 enum class StateID { Unknown, Menu, Ranking, ForestLevel, ExtinctionLevel };
 

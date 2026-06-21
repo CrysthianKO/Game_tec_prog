@@ -19,6 +19,7 @@ class Enemy : public Character {
   Enemy();
   virtual ~Enemy();
   void saveDataBuffer();
+  int getBadLevel();
   virtual void execute() = 0;
   virtual void save() = 0;
   virtual void damage() = 0;

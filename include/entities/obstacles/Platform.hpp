@@ -4,6 +4,9 @@
 
 namespace DinoGame {
 namespace Entities {
+namespace Characters {
+class Player;
+}
 namespace Obstacles {
 
 class Platform : public Obstacle {
@@ -18,7 +21,7 @@ class Platform : public Obstacle {
 
   void execute();
   void save();
-  void obstruct(Player* pPlayer, sf::FloatRect intercession);
+  void obstruct(Characters::Player* pPlayer, sf::FloatRect intercession);
 };
 
 }  // namespace Obstacles

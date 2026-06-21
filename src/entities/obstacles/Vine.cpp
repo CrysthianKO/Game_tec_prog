@@ -1,9 +1,19 @@
 #include "entities/obstacles/Vine.hpp"
 
+#include "entities/characters/Player.hpp"
+
+namespace DinoGame {
+namespace Entities {
+namespace Characters {
+class Player;
+}
+namespace Obstacles {
+using namespace Characters;
+
 float Vine::position(0.f);
 
 Vine::Vine() {
-  position += 1060.f;
+  position += 989.f;
   sf::Vector2f vecPos = {position, 440.f};
   this->setTexture("VINE");
   // TEXTURA BAIXADA DO SITE  https://szadiart.itch.io/pixel-dark-forest
@@ -14,12 +24,16 @@ Vine::Vine() {
 Vine::~Vine() { position = 0.f; }
 
 void Vine::execute() {
-	float dt = pTM->getDeltaTime();
-	pPhysics->applyGravity(mVelocity);
-	pPhysics->applyLevitation(mVelocity);
-	mSprite.move(mVelocity * dt);
+  float dt = pTM->getDeltaTime();
+  pPhysics->applyGravity(mVelocity);
+  pPhysics->applyLevitation(mVelocity);
+  mSprite.move(mVelocity * dt);
 }
 void Vine::save() {}
 void Vine::obstruct(Player* pPlayer, sf::FloatRect intercession) {
   pPlayer->slow();
 }
+
+}  // namespace Obstacles
+}  // namespace Entities
+}  // namespace DinoGame

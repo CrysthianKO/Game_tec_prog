@@ -1,6 +1,5 @@
 #pragma once
 #include "SFML/System/Clock.hpp"
-
 namespace DinoGame {
 namespace Managers {
 

@@ -1,6 +1,15 @@
 #include "entities/obstacles/Platform.hpp"
 
 #include "SFML/System/Vector2.hpp"
+#include "entities/characters/Player.hpp"
+
+namespace DinoGame {
+namespace Entities {
+namespace Characters {
+class Player;
+}
+namespace Obstacles {
+using namespace Characters;
 
 float Platform::position(0.f);
 
@@ -50,6 +59,6 @@ void Platform::obstruct(Player* pPlayer, sf::FloatRect intercession) {
   }
 }
 
-ObstacleType Platform::getObstacleType() const {
-  return ObstacleType::OT_PLATFORM;
-}
+}  // namespace Obstacles
+}  // namespace Entities
+}  // namespace DinoGame

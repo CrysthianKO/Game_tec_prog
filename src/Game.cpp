@@ -11,6 +11,12 @@
 
 using namespace std;
 
+namespace DinoGame {
+
+using namespace Entities::Characters;
+using namespace Managers;
+using namespace StateMachine;
+
 Game::Game()
     : pGM(GraphicsManager::getInstance()),
       pCM(CollisionManager::getInstance()),
@@ -115,33 +121,12 @@ void Game::changeState(State* newState) {
 // checa inputs do usuario e fecha a janela quando o usuario clicar no X da
 // janela
 void Game::processEvents() {
-  // sf::Event event;
-
-  // while (pGM->pollEvent(event)) {
-  //   if (event.type == sf::Event::Closed) {
-  //     pGM->close();
-  //   }
-
-  //  else if (event.type == sf::Event::KeyPressed) {
-  //    if (event.key.code == sf::Keyboard::Escape)
-  //      pGM->close();  // temporario fechar pq ja basta ter q clicar n "X"
-  //      toda
-  //                   // vez :P
-  //    mPlayer->handleInput(event.key.code, true);
-  //  }
-
-  //  else if (event.type == sf::Event::KeyReleased) {
-  //    mPlayer->handleInput(event.key.code, false);
-  //  }
-  //}
   sf::Event event;
   while (pGM->pollEvent(event)) {
     if (event.type == sf::Event::Closed) {
       pGM->close();
     }
     if (currentState) {
-      // Nota: Você pode adaptar o processEvents do State para receber o
-      // sf::Event Ou tratar o input de forma genérica dentro do estado.
       currentState->processEvents(event);
     }
   }
@@ -168,3 +153,5 @@ void Game::render() {
 
 Player* Game::getPlayer1() { return pPlayer1; }
 Player* Game::getPlayer2() { return pPlayer2; }
+
+}  // namespace DinoGame

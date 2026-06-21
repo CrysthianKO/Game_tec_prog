@@ -3,18 +3,24 @@
 #include "state_machine/State.hpp"
 
 namespace DinoGame {
+namespace Entities {
+namespace Characters {
+class Player;
+}
+}  // namespace Entities
+namespace Managers {
+class GraphicsManager;
+class CollisionManager;
+}  // namespace Managers
 namespace StateMachine {
 
-class Player;
-
-class CollisionManager;
 class ExtinctionLevelState : public State {
  private:
-  Player* pPlayer1;
-  Player* pPlayer2;
+  Entities::Characters::Player* pPlayer1;
+  Entities::Characters::Player* pPlayer2;
   Levels::ExtinctionLevel extinctionLevel;
-  GraphicsManager* pGM;
-  CollisionManager* pCM;
+  Managers::GraphicsManager* pGM;
+  Managers::CollisionManager* pCM;
 
  public:
   ExtinctionLevelState();

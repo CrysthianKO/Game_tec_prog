@@ -9,6 +9,7 @@ namespace Characters {
 
 class Velociraptor : public Enemy {
  private:
+  bool mSprint;
   static float position;
 
  public:

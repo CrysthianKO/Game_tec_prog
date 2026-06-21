@@ -17,6 +17,7 @@ class Character : public Entity {
   virtual ~Character();
   void lifeCheck();
   void setOnGround(bool onG);
+  void incrementNumberLives();
   int getNumberLives() const;
 };
 

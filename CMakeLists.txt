@@ -27,7 +27,6 @@ file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/media"
 set(SOURCES
   src/Main.cpp
   src/Game.cpp
-  # src/Menu.cpp
   src/state_machine/State.cpp
   src/state_machine/ExtinctionLevelState.cpp
   src/state_machine/ForestLevelState.cpp
@@ -39,13 +38,9 @@ set(SOURCES
   src/entities/characters/Player.cpp
   src/entities/characters/Character.cpp
   src/entities/characters/Enemy.cpp
-  # src/entities/personagens/Tanystropheus.cpp
   src/entities/characters/Pterodactyl.cpp
   src/entities/characters/Velociraptor.cpp
   src/entities/characters/DinoBoss.cpp
-  # src/entities/personagens/Mamenchissauro.cpp
-  # src/entities/collectables/Collectable.cpp
-  # src/entities/collectables/Bone.cpp
   src/entities/obstacles/Obstacle.cpp
   src/entities/obstacles/Platform.cpp
   src/entities/obstacles/Vine.cpp
@@ -55,7 +50,6 @@ set(SOURCES
   src/levels/Level.cpp
   src/levels/ForestLevel.cpp
   src/levels/ExtinctionLevel.cpp
-  # src/levels/ExtinctionLevel.cpp
   src/managers/GraphicsManager.cpp
   src/managers/CollisionManager.cpp
   src/managers/TimeManager.cpp

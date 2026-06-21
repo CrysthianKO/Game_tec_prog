@@ -1,7 +1,13 @@
 #include "entities/obstacles/Obstacle.hpp"
 
+namespace DinoGame {
+namespace Entities {
+namespace Obstacles {
+
 Obstacle::Obstacle() {}
 
 Obstacle::~Obstacle() {}
 
-EntityType Obstacle::getEntityType() const { return EntityType::ET_OBSTACLE; }
+}  // namespace Obstacles
+}  // namespace Entities
+}  // namespace DinoGame

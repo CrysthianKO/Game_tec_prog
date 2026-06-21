@@ -1,13 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+#include "SFML/Graphics/Sprite.hpp"
 #include "entities/Ente.hpp"
 #include "state_machine/State.hpp"
 
 namespace DinoGame {
+class Game;
+
 namespace StateMachine {
 
-class Game;
 class Menu : public State, public Ente {
  private:
   // justo deixar pGame em State no caso
@@ -18,6 +20,7 @@ class Menu : public State, public Ente {
   sf::RectangleShape btnLevel2;
   sf::RectangleShape btnRanking;
   sf::RectangleShape btnQuit;
+  sf::Sprite background;
   sf::Text txtLevel1;
   sf::Text txtLevel2;
   sf::Text txtRanking;

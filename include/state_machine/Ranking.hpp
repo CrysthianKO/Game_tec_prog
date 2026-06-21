@@ -6,10 +6,13 @@
 #include "state_machine/State.hpp"
 
 namespace DinoGame {
-namespace StateMachine {
-
-class Player;
 class Game;
+namespace Entities {
+namespace Characters {
+class Player;
+}
+}  // namespace Entities
+namespace StateMachine {
 
 struct RankingItem {
   std::string name;
@@ -18,8 +21,8 @@ struct RankingItem {
 
 class Ranking : public State, public Ente {
  private:
-  Player* pPlay1;
-  Player* pPlay2;
+  Entities::Characters::Player* pPlay1;
+  Entities::Characters::Player* pPlay2;
   std::string playerName;
   int playerScore;
   bool nameEntered;

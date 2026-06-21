@@ -6,8 +6,19 @@
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "entities/Entity.hpp"
+#include "entities/characters/Enemy.hpp"
 #include "entities/characters/Player.hpp"
+#include "entities/obstacles/Obstacle.hpp"
+#include "entities/projectile/Projectile.hpp"
 #include "levels/Level.hpp"
+
+namespace DinoGame {
+namespace Managers {
+
+using namespace Entities;
+using namespace Characters;
+using namespace Obstacles;
+using namespace Levels;
 
 CollisionManager* CollisionManager::instance = NULL;
 
@@ -117,7 +128,7 @@ void CollisionManager::manageCollisionProjectilePlayer() {
         } else {
           currentPlayer->takeDamage(1, 1);
         }
-        projecile->setPosition(sf::Vector2f(-999999.f, -99999.f));
+        projecile->collide();
       }
     }
   }
@@ -216,3 +227,6 @@ void CollisionManager::includeProjectile(Projectile* pE) {
   if (!pE) throw invalid_argument("Ponteiro projetil NULO!");
   mSetProjectables.insert(pE);
 }
+
+}  // namespace Managers
+}  // namespace DinoGame

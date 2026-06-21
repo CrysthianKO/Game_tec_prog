@@ -8,6 +8,8 @@ Enemy::Enemy() {}
 
 Enemy::~Enemy() {}
 
+int Enemy::getBadLevel() { return badLevel; }
+
 }  // namespace Characters
 }  // namespace Entities
 }  // namespace DinoGame

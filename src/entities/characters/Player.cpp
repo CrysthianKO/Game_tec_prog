@@ -11,8 +11,8 @@
 namespace DinoGame {
 namespace Entities {
 namespace Characters {
+
 class Enemy;
-namespace Player {
 
 Player::Player()
     : mAnimationTimer(0.f),
@@ -44,7 +44,7 @@ Player::~Player() {}
 
 void Player::setup() {
   mRunning = false;
-  mNumberLives = 3;
+  mNumberLives = 1929;
 
   mAnimationTimer = 0.0f;
   mDamageTimer = 0.0f;
@@ -144,7 +144,7 @@ void Player::execute() {
 void Player::takeDamage(int damage, float directionX) {
   if (mDamageTimer > 0.f) return;
 
-  mNumberLives--;
+  mNumberLives -= damage;
 
   mDamageTimer = 0.3f;
 
@@ -168,17 +168,18 @@ void Player::collide(Enemy* pEnemy) {
       score += 1;
     }
   } else {  // colidiu pelos lados
+    int damage = pEnemy->getBadLevel();
     if (mSprite.getPosition().x < pEnemy->getPosition().x) {
-      takeDamage(1, -1);
+      takeDamage(damage, -1);
     } else {
-      takeDamage(1, 1);
+      takeDamage(damage, 1);
     }
   }
 }
 
 void Player::slow() { mVelocity *= 0.3f; }
 
-void Player::bounce() { mVelocity.y = -520.f; }
+void Player::bounce() { mVelocity.y = -600.f; }
 // atualiza a animacao do player, mudando o frame da sprite a cada 0.1 segundos
 // (hard coded)
 void Player::updateAnimation(float dt) {
@@ -197,7 +198,6 @@ void Player::setScore(int s) { score = s; }
 int Player::getScore() const { return score; }
 sf::Vector2f Player::getVelocity() { return mVelocity; }
 
-}  // namespace Player
 }  // namespace Characters
 }  // namespace Entities
 }  // namespace DinoGame

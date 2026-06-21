@@ -2,6 +2,9 @@
 
 #include <iostream>
 
+namespace DinoGame {
+namespace Managers {
+
 using namespace std;
 TimeManager* TimeManager::instance = NULL;
 
@@ -17,3 +20,6 @@ TimeManager* TimeManager::getInstance() {
 
 void TimeManager::updateClock() { mDeltaTime = mClock.restart().asSeconds(); }
 float TimeManager::getDeltaTime() const { return mDeltaTime; }
+
+}  // namespace Managers
+}  // namespace DinoGame

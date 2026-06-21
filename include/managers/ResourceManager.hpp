@@ -4,6 +4,9 @@
 #include <string>
 
 using namespace std;
+namespace DinoGame {
+namespace Managers {
+
 template <typename ResourceType, typename Identifier>
 class ResourceManager {
  public:
@@ -66,3 +69,6 @@ void ResourceManager<ResourceType, Identifier>::clear() {
   }
   mResourceMap.clear();
 }
+
+}  // namespace Managers
+}  // namespace DinoGame

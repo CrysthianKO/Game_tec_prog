@@ -7,7 +7,7 @@ namespace Characters {
 class Pterodactyl : public Enemy {
  private:
   static float position;
-  float flyPosition;
+  float mFlyPosition;
 
  public:
   Pterodactyl();

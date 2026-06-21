@@ -10,6 +10,9 @@
 // Logica de ler/escrever/salvar arquivos txt adaptado do video
 // https://www.youtube.com/watch?v=EaHFhms_Shw CodeBeauty
 
+namespace DinoGame {
+namespace StateMachine {
+
 Ranking::Ranking()
     : Ente(),
       State(),
@@ -207,3 +210,6 @@ void Ranking::setGameContext(Game* game) {
   loadLeaderBoard();
   updateLeaderBoardText();
 }
+
+}  // namespace StateMachine
+}  // namespace DinoGame

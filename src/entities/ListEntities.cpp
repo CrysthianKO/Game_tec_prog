@@ -1,5 +1,11 @@
 #include "entities/ListEntities.hpp"
 
+#include "entities/Entity.hpp"
+
+namespace DinoGame {
+namespace Lists {
+using namespace Entities;
+
 ListEntities::ListEntities() : lEs() {}
 
 ListEntities::~ListEntities() {
@@ -37,3 +43,6 @@ void ListEntities::drawEntities() {
     entity->draw();
   }
 }
+
+}  // namespace Lists
+}  // namespace DinoGame

@@ -4,6 +4,11 @@
 #include "levels/Level.hpp"
 
 namespace DinoGame {
+namespace Entities {
+namespace Characters {
+class Enemy;
+}
+}  // namespace Entities
 namespace Levels {
 
 class ExtinctionLevel : public Level {
@@ -19,9 +24,10 @@ class ExtinctionLevel : public Level {
   void execute();
 
  protected:
-  void createEnemies();
   void createObstacles();
   void createScenario();
+  void createEnemies();
+  void createProjectiles(vector<Entities::Characters::Enemy*>& rTempBosses);
 };
 
 }  // namespace Levels

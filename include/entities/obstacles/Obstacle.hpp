@@ -3,9 +3,10 @@
 
 namespace DinoGame {
 namespace Entities {
-namespace Obstacles {
-
+namespace Characters {
 class Player;
+}
+namespace Obstacles {
 
 class Obstacle : public Entity {
  protected:
@@ -17,7 +18,7 @@ class Obstacle : public Entity {
 
   virtual void execute() = 0;
   virtual void save() = 0;
-  virtual void obstruct(Player* pPlayer,
+  virtual void obstruct(Characters::Player* pPlayer,
                         sf::FloatRect intercession) = 0;  // OBSTACULIZAR
   //
 };

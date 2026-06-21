@@ -13,6 +13,9 @@ namespace Characters {
 float Velociraptor::position(0.f);
 
 Velociraptor::Velociraptor() {
+  badLevel = rand() % 3 + 2;
+  mNumberLives = 3;
+  mSprint = false;
   mSpeed = 3.8f;
   mVelocity.y = 600.f;
   mWalkingTime = 0;
@@ -36,6 +39,10 @@ void Velociraptor::execute() {
   float dt = pTM->getDeltaTime();
 
   mWalkingTime += dt;
+  if (mSprint) {
+    mSpeed += 0.87f;
+    mSprint = false;
+  }
   if (mWalkingTime > 0.5f) {
     mMovingRight = rand() % 2;
     mWalkingTime = 0.f;
@@ -71,7 +78,11 @@ void Velociraptor::execute() {
   if (mOnGround) mVelocity.y = 0.f;
 }
 
-void Velociraptor::damage() { mSprite.move(sf::Vector2f(10000, 1000)); }
+void Velociraptor::damage() {
+  if (mNumberLives <= 0) mSprite.move(sf::Vector2f(10000, 1000));
+  mNumberLives--;
+  mSprint = true;
+}
 
 }  // namespace Characters
 }  // namespace Entities

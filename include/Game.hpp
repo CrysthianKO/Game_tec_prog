@@ -12,21 +12,31 @@
 #include "managers/GraphicsManager.hpp"
 
 namespace DinoGame {
+namespace Entities {
+namespace Characters {
+class Player;
+}
+}  // namespace Entities
 
+namespace StateMachine {
 class State;
+}
+namespace Managers {
 class CollisionManager;
 class TimeManager;
 class GraphicsManager;
+}  // namespace Managers
+//
 
 class Game {
  private:
-  GraphicsManager* pGM;
-  CollisionManager* pCM;
-  TimeManager* pTM;
-  State* currentState;
-  State* nextState;
-  Player* pPlayer1;
-  Player* pPlayer2;
+  Managers::GraphicsManager* pGM;
+  Managers::CollisionManager* pCM;
+  Managers::TimeManager* pTM;
+  StateMachine::State* currentState;
+  StateMachine::State* nextState;
+  Entities::Characters::Player* pPlayer1;
+  Entities::Characters::Player* pPlayer2;
   float mScore;
 
  public:
@@ -34,10 +44,10 @@ class Game {
   ~Game();
   void run();
   void applyChangeState(/*State* newState*/);
-  void changeState(State* newState);
+  void changeState(StateMachine::State* newState);
   // void setPlayers(Player*& p1, Player*& p2);
-  Player* getPlayer1();
-  Player* getPlayer2();
+  Entities::Characters::Player* getPlayer1();
+  Entities::Characters::Player* getPlayer2();
 
  private:
   void processEvents();

@@ -4,17 +4,28 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "entities/Ente.hpp"
 #include "entities/ListEntities.hpp"
-#include "managers/CollisionManager.hpp"
 
 namespace DinoGame {
-namespace Levels {
-
+namespace Entities {
+namespace Characters {
 class Player;
+}
+}  // namespace Entities
+namespace Managers {
+class CollisionManager;
+}
+
+namespace Lists {
+class ListEntities;
+}
+
+namespace Levels {
 
 struct BackgroundLayer {  // Struct para guardar o background e seus layers
   sf::Sprite sprite;
   float speedFactor;  // velocidade que cada componente irá se mover
 };
+using namespace std;
 
 class Level : public Ente {
  protected:
@@ -36,11 +47,12 @@ class Level : public Ente {
   Level& operator=(const Level& other) = delete;
 
   virtual void execute() = 0;
-  void includePlayer(Player* pE);
+  void includePlayer(Entities::Characters::Player* pE);
   void playerHUD();
   void drawBackground();
   void drawGround();
-  void drawHUD(Player* p1, Player* p2);
+  void drawHUD(Entities::Characters::Player* p1,
+               Entities::Characters::Player* p2);
   float getGround();
   float getWall();
 

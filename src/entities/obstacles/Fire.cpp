@@ -1,4 +1,15 @@
 #include "entities/obstacles/Fire.hpp"
+
+#include "entities/characters/Player.hpp"
+
+namespace DinoGame {
+namespace Entities {
+namespace Characters {
+class Player;
+}
+namespace Obstacles {
+using namespace Characters;
+
 float Fire::position(0.f);
 
 Fire::Fire() {
@@ -24,4 +35,6 @@ void Fire::obstruct(Player* pPlayer, sf::FloatRect intercession) {
   }
 }
 
-ObstacleType Fire::getObstacleType() const { return ObstacleType::OT_FIRE; }
+}  // namespace Obstacles
+}  // namespace Entities
+}  // namespace DinoGame

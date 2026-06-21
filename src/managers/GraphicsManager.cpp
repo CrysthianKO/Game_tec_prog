@@ -10,6 +10,9 @@
 #include "SFML/Window/VideoMode.hpp"
 #include "SFML/Window/WindowStyle.hpp"
 
+namespace DinoGame {
+namespace Managers {
+
 GraphicsManager* GraphicsManager::instance = NULL;
 
 GraphicsManager::GraphicsManager() : mWidth(1280), mHeight(720) {
@@ -154,3 +157,6 @@ const float GraphicsManager::getWindowWidth() const {
 const float GraphicsManager::getWindowHeight() const {
   return static_cast<float>(mWindow.getSize().y);
 }
+
+}  // namespace Managers
+}  // namespace DinoGame

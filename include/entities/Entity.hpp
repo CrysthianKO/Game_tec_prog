@@ -2,7 +2,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "Ente.hpp"
-#include "EntityType.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "managers/Physics.hpp"
 
@@ -31,7 +30,6 @@ class Entity : public Ente {
   sf::Vector2f getPosition();
   void setPosition(sf::Vector2f pos);
   void setVelocity(sf::Vector2f vel);
-  virtual EntityType getEntityType() const = 0;
 };
 }  // namespace Entities
 }  // namespace DinoGame

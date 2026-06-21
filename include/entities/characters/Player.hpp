@@ -5,7 +5,6 @@ namespace DinoGame {
 namespace Entities {
 namespace Characters {
 class Enemy;
-namespace Player {
 
 struct Moviment {
   bool up;
@@ -54,7 +53,6 @@ class Player : public Character {
   sf::Vector2f getVelocity();
 };
 
-}  // namespace Player
 }  // namespace Characters
 }  // namespace Entities
 }  // namespace DinoGame

@@ -10,6 +10,28 @@
 #include "entities/characters/Velociraptor.hpp"
 #include "entities/obstacles/Platform.hpp"
 #include "managers/CollisionManager.hpp"
+#include "managers/GraphicsManager.hpp"
+
+namespace DinoGame {
+namespace Managers {
+class CollisionManager;
+class GraphicsManager;
+}  // namespace Managers
+
+namespace Entities {
+namespace Characters {
+class Player;
+}
+namespace Obstacles {
+class Platform;
+}
+}  // namespace Entities
+
+namespace Levels {
+using namespace Managers;
+using namespace Entities::Characters;
+using namespace Entities::Obstacles;
+using namespace Lists;
 
 Level::Level()
     : pCM(CollisionManager::getInstance()),
@@ -158,3 +180,6 @@ void Level::createPlatforms() {
     pCM->IncludeObstacle(platform);
   }
 }
+
+}  // namespace Levels
+}  // namespace DinoGame

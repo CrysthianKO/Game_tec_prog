@@ -2,13 +2,14 @@
 #include "List.hpp"
 
 namespace DinoGame {
-namespace Lists {
-
+namespace Entities {
 class Entity;
+}
+namespace Lists {
 
 class ListEntities {
  private:
-  List<Entity> lEs;
+  List<Entities::Entity> lEs;
 
  public:
   ListEntities();
@@ -17,7 +18,7 @@ class ListEntities {
   ListEntities(const ListEntities& other) = delete;
   ListEntities& operator=(const ListEntities& other) = delete;
 
-  void include(Entity* pE);
+  void include(Entities::Entity* pE);
   void execute();
   void drawEntities();
 };

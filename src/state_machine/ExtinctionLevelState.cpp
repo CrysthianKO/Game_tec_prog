@@ -9,6 +9,12 @@
 #include "state_machine/Menu.hpp"
 #include "state_machine/Ranking.hpp"
 
+namespace DinoGame {
+namespace StateMachine {
+
+using namespace Managers;
+using namespace Entities::Characters;
+
 ExtinctionLevelState::ExtinctionLevelState()
     : State(),
       extinctionLevel(),
@@ -88,3 +94,6 @@ void ExtinctionLevelState::render() {
   extinctionLevel.render();
   extinctionLevel.drawHUD(pPlayer1, pPlayer2);
 }
+
+}  // namespace StateMachine
+}  // namespace DinoGame

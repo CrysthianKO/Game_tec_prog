@@ -9,9 +9,6 @@
 #include "SFML/System/Vector2.hpp"
 #include "managers/ResourceManager.hpp"
 
-class Ente;
-class Player;
-
 namespace DinoGame {
 namespace Managers {
 

@@ -14,6 +14,7 @@ void Character::lifeCheck() {
   }
 }
 
+void Character::incrementNumberLives() { mNumberLives++; }
 void Character::setOnGround(bool onG) { mOnGround = onG; }
 int Character::getNumberLives() const { return mNumberLives; }
 

@@ -1,3 +1,4 @@
+#include "SFML/Graphics/Color.hpp"
 #include "entities/characters/Enemy.hpp"
 
 namespace DinoGame {
@@ -7,10 +8,10 @@ namespace Characters {
 
 class DinoBoss : public Enemy {
  private:
-  int mStrength;
   static float position;
   float mTimerShoot;
   LaserBall* pLaser;
+  sf::Color mColor;
 
  public:
   DinoBoss();

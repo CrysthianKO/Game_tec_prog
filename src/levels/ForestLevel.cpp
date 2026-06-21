@@ -7,6 +7,12 @@
 #include "entities/obstacles/Vine.hpp"
 #include "managers/CollisionManager.hpp"
 
+namespace DinoGame {
+namespace Levels {
+
+using namespace Entities::Characters;
+using namespace Entities::Obstacles;
+
 ForestLevel::ForestLevel() : maxMidEnemies(7), maxMidObstacles(7) {}
 
 ForestLevel::~ForestLevel() {}
@@ -65,3 +71,6 @@ void ForestLevel::createScenario() {
   mGround[1].setPosition(oldPos.x, -20);
   mGroundLevel = mGround[0].getLocalBounds().height - 75.f;
 }
+
+}  // namespace Levels
+}  // namespace DinoGame

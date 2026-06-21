@@ -1,12 +1,16 @@
 #include "state_machine/ForestLevelState.hpp"
 
 #include "Game.hpp"
+#include "entities/characters/Player.hpp"
 #include "managers/CollisionManager.hpp"
 #include "state_machine/ExtinctionLevelState.hpp"
 #include "state_machine/Menu.hpp"
 #include "state_machine/Ranking.hpp"
-// #include "entities/characters/Player.hpp"
-// #include "levels/ForestLevel.hpp"
+
+namespace DinoGame {
+namespace StateMachine {
+using namespace Managers;
+using namespace Entities::Characters;
 
 ForestLevelState::ForestLevelState()
     : State(),
@@ -87,3 +91,6 @@ void ForestLevelState::render() {
   forestLevel.render();
   forestLevel.drawHUD(pPlayer1, pPlayer2);
 }
+
+}  // namespace StateMachine
+}  // namespace DinoGame

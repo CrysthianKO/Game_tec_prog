@@ -12,8 +12,8 @@ No Linux, você pode optar por usar o script de automação ou compilar manualme
 Na pasta raiz do projeto, abra o terminal e execute os comandos abaixo para conceder permissão e iniciar o jogo:
 
 ```bash
-chmod +x seu_script.sh
-./seu_script.sh
+chmod +x run.sh
+./run.sh
 ```
 
 ### Opção 2: Sem o script Bash (Compilação Manual)
@@ -24,7 +24,7 @@ mkdir build
 cd build
 cmake ..
 make
-./NomeDoExecutavel
+./ProjetoGame
 ```
 
 ---
